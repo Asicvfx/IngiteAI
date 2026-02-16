@@ -1,0 +1,24 @@
+# Python
+backend/venv/
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/.env
+backend/db.sqlite3
+backend/db_v2.sqlite3
+backend/db_v3.sqlite3
+backend/staticfiles/
+backend/media/
+
+# Node (Nuxt)
+frontend/node_modules/
+frontend/.nuxt/
+frontend/.output/
+frontend/.env
+frontend/dist/
+
+# IDE & OS
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

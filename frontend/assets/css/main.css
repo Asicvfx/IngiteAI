@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #0D0D0D;
+    --border-color: #262626;
+    --text-primary: #F9FAFB;
+    --text-secondary: #6B7280;
+    --accent: #FFFFFF;
+  }
+
+  body {
+    @apply bg-black text-[#F9FAFB] antialiased overflow-x-hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    letter-spacing: -0.011em;
+  }
+}
+
+@layer components {
+  .reflect-card {
+    @apply bg-[#0D0D0D] border border-[#262626] rounded-xl transition-all duration-200;
+  }
+
+  .reflect-button-primary {
+    @apply bg-white text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors duration-150 active:scale-95;
+  }
+
+  .reflect-button-secondary {
+    @apply bg-transparent border border-[#262626] text-white px-4 py-2 rounded-lg font-medium hover:bg-white/5 transition-colors duration-150 active:scale-95;
+  }
+
+  .reflect-input {
+    @apply bg-transparent border border-[#262626] rounded-lg px-4 py-2 focus:border-white focus:outline-none transition-colors duration-200;
+  }
+
+  .reflect-heading {
+    @apply text-white font-semibold tracking-[-0.022em];
+  }
+}
+
+/* Custom scrollbar for minimalist look */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
