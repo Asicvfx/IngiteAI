@@ -2,5 +2,5 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".output/public",
   "ignoreCommand": "npm run build --dry-run",
-  "framework": "nuxt"
+  "framework": "nuxtjs"
 }
