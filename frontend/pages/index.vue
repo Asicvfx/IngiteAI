@@ -178,8 +178,9 @@ const quickActions = [
 ];
 
 onMounted(async () => {
+  const config = useRuntimeConfig();
   try {
-    const data = await $fetch<any>('http://localhost:8000/api/v1/dashboard/analytics/', { 
+    const data = await $fetch<any>(`${config.public.apiBaseUrl}/api/v1/dashboard/analytics/`, { 
       headers: { Authorization: `Bearer ${auth.token}` }
     });
     analyticsData.value = data;

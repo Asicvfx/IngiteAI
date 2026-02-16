@@ -71,7 +71,12 @@ const handleRegister = async () => {
   loading.value = true;
   error.value = '';
   try {
-    await auth.register({ username: username.value, email: email.value, password: password.value });
+    await auth.register({ 
+      username: username.value, 
+      email: email.value, 
+      password1: password.value,
+      password2: password.value 
+    });
     router.push('/login');
   } catch (err: any) {
     error.value = 'Identity collision. Node already exists.';

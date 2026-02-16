@@ -7,9 +7,23 @@ export const useAuthStore = defineStore('auth', {
         isAuthenticated: false,
     }),
     actions: {
-        async login(credentials: any) {
+        async register(userData: any) {
+            const config = useRuntimeConfig();
             try {
-                const data = await $fetch<any>('http://localhost:8000/api/v1/auth/login/', {
+                await $fetch(`${config.public.apiBaseUrl}/api/v1/auth/registration/`, {
+                    method: 'POST',
+                    body: userData,
+                });
+                return true;
+            } catch (error) {
+                console.error('Registration failed', error);
+                throw error;
+            }
+        },
+        async login(credentials: any) {
+            const config = useRuntimeConfig();
+            try {
+                const data = await $fetch<any>(`${config.public.apiBaseUrl}/api/v1/auth/login/`, {
                     method: 'POST',
                     body: credentials,
                 });
@@ -28,8 +42,9 @@ export const useAuthStore = defineStore('auth', {
             }
         },
         async googleLogin(token: string) {
+            const config = useRuntimeConfig();
             try {
-                const data = await $fetch<any>('http://localhost:8000/api/v1/auth/google/', {
+                const data = await $fetch<any>(`${config.public.apiBaseUrl}/api/v1/auth/google/`, {
                     method: 'POST',
                     body: {
                         access_token: token,
@@ -68,8 +83,9 @@ export const useAuthStore = defineStore('auth', {
         },
         async fetchUser() {
             if (!this.token) return;
+            const config = useRuntimeConfig();
             try {
-                const data = await $fetch('http://localhost:8000/api/v1/auth/user/', {
+                const data = await $fetch(`${config.public.apiBaseUrl}/api/v1/auth/user/`, {
                     headers: {
                         Authorization: `Bearer ${this.token}`,
                     },
