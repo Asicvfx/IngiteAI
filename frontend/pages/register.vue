@@ -1,53 +1,70 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-black text-white p-6 font-sans relative selection:bg-white/20">
+  <div class="min-h-screen flex flex-col items-center justify-center bg-[#080808] text-[#EDEDED] p-6 font-sans relative selection:bg-white/20 overflow-hidden">
+    <!-- Sophisticated background pattern -->
+    <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/[0.01] blur-[120px] rounded-full pointer-events-none z-0"></div>
+
     <div class="max-w-sm w-full relative z-10">
-      <div class="text-center mb-12">
-        <div class="w-12 h-12 bg-[#0D0D0D] border border-[#1A1A1A] rounded-xl flex items-center justify-center mx-auto mb-8">
-          <div class="w-5 h-5 bg-white rounded-sm"></div>
+      <div class="text-center mb-16">
+        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_rgba(255,255,255,0.1)] group hover:scale-110 transition-transform duration-500 cursor-pointer">
+          <div class="w-5 h-5 bg-black rounded-sm"></div>
         </div>
-        <h2 class="text-2xl font-semibold tracking-[-0.022em] text-white">IngiteAI</h2>
-        <p class="text-[13px] text-[#6B7280] mt-2">Create your account</p>
+        <h2 class="text-3xl font-semibold tracking-tighter text-white">Initialize Identity</h2>
+        <p class="text-[14px] text-[#888888] mt-3 font-medium">Create your neural downlink account</p>
       </div>
 
-      <div class="p-8 bg-black border border-[#1A1A1A] rounded-2xl">
-        <form @submit.prevent="handleRegister" class="space-y-6">
-          <div class="space-y-4">
-            <div class="space-y-2">
-              <label class="text-[11px] font-medium text-[#6B7280] uppercase tracking-[0.1em] ml-1">Username</label>
-              <input v-model="username" type="text" required placeholder="Your name" 
-                class="w-full bg-black border border-[#1A1A1A] rounded-xl px-4 py-3 text-[14px] text-white focus:border-white/30 outline-none transition-all placeholder-[#262626]">
+      <div class="wope-card p-10 bg-[#0C0C0C]/80 backdrop-blur-3xl shadow-2xl">
+        <form @submit.prevent="handleRegister" class="space-y-8">
+          <div class="space-y-6">
+            <div class="space-y-3">
+              <label class="text-[10px] font-black text-[#4B5563] uppercase tracking-[0.2em] ml-1">Username</label>
+              <input v-model="username" type="text" required placeholder="Codename" 
+                class="w-full bg-[#0E0E0E] border border-white/5 rounded-2xl px-5 py-4 text-[14px] text-white focus:border-white/20 outline-none transition-all placeholder-[#262626] font-medium tracking-tight">
             </div>
 
-            <div class="space-y-2">
-              <label class="text-[11px] font-medium text-[#6B7280] uppercase tracking-[0.1em] ml-1">Email</label>
+            <div class="space-y-3">
+              <label class="text-[10px] font-black text-[#4B5563] uppercase tracking-[0.2em] ml-1">Email Uplink</label>
               <input v-model="email" type="email" required placeholder="user@example.com" 
-                class="w-full bg-black border border-[#1A1A1A] rounded-xl px-4 py-3 text-[14px] text-white focus:border-white/30 outline-none transition-all placeholder-[#262626]">
+                class="w-full bg-[#0E0E0E] border border-white/5 rounded-2xl px-5 py-4 text-[14px] text-white focus:border-white/20 outline-none transition-all placeholder-[#262626] font-medium tracking-tight">
             </div>
 
-            <div class="space-y-2">
-              <label class="text-[11px] font-medium text-[#6B7280] uppercase tracking-[0.1em] ml-1">Password</label>
+            <div class="space-y-3">
+              <label class="text-[10px] font-black text-[#4B5563] uppercase tracking-[0.2em] ml-1">Secret Key</label>
               <input v-model="password" type="password" required placeholder="••••••••" 
-                class="w-full bg-black border border-[#1A1A1A] rounded-xl px-4 py-3 text-[14px] text-white focus:border-white/30 outline-none transition-all placeholder-[#262626]">
+                class="w-full bg-[#0E0E0E] border border-white/5 rounded-2xl px-5 py-4 text-[14px] text-white focus:border-white/20 outline-none transition-all placeholder-[#262626] tracking-tight">
             </div>
           </div>
 
           <button type="submit" :disabled="loading" 
-            class="w-full bg-white text-black py-3 rounded-xl font-semibold text-[13px] transition-all hover:bg-gray-200 active:scale-95 disabled:opacity-50">
-            {{ loading ? 'Creating...' : 'Create account' }}
+            class="wope-button-primary w-full !py-4 !text-[13px] shadow-xl disabled:opacity-20">
+            {{ loading ? 'Initializing...' : 'Establish Identity' }}
           </button>
 
-          <div v-if="error" class="text-red-400 text-center text-[12px] font-medium">
+          <div v-if="error" class="text-red-500 text-center text-[12px] font-bold uppercase tracking-wide animate-pulse">
             {{ error }}
           </div>
 
-          <p class="text-center text-[13px] text-[#6B7280]">
-            Already have an account? <NuxtLink to="/login" class="text-white hover:underline">Sign in</NuxtLink>
+          <div class="relative py-4">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-white/5"></div>
+            </div>
+            <div class="relative flex justify-center">
+              <span class="px-4 bg-[#0C0C0C] text-[9px] font-black text-[#4B5563] uppercase tracking-[0.34em]">Or continue with</span>
+            </div>
+          </div>
+
+          <div class="flex justify-center group/google">
+            <GoogleLogin popup-type="TOKEN" :callback="handleGoogleLogin" class="transition-opacity group-hover/google:opacity-100 opacity-60" />
+          </div>
+
+          <p class="text-center text-[13px] text-[#4B5563] font-medium pt-4">
+            Already established? <NuxtLink to="/login" class="text-white hover:underline font-bold">Sign In</NuxtLink>
           </p>
         </form>
       </div>
       
-      <div class="mt-12 text-center opacity-5">
-        <span class="text-[10px] uppercase font-medium tracking-[1em]">Ingite v1.1</span>
+      <div class="mt-16 text-center opacity-10">
+        <span class="text-[9px] uppercase font-black tracking-[0.8em] text-white">IDENTITY PROTOCOL V1.2</span>
       </div>
     </div>
   </div>
@@ -82,6 +99,22 @@ const handleRegister = async () => {
     error.value = 'Identity collision. Node already exists.';
   } finally {
     loading.value = false;
+  }
+};
+
+const handleGoogleLogin = async (response: any) => {
+  if (response.access_token) {
+    try {
+      loading.value = true;
+      await auth.googleLogin(response.access_token);
+      router.push('/');
+    } catch (err: any) {
+      error.value = 'Google registration failed. Try again.';
+    } finally {
+      loading.value = false;
+    }
+  } else {
+    error.value = 'Google token missing.';
   }
 };
 </script>
