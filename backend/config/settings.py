@@ -29,8 +29,13 @@ SECRET_KEY = 'django-insecure-xheu28l9$z==bwb)jjlna1s4*yjpmr9^vt&m_^)jw1se!^qqg(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS',
+    'localhost,127.0.0.1,.onrender.com,ingiteai.online,www.ingiteai.online'
+).split(',')
+
 PROJECT_URL = os.getenv('PROJECT_URL', 'http://localhost:8000')
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:3000')
 
 if PROJECT_URL:
     ALLOWED_HOSTS.append(PROJECT_URL.replace('https://', '').replace('http://', ''))
@@ -114,8 +119,17 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'users.User'
 
 # CORS Settings
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost:3000').split(',')
+# In production, set CORS_ALLOWED_ORIGINS on Render to:
+# https://ingiteai.online,https://www.ingiteai.online,https://ingite-ai-p5v7.vercel.app
+CORS_ALLOWED_ORIGINS = os.getenv(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:3000,http://localhost:3001'
+).split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    'CSRF_TRUSTED_ORIGINS',
+    'http://localhost:3000,https://ingiteai.online,https://www.ingiteai.online'
+).split(',')
+CORS_ALLOW_CREDENTIALS = True
 
 
 MIDDLEWARE = [
