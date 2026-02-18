@@ -1,55 +1,57 @@
 <template>
-  <div class="min-h-screen bg-black text-[#F9FAFB] flex flex-col md:flex-row font-sans selection:bg-white/20">
+  <div class="min-h-screen bg-[#080808] text-[#EDEDED] flex flex-col md:flex-row font-sans selection:bg-white/20">
     <!-- Sidebar -->
-    <aside class="w-full md:w-64 bg-black border-r border-[#1A1A1A] flex flex-col z-50">
-      <div class="p-6 flex items-center space-x-3">
-        <div class="w-6 h-6 rounded bg-white flex items-center justify-center">
-           <div class="w-3 h-3 bg-black rounded-sm"></div>
+    <aside class="w-full md:w-64 bg-[#080808] border-r border-white/5 flex flex-col z-50">
+      <div class="p-8 flex items-center space-x-3 mb-6">
+        <div class="w-7 h-7 bg-white rounded-lg flex items-center justify-center">
+           <div class="w-2.5 h-2.5 bg-black"></div>
         </div>
-        <span class="text-sm font-semibold tracking-[-0.022em] text-white">IngiteAI</span>
+        <span class="text-base font-semibold tracking-tighter text-white">Ingite</span>
       </div>
       
-      <nav class="flex-1 px-3 space-y-0.5 mt-2">
+      <nav class="flex-1 px-4 space-y-1">
         <NuxtLink v-for="item in navItems" :key="item.to" :to="item.to" 
-          class="flex items-center px-3 py-2 rounded-md transition-colors duration-150 group"
+          class="flex items-center px-4 py-2.5 rounded-xl transition-all duration-200 group relative"
           :class="[
             isActive(item.to) 
               ? 'bg-white/5 text-white' 
-              : 'text-[#6B7280] hover:text-white hover:bg-white/[0.02]'
+              : 'text-[#888888] hover:text-white hover:bg-white/[0.02]'
           ]"
         >
-          <div class="mr-3 opacity-70 group-hover:opacity-100 transition-opacity" v-html="item.icon"></div>
-          <span class="text-[13px] font-medium">{{ item.label }}</span>
+          <div v-if="isActive(item.to)" class="absolute left-0 w-1 h-4 bg-white rounded-full"></div>
+          <div class="mr-4 opacity-60 group-hover:opacity-100 transition-opacity" v-html="item.icon"></div>
+          <span class="text-[13px] font-medium tracking-tight">{{ item.label }}</span>
         </NuxtLink>
       </nav>
 
-      <div class="p-4 border-t border-[#1A1A1A]">
-        <button @click="handleLogout" class="flex items-center w-full px-3 py-2 rounded-md text-[#6B7280] hover:text-red-400 hover:bg-red-400/5 transition-all text-[13px] font-medium">
-          <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+      <div class="p-6">
+        <button @click="handleLogout" class="flex items-center w-full px-4 py-3 rounded-xl text-[#4B5563] hover:text-red-400 hover:bg-red-400/5 transition-all text-[13px] font-medium group">
+          <svg class="w-4 h-4 mr-4 opacity-40 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
           Sign Out
         </button>
       </div>
     </aside>
 
     <!-- Main Content Container -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-black">
-      <header class="h-14 border-b border-[#1A1A1A] flex items-center justify-between px-8 z-40">
-        <div class="flex items-center space-x-3">
-          <span class="text-[10px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Status</span>
-          <div class="flex items-center space-x-1.5 px-2 py-0.5 rounded-full bg-white/5 border border-white/10">
-             <div class="w-1.5 h-1.5 bg-white rounded-full opacity-50"></div>
-             <span class="text-[10px] font-medium text-[#F3F4F6] uppercase">Sync Active</span>
-          </div>
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#080808]">
+      <header class="h-20 border-b border-white/5 flex items-center justify-between px-10 z-40 bg-[#080808]/80 backdrop-blur-xl">
+        <div class="flex items-center space-x-2">
+           <div class="w-1.5 h-1.5 bg-white rounded-full animate-pulse opacity-40"></div>
+           <span class="text-[10px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Neural Synchronized</span>
         </div>
         
-        <div class="flex items-center space-x-4">
-          <div class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
-             <span class="text-white font-medium text-[10px] uppercase">{{ auth.user?.username?.[0] || 'A' }}</span>
+        <div class="flex items-center space-x-6">
+          <div class="flex flex-col items-end">
+            <span class="text-[11px] font-semibold text-white tracking-tight">{{ auth.user?.username || 'Administrator' }}</span>
+            <span class="text-[9px] font-medium text-[#4B5563] uppercase tracking-wider">L9 Member</span>
+          </div>
+          <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden group hover:border-white/20 transition-all cursor-pointer">
+             <span class="text-white font-semibold text-[12px] uppercase group-hover:scale-110 transition-transform">{{ auth.user?.username?.[0] || 'A' }}</span>
           </div>
         </div>
       </header>
       
-      <div class="flex-1 overflow-y-auto custom-scrollbar bg-black">
+      <div class="flex-1 overflow-y-auto wope-scroll bg-[#080808]">
         <slot />
       </div>
     </main>
@@ -65,11 +67,11 @@ const route = useRoute();
 const router = useRouter();
 
 const navItems = [
-  { to: '/', label: 'Overview', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>' },
-  { to: '/chats', label: 'Chats', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>' },
-  { to: '/bots', label: 'Agents', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 012-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>' },
-  { to: '/faq', label: 'Intelligence', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>' },
-  { to: '/settings', label: 'Settings', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>' }
+  { to: '/', label: 'Overview', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>' },
+  { to: '/chats', label: 'Streams', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>' },
+  { to: '/bots', label: 'Agents', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 012-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>' },
+  { to: '/faq', label: 'Intelligence', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>' },
+  { to: '/settings', label: 'Settings', icon: '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>' }
 ];
 
 const isActive = (path: string) => {
@@ -84,17 +86,17 @@ const handleLogout = () => {
 </script>
 
 <style>
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+.wope-scroll::-webkit-scrollbar {
+  width: 5px;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
+.wope-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.05);
+.wope-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 10px;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.1);
+.wope-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 </style>

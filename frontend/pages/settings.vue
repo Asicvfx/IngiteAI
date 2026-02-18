@@ -1,75 +1,82 @@
 <template>
-  <div class="px-10 py-12 bg-black min-h-[calc(100vh-56px)] text-white font-sans relative">
-    <div class="max-w-3xl mx-auto">
-      <div class="mb-16">
-        <h1 class="text-3xl font-semibold tracking-[-0.022em]">Settings</h1>
-        <p class="mt-2 text-[#6B7280] text-[14px]">Manage your business synchronization and security protocols.</p>
+  <div class="px-6 md:px-12 py-16 bg-[#080808] min-h-[calc(100vh-56px)] text-white font-sans relative">
+    <div class="max-w-2xl mx-auto">
+      <div class="mb-20">
+        <h1 class="text-4xl font-semibold tracking-[-0.04em] gradient-text">Settings</h1>
+        <p class="mt-4 text-[#888888] text-[15px] leading-relaxed">
+          Configure your administrative preferences and security tokens.
+        </p>
       </div>
 
-      <div class="space-y-12">
-        <!-- Profile Section -->
-        <section class="space-y-6">
-          <h2 class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em] px-1">Business Profile</h2>
-          <div class="p-8 bg-black border border-[#1A1A1A] rounded-2xl space-y-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div class="space-y-2">
-                <label class="text-[11px] font-medium text-[#6B7280] uppercase tracking-[0.1em]">Brand Name</label>
-                <input v-model="business.name" type="text" class="w-full bg-black border border-[#1A1A1A] rounded-xl px-4 py-3 text-[14px] text-white focus:border-white/30 outline-none transition-all placeholder-[#262626]">
+      <div class="space-y-16">
+        <!-- Account Section -->
+        <section class="space-y-8">
+          <div class="flex items-center space-x-2 px-1">
+            <span class="w-1 h-1 bg-white rounded-full"></span>
+            <h2 class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Administrative Account</h2>
+          </div>
+          
+          <div class="wope-card p-1">
+            <div class="flex items-center justify-between p-6">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[13px] font-semibold text-white">
+                  {{ auth.user?.username?.charAt(0).toUpperCase() || 'A' }}
+                </div>
+                <div>
+                  <p class="text-[14px] font-medium text-white">{{ auth.user?.username || 'Administrator' }}</p>
+                  <p class="text-[12px] text-[#888888]">{{ auth.user?.email || 'ops@research.lab' }}</p>
+                </div>
               </div>
-              <div class="space-y-2">
-                <label class="text-[11px] font-medium text-[#6B7280] uppercase tracking-[0.1em]">Support Channel</label>
-                <input v-model="business.email" type="email" class="w-full bg-black border border-[#1A1A1A] rounded-xl px-4 py-3 text-[14px] text-white focus:border-white/30 outline-none transition-all placeholder-[#262626]">
-              </div>
-            </div>
-            
-            <div class="flex justify-start">
-              <button @click="updateBusiness" class="px-8 py-3 bg-white text-black text-[13px] font-semibold rounded-xl hover:bg-gray-200 transition active:scale-95">
-                 Update Identity
+              <button @click="logout" class="wope-button-secondary !py-2 !px-4 text-[12px] border-red-500/10 text-red-400 hover:bg-red-400/5">
+                Sign Out
               </button>
             </div>
           </div>
         </section>
 
         <!-- Security Section -->
-        <section class="space-y-6">
-          <h2 class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em] px-1">Security & Sessions</h2>
-          <div class="p-8 bg-black border border-[#1A1A1A] rounded-2xl">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-[14px] font-medium text-white mb-1">Session Termination</h3>
-                <p class="text-[12px] text-[#6B7280]">Sign out of the current administrative session.</p>
-              </div>
-              <button @click="logout" class="px-6 py-2 border border-red-500/20 text-red-400 text-[12px] font-medium rounded-lg hover:bg-red-400/5 transition">
-                Sign Out
-              </button>
-            </div>
+        <section class="space-y-8">
+          <div class="flex items-center space-x-2 px-1">
+            <span class="w-1 h-1 bg-white/20 rounded-full"></span>
+            <h2 class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Security Protocol</h2>
+          </div>
+          
+          <div class="wope-card p-8 space-y-8">
+             <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-[14px] font-medium text-white mb-1">Two-Factor Authentication</h3>
+                  <p class="text-[12px] text-[#888888]">Add an extra layer of security to your node access.</p>
+                </div>
+                <div class="w-10 h-5 bg-[#1A1A1A] rounded-full relative cursor-not-allowed">
+                  <div class="absolute left-1 top-1 w-3 h-3 bg-[#404040] rounded-full"></div>
+                </div>
+             </div>
+             
+             <div class="pt-8 border-t border-white/5">
+                <h3 class="text-[14px] font-medium text-white mb-4">Neural Access Key</h3>
+                <div class="flex items-center space-x-3">
+                  <input type="password" value="••••••••••••••••••••••••" readonly 
+                    class="flex-1 wope-input !bg-white/[0.02] border-dashed text-[#404040] cursor-default">
+                  <button class="wope-button-secondary !py-3">Rotate</button>
+                </div>
+             </div>
           </div>
         </section>
       </div>
       
-      <div class="mt-20 text-center opacity-10">
-        <span class="text-[10px] uppercase font-medium tracking-[1em]">Ingite Terminal v1.1</span>
+      <div class="mt-32 text-center opacity-10">
+        <span class="text-[10px] uppercase font-medium tracking-[1em]">Ingite v1.2.0</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useAuthStore } from '~/stores/auth';
 import { useRouter } from 'vue-router';
 
 const auth = useAuthStore();
 const router = useRouter();
-
-const business = ref({
-  name: 'VelorAI Enterprise',
-  email: 'ops@velor.ai'
-});
-
-const updateBusiness = () => {
-  alert('Data synchronized.');
-};
 
 const logout = () => {
   auth.logout();
