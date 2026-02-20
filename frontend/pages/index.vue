@@ -1,59 +1,99 @@
 <template>
-  <div class="px-6 md:px-12 py-16 bg-[#080808] min-h-[calc(100vh-56px)] text-white font-sans">
-    <div class="max-w-7xl mx-auto">
-      <!-- Header Section -->
-      <div class="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div>
-          <h1 class="text-4xl font-semibold tracking-[-0.04em] gradient-text">Intelligence Overview</h1>
-          <p class="mt-4 text-[#888888] text-[15px] leading-relaxed max-w-xl">
-            Real-time neural metrics and lead classification across your synchronized agent fleet.
+  <div class="relative min-h-[calc(100vh-56px)] bg-black text-white font-sans overflow-hidden">
+    <!-- Deep Ambient Glows (Evervault style) -->
+    <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#6D28D9]/20 blur-[150px] rounded-full pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-20%] right-[-10%] w-[40%] h-[40%] bg-[#4C1D95]/15 blur-[120px] rounded-full pointer-events-none z-0"></div>
+    
+    <!-- Grid Overlay -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik02MCAwaC0xdjYwaDFWMHptMCA1OWgtdjFoMVY1OXoiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz4KPC9zdmc+')] [mask-image:linear-gradient(to_bottom,white,transparent_80%)] z-0 pointer-events-none opacity-50"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20 pb-32">
+      <!-- Hero Section -->
+      <div class="mb-24 flex flex-col md:flex-row md:items-center justify-between gap-12">
+        <div class="max-w-3xl">
+          <h1 class="text-5xl md:text-6xl font-semibold tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/40 mb-6 drop-shadow-sm">
+            Flexible Intelligence Security
+          </h1>
+          <p class="text-[17px] text-[#A1A1AA] leading-relaxed max-w-2xl font-medium">
+            <strong class="text-white font-semibold">IngiteAI</strong> — Take control of your neural agents. Seamlessly inject knowledge, monitor live sentiment streams, and analyze fleet performance globally without sacrificing compliance or latency.
           </p>
+          <div class="mt-8 flex items-center space-x-4">
+             <button class="bg-white text-black px-6 py-3 rounded-full text-[14px] font-semibold hover:bg-gray-200 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+               Deploy Agent
+             </button>
+             <button class="bg-white/5 border border-white/10 text-white px-6 py-3 rounded-full text-[14px] font-medium hover:bg-white/10 transition-all active:scale-95 backdrop-blur-md">
+               View Documentation
+             </button>
+          </div>
         </div>
-        <div class="flex items-center space-x-2 text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em] bg-white/5 px-4 py-2 rounded-full border border-white/5">
-          <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-          <span>Core Synchronized</span>
+        
+        <!-- Animated Status Badge -->
+        <div class="hidden md:flex flex-col items-end justify-center">
+            <div class="bg-white/[0.03] border border-white/10 backdrop-blur-xl px-6 py-4 rounded-2xl shadow-2xl relative overflow-hidden group">
+               <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+               <div class="flex items-center space-x-3 relative z-10">
+                 <div class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-40"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></span>
+                 </div>
+                 <span class="text-[11px] font-bold text-white uppercase tracking-[0.2em]">Fleet Operational</span>
+               </div>
+               <p class="text-[12px] text-[#71717A] mt-2 font-medium">Latency: 24ms</p>
+            </div>
         </div>
       </div>
 
+      <!-- Live Dashboard Section -->
+      <div class="mb-8 flex items-center space-x-3">
+         <span class="w-1.5 h-1.5 bg-white/40 rounded-full"></span>
+         <h2 class="text-[12px] font-semibold text-[#A1A1AA] uppercase tracking-[0.2em]">Live Telemetry</h2>
+      </div>
+
       <!-- Bento Grid Layout -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[240px]">
-        <!-- Primary Metric -->
-        <div class="md:col-span-8 wope-card p-10 flex flex-col justify-between">
-           <div class="flex items-center justify-between mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[280px]">
+        
+        <!-- Primary Metric: Chart -->
+        <div class="md:col-span-8 bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 flex flex-col justify-between relative overflow-hidden group hover:border-purple-500/30 transition-colors duration-500 shadow-2xl">
+           <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+           
+           <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
              <div>
-               <h2 class="text-lg font-medium tracking-tight">Lead Classification</h2>
-               <p class="text-[12px] text-[#888888] mt-1">Classification across the agent fleet</p>
+               <h3 class="text-xl font-medium tracking-tight text-white shadow-sm">Lead Classification Matrix</h3>
+               <p class="text-[13px] text-[#71717A] mt-1 font-medium">Real-time analytical distribution across active fleet</p>
              </div>
-             <div class="flex items-center space-x-6">
+             
+             <div class="flex items-center space-x-4 mt-4 md:mt-0 bg-black/40 border border-white/5 rounded-full px-4 py-2">
                <div v-for="l in ['Cold', 'Warm', 'Hot']" :key="l" class="flex items-center space-x-2">
-                 <span class="w-2 h-2 rounded-full border border-white/20" :class="l === 'Hot' ? 'bg-white' : l === 'Warm' ? 'bg-white/40' : ''"></span>
-                 <span class="text-[11px] font-medium text-[#888888] uppercase tracking-wider">{{ l }}</span>
+                 <span class="w-2.5 h-2.5 rounded-full" 
+                   :class="l === 'Hot' ? 'bg-[#A855F7] shadow-[0_0_10px_rgba(168,85,247,0.6)]' : l === 'Warm' ? 'bg-white/60' : 'bg-[#27272A] border border-white/10'"></span>
+                 <span class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-wider">{{ l }}</span>
                </div>
              </div>
            </div>
            
-           <div class="flex-1 relative flex items-center justify-center">
-             <div class="h-48 w-full">
+           <div class="flex-1 relative flex items-center justify-center z-10 w-full h-full">
+             <div class="h-56 w-full max-w-sm">
                <Doughnut v-if="chartData" :data="chartData" :options="chartOptions" />
-               <div v-else class="h-full flex items-center justify-center border border-dashed border-[#1A1A1A] rounded-2xl">
-                 <span class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Aggregating Intelligence...</span>
+               <div v-else class="h-full flex flex-col items-center justify-center border border-dashed border-white/10 rounded-full bg-white/[0.02]">
+                 <svg class="w-6 h-6 text-white/20 animate-spin mb-3" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                 <span class="text-[10px] font-bold text-[#71717A] uppercase tracking-[0.2em]">Aggregating</span>
                </div>
              </div>
            </div>
         </div>
 
         <!-- Sentiment Bento -->
-        <div class="md:col-span-4 wope-card p-10 flex flex-col justify-between">
-           <h2 class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Neural Sentiment</h2>
-           <div class="space-y-8">
+        <div class="md:col-span-4 bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 flex flex-col justify-between group hover:border-white/20 transition-colors shadow-2xl">
+           <h3 class="text-[12px] font-semibold text-[#A1A1AA] uppercase tracking-[0.2em]">Neural Sentiment</h3>
+           <div class="space-y-8 mt-6">
               <div v-for="(val, key) in sentiment" :key="key">
-                 <div class="flex justify-between items-baseline mb-2">
-                    <span class="text-[13px] font-medium text-[#888888]">{{ key }}</span>
-                    <span class="text-[14px] font-semibold text-white">{{ val }}%</span>
+                 <div class="flex justify-between items-baseline mb-3">
+                    <span class="text-[14px] font-semibold text-white/80 tracking-tight">{{ key }}</span>
+                    <span class="text-[16px] font-bold text-white">{{ val }}%</span>
                  </div>
-                 <div class="h-[2px] bg-[#1A1A1A] rounded-full overflow-hidden">
-                    <div class="h-full bg-white transition-all duration-1000"
-                     :class="key === 'Positive' ? 'opacity-100' : key === 'Neutral' ? 'opacity-40' : 'opacity-10'"
+                 <div class="h-[3px] bg-white/5 rounded-full overflow-hidden">
+                    <div class="h-full transition-all duration-1000 ease-out"
+                     :class="key === 'Positive' ? 'bg-gradient-to-r from-purple-600 to-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.5)]' : key === 'Neutral' ? 'bg-white/40' : 'bg-[#27272A]'"
                      :style="`width: ${val}%`"
                     ></div>
                  </div>
@@ -62,38 +102,51 @@
         </div>
 
         <!-- Metric Bento 1 -->
-        <div class="md:col-span-3 wope-card p-8 flex flex-col justify-between">
-          <p class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Total Events</p>
-          <div class="flex items-baseline space-x-2">
-            <p class="text-4xl font-semibold tracking-tighter">{{ stats[0].value }}</p>
-            <span class="text-[11px] text-white/40">nodes</span>
+        <div class="md:col-span-3 bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 flex flex-col justify-between group hover:bg-white/[0.02] transition-colors shadow-xl">
+          <div class="w-10 h-10 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-4 text-purple-400">
+             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </div>
+          <div>
+            <p class="text-[11px] font-bold text-[#71717A] uppercase tracking-[0.2em] mb-1">Total Events</p>
+            <div class="flex items-baseline space-x-2">
+              <p class="text-5xl font-semibold tracking-tighter text-white">{{ stats[0].value }}</p>
+            </div>
           </div>
         </div>
 
         <!-- Metric Bento 2 -->
-        <div class="md:col-span-3 wope-card p-8 flex flex-col justify-between">
-          <p class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Fleet Strength</p>
-          <div class="flex items-baseline space-x-2">
-            <p class="text-4xl font-semibold tracking-tighter">{{ stats[1].value }}</p>
-            <span class="text-[11px] text-white/40">active</span>
+        <div class="md:col-span-3 bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 flex flex-col justify-between group hover:bg-white/[0.02] transition-colors shadow-xl">
+          <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 text-white">
+             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 012-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          </div>
+          <div>
+            <p class="text-[11px] font-bold text-[#71717A] uppercase tracking-[0.2em] mb-1">Fleet Strength</p>
+            <div class="flex items-baseline space-x-2">
+              <p class="text-5xl font-semibold tracking-tighter text-white">{{ stats[1].value }}</p>
+            </div>
           </div>
         </div>
 
         <!-- Quick Action Bento -->
-        <div class="md:col-span-6 wope-card p-2 flex flex-col md:flex-row gap-2">
+        <div class="md:col-span-6 bg-transparent flex flex-col md:flex-row gap-4">
            <NuxtLink v-for="action in quickActions" :key="action.title" :to="action.to" 
-             class="flex-1 w-full bg-[#0D0D0D] border border-white/5 rounded-2xl p-6 hover:bg-[#111111] transition-all group overflow-hidden relative">
-             <div class="absolute top-0 right-0 w-32 h-32 bg-white/[0.01] blur-2xl group-hover:bg-white/[0.03] transition-all"></div>
+             class="flex-1 w-full bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 hover:border-white/30 hover:bg-white/[0.05] transition-all duration-300 group overflow-hidden relative shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50">
+             <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+             
              <div class="relative z-10 flex flex-col justify-between h-full">
-               <div v-html="action.icon" class="text-[#404040] group-hover:text-white transition-colors mb-4 scale-125 origin-left"></div>
+               <div class="flex items-center justify-between mb-4">
+                 <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-black transition-all duration-500 shadow-lg" v-html="action.icon"></div>
+                 <svg class="w-5 h-5 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+               </div>
                <div>
-                 <h3 class="text-[14px] font-semibold text-white mb-1">{{ action.title }}</h3>
-                 <p class="text-[12px] text-[#888888] leading-tight">{{ action.description }}</p>
+                 <h3 class="text-[16px] font-semibold text-white mb-2 tracking-tight">{{ action.title }}</h3>
+                 <p class="text-[13px] text-[#A1A1AA] leading-relaxed font-medium">{{ action.description }}</p>
                </div>
              </div>
            </NuxtLink>
         </div>
       </div>
+      
     </div>
   </div>
 </template>
@@ -136,10 +189,11 @@ const chartData = computed(() => {
     labels: ['Cold', 'Warm', 'Hot'],
     datasets: [{
       data: counts,
-      backgroundColor: ['#1A1A1A', '#404040', '#FFFFFF'],
-      borderColor: '#080808',
-      borderWidth: 6,
-      hoverOffset: 0
+      backgroundColor: ['#27272A', '#D4D4D8', '#A855F7'],
+      borderColor: '#000000',
+      borderWidth: 8,
+      hoverOffset: 4,
+      borderRadius: 4
     }]
   };
 });
@@ -150,29 +204,37 @@ const chartOptions: ChartOptions<'doughnut'> = {
   plugins: {
     legend: { display: false },
     tooltip: {
-      backgroundColor: '#0D0D0D',
-      padding: 12,
-      cornerRadius: 8,
-      borderColor: '#1F1F1F',
+      backgroundColor: 'rgba(9, 9, 11, 0.9)',
+      padding: 14,
+      cornerRadius: 12,
+      borderColor: 'rgba(255, 255, 255, 0.1)',
       borderWidth: 1,
-      titleFont: { size: 12, weight: 'bold' },
-      bodyFont: { size: 12 },
-      displayColors: false
+      titleFont: { size: 13, weight: 'bold', family: 'Inter' },
+      bodyFont: { size: 13, family: 'Inter' },
+      displayColors: true,
+      boxPadding: 6,
+      usePointStyle: true,
     }
   },
-  cutout: '84%'
+  cutout: '80%',
+  animation: {
+    animateScale: true,
+    animateRotate: true,
+    duration: 2000,
+    easing: 'easeOutQuart'
+  }
 };
 
 const quickActions = [
   {
     title: 'Active Streams',
-    description: 'Monitor real-time agent communications.',
+    description: 'Monitor real-time agent communications and intervene manually.',
     to: '/chats',
     icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>'
   },
   {
     title: 'Knowledge Base',
-    description: 'Inject business intelligence assets.',
+    description: 'Inject proprietary business intelligence and PDF assets.',
     to: '/faq',
     icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>'
   }

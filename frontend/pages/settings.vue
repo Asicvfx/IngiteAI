@@ -34,34 +34,6 @@
           </div>
         </section>
 
-        <!-- Security Section -->
-        <section class="space-y-8">
-          <div class="flex items-center space-x-2 px-1">
-            <span class="w-1 h-1 bg-white/20 rounded-full"></span>
-            <h2 class="text-[11px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Security Protocol</h2>
-          </div>
-          
-          <div class="wope-card p-8 space-y-8">
-             <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-[14px] font-medium text-white mb-1">Two-Factor Authentication</h3>
-                  <p class="text-[12px] text-[#888888]">Add an extra layer of security to your node access.</p>
-                </div>
-                <div class="w-10 h-5 bg-[#1A1A1A] rounded-full relative cursor-not-allowed">
-                  <div class="absolute left-1 top-1 w-3 h-3 bg-[#404040] rounded-full"></div>
-                </div>
-             </div>
-             
-             <div class="pt-8 border-t border-white/5">
-                <h3 class="text-[14px] font-medium text-white mb-4">Neural Access Key</h3>
-                <div class="flex items-center space-x-3">
-                  <input type="password" value="••••••••••••••••••••••••" readonly 
-                    class="flex-1 wope-input !bg-white/[0.02] border-dashed text-[#404040] cursor-default">
-                  <button class="wope-button-secondary !py-3">Rotate</button>
-                </div>
-             </div>
-          </div>
-        </section>
       </div>
       
       <div class="mt-32 text-center opacity-10">

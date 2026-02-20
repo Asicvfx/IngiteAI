@@ -36,17 +36,15 @@
     <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#080808]">
       <header class="h-20 border-b border-white/5 flex items-center justify-between px-10 z-40 bg-[#080808]/80 backdrop-blur-xl">
         <div class="flex items-center space-x-2">
-           <div class="w-1.5 h-1.5 bg-white rounded-full animate-pulse opacity-40"></div>
-           <span class="text-[10px] font-medium text-[#4B5563] uppercase tracking-[0.2em]">Neural Synchronized</span>
+           <span class="text-[12px] font-semibold text-white/40 tracking-widest uppercase">Secure Node Active</span>
         </div>
         
         <div class="flex items-center space-x-6">
           <div class="flex flex-col items-end">
-            <span class="text-[11px] font-semibold text-white tracking-tight">{{ auth.user?.username || 'Administrator' }}</span>
-            <span class="text-[9px] font-medium text-[#4B5563] uppercase tracking-wider">L9 Member</span>
+            <span class="text-[12px] font-semibold text-white tracking-tight">{{ auth.user?.username || 'Administrator' }}</span>
           </div>
           <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden group hover:border-white/20 transition-all cursor-pointer">
-             <span class="text-white font-semibold text-[12px] uppercase group-hover:scale-110 transition-transform">{{ auth.user?.username?.[0] || 'A' }}</span>
+             <span class="text-white font-semibold text-[13px] uppercase group-hover:scale-110 transition-transform">{{ auth.user?.username?.[0] || 'A' }}</span>
           </div>
         </div>
       </header>
