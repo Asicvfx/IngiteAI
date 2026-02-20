@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'corsheaders',
 
     # Local
@@ -84,6 +85,11 @@ REST_FRAMEWORK = {
     ),
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 # dj-rest-auth / Allauth settings
 REST_AUTH = {
     'USE_JWT': True,
@@ -106,9 +112,15 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
+        },
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID', ''),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET', ''),
+        },
     }
 }
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 from datetime import timedelta
 SIMPLE_JWT = {
@@ -127,7 +139,7 @@ CORS_ALLOWED_ORIGINS = os.getenv(
 ).split(',')
 CSRF_TRUSTED_ORIGINS = os.getenv(
     'CSRF_TRUSTED_ORIGINS',
-    'http://localhost:3000,https://ingiteai.online,https://www.ingiteai.online'
+    'http://localhost:3000,https://ingiteai.online,https://www.ingiteai.online,https://ingite-ai-p5v7.vercel.app'
 ).split(',')
 CORS_ALLOW_CREDENTIALS = True
 

@@ -41,14 +41,19 @@ export const useAuthStore = defineStore('auth', {
                 throw error;
             }
         },
-        async googleLogin(token: string) {
+        async googleLogin(token: string, tokenType: 'id_token' | 'access_token' = 'id_token') {
             const config = useRuntimeConfig();
             try {
+                // Build the request body based on the token type received
+                const body: Record<string, string> = {};
+                if (tokenType === 'id_token') {
+                    body.id_token = token;
+                } else {
+                    body.access_token = token;
+                }
                 const data = await $fetch<any>(`${config.public.apiBaseUrl}/api/v1/auth/google/`, {
                     method: 'POST',
-                    body: {
-                        access_token: token,
-                    },
+                    body,
                 });
                 const responseToken = data.access || data.key;
                 this.setToken(responseToken);
