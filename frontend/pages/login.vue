@@ -97,7 +97,17 @@ const handleLogin = async () => {
     await auth.login({ username: username.value, password: password.value });
     router.push('/');
   } catch (err: any) {
-    error.value = 'Invalid email or password. Please try again.';
+    let errorMsg = 'Invalid email or password. Please try again.';
+    if (err.response && err.response._data) {
+      if (typeof err.response._data === 'object') {
+        errorMsg = Object.values(err.response._data).flat().join(' | ');
+      } else {
+        errorMsg = String(err.response._data);
+      }
+    } else if (err.message) {
+      errorMsg = err.message;
+    }
+    error.value = errorMsg;
   } finally {
     loading.value = false;
   }
