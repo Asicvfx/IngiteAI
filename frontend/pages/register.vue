@@ -72,7 +72,6 @@
 import { ref } from 'vue';
 import { useAuthStore } from '~/stores/auth';
 import { useRouter } from 'vue-router';
-import { GoogleLogin } from 'vue3-google-login';
 
 const auth = useAuthStore();
 const router = useRouter();
