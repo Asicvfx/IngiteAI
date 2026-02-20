@@ -55,7 +55,7 @@
 
           <div class="flex justify-center">
             <ClientOnly>
-              <GoogleLogin :callback="onGoogleSuccess" :error="onGoogleError" />
+              <GoogleLogin :clientId="config.public.googleClientId" :callback="onGoogleSuccess" :error="onGoogleError" />
             </ClientOnly>
           </div>
 
@@ -75,6 +75,7 @@ import { useRouter } from 'vue-router';
 
 const auth = useAuthStore();
 const router = useRouter();
+const config = useRuntimeConfig();
 
 const username = ref('');
 const email = ref('');
