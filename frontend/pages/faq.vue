@@ -195,5 +195,3 @@ const getBotName = (botId: number) => {
   return bot ? bot.name : 'Unknown Agent';
 };
 </script>
-
-</script>
