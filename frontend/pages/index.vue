@@ -1,152 +1,104 @@
 <template>
-  <div class="relative min-h-[calc(100vh-56px)] bg-black text-white font-sans overflow-hidden">
-    <!-- Deep Ambient Glows (Evervault style) -->
-    <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#6D28D9]/20 blur-[150px] rounded-full pointer-events-none z-0"></div>
-    <div class="fixed bottom-[-20%] right-[-10%] w-[40%] h-[40%] bg-[#4C1D95]/15 blur-[120px] rounded-full pointer-events-none z-0"></div>
+  <div class="min-h-[calc(100vh-56px)] bg-[#0A0A0B] text-white font-sans overflow-x-hidden relative">
+    <!-- Huge background glow similar to Evervault -->
+    <div class="absolute bottom-0 left-0 right-0 h-[800px] bg-gradient-to-t from-[#6A25FF]/60 via-[#6A25FF]/10 to-transparent pointer-events-none opacity-60"></div>
     
-    <!-- Grid Overlay -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik02MCAwaC0xdjYwaDFWMHptMCA1OWgtdjFoMVY1OXoiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz4KPC9zdmc+')] [mask-image:linear-gradient(to_bottom,white,transparent_80%)] z-0 pointer-events-none opacity-50"></div>
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 md:py-32 flex flex-col items-center">
+      <!-- Centered Hero Text -->
+      <h1 class="text-5xl md:text-[72px] leading-tight font-semibold tracking-[-0.04em] text-center mb-6 text-white drop-shadow-lg">
+        Flexible Intelligence Security
+      </h1>
+      <h2 class="text-2xl md:text-3xl text-[#E4E4E5] font-medium tracking-tight text-center mb-6">
+        Maximum protection, minimum compliance burden
+      </h2>
+      <p class="text-[17px] text-[#A1A1AA] leading-relaxed max-w-3xl text-center mb-12 font-medium">
+        Take control of your neural agents — seamlessly inject knowledge, monitor live sentiment streams, comply with data regulations, avoid vendor lock-in, and spin up scalable AI fleets globally.
+      </p>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20 pb-32">
-      <!-- Hero Section -->
-      <div class="mb-24 flex flex-col md:flex-row md:items-center justify-between gap-12">
-        <div class="max-w-3xl">
-          <h1 class="text-5xl md:text-6xl font-semibold tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/40 mb-6 drop-shadow-sm">
-            Flexible Intelligence Security
-          </h1>
-          <p class="text-[17px] text-[#A1A1AA] leading-relaxed max-w-2xl font-medium">
-            <strong class="text-white font-semibold">IngiteAI</strong> — Take control of your neural agents. Seamlessly inject knowledge, monitor live sentiment streams, and analyze fleet performance globally without sacrificing compliance or latency.
-          </p>
-          <div class="mt-8 flex items-center space-x-4">
-             <button class="bg-white text-black px-6 py-3 rounded-full text-[14px] font-semibold hover:bg-gray-200 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-               Deploy Agent
-             </button>
-             <button class="bg-white/5 border border-white/10 text-white px-6 py-3 rounded-full text-[14px] font-medium hover:bg-white/10 transition-all active:scale-95 backdrop-blur-md">
-               View Documentation
-             </button>
-          </div>
-        </div>
-        
-        <!-- Animated Status Badge -->
-        <div class="hidden md:flex flex-col items-end justify-center">
-            <div class="bg-white/[0.03] border border-white/10 backdrop-blur-xl px-6 py-4 rounded-2xl shadow-2xl relative overflow-hidden group">
-               <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-               <div class="flex items-center space-x-3 relative z-10">
-                 <div class="relative flex h-3 w-3">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-40"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></span>
-                 </div>
-                 <span class="text-[11px] font-bold text-white uppercase tracking-[0.2em]">Fleet Operational</span>
-               </div>
-               <p class="text-[12px] text-[#71717A] mt-2 font-medium">Latency: 24ms</p>
-            </div>
+      <div class="flex items-center justify-center space-x-6 mb-32">
+        <button class="bg-white text-black px-8 py-3.5 rounded-full text-[15px] font-semibold hover:bg-gray-200 transition-all active:scale-95 shadow-xl flex items-center">
+          Talk to an Expert <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+        <button class="text-white text-[15px] font-semibold hover:text-gray-300 transition-colors">
+          Get Started
+        </button>
+      </div>
+
+      <!-- Feature Squares Row -->
+      <div class="flex flex-wrap justify-center gap-x-12 gap-y-8 mb-32 max-w-5xl mx-auto">
+        <div v-for="feature in features" :key="feature.name" class="flex flex-col items-center group cursor-pointer w-[100px]">
+           <div class="w-16 h-16 rounded-[18px] bg-[#111111] border border-[#2A2A2A] flex items-center justify-center mb-4 group-hover:bg-[#1A1A1A] group-hover:border-[#404040] transition-all shadow-lg text-[#888888] group-hover:text-white">
+              <span v-html="feature.icon" class="transition-colors"></span>
+           </div>
+           <p class="text-[12px] font-medium text-center text-[#A1A1AA] group-hover:text-white transition-colors leading-[1.4]">{{ feature.name }}</p>
         </div>
       </div>
 
-      <!-- Live Dashboard Section -->
-      <div class="mb-8 flex items-center space-x-3">
-         <span class="w-1.5 h-1.5 bg-white/40 rounded-full"></span>
-         <h2 class="text-[12px] font-semibold text-[#A1A1AA] uppercase tracking-[0.2em]">Live Telemetry</h2>
+      <!-- Large Descriptive Data Cards -->
+      <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+         <!-- Card 1: Description + Chart -->
+         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-14 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden h-[540px]">
+            
+            <div class="relative z-10 mb-8">
+               <p class="text-[#A855F7] text-[13px] font-semibold tracking-wide mb-3">Accelerate your agent product</p>
+               <h3 class="text-[28px] md:text-3xl font-semibold tracking-tight text-white mb-6 leading-snug">Monitor the security and performance of your active fleet</h3>
+               <p class="text-[#A1A1AA] text-[15px] leading-relaxed max-w-[400px]">
+                  Improve your agent response times from seconds to milliseconds, by using IngiteAI to track lead classifications, monitor API latencies, and reveal real-time communication events to administrators.
+               </p>
+               <NuxtLink to="/chats" class="mt-8 inline-flex items-center text-[14px] font-medium text-[#A855F7] hover:text-purple-400 group/link transition-colors">
+                 Live Streams <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+               </NuxtLink>
+            </div>
+
+            <!-- Visualization inside Card -->
+            <div class="relative z-10 flex-1 flex justify-end items-end w-full h-full">
+               <div class="w-64 h-64 relative -bottom-4 md:-right-4 p-4 bg-[#0A0A0B] rounded-full border border-white/5 shadow-2xl">
+                 <Doughnut v-if="chartData" :data="chartData" :options="chartOptions" />
+                 <div v-else class="h-full flex items-center justify-center">
+                    <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Loading</span>
+                 </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- Card 2: Sentiment and Strength -->
+         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-14 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden h-[540px]">
+
+            <div class="relative z-10 mb-8">
+               <p class="text-[#3B82F6] text-[13px] font-semibold tracking-wide mb-3">Optimize neural performance</p>
+               <h3 class="text-[28px] md:text-3xl font-semibold tracking-tight text-white mb-6 leading-snug">Improve engagement scores with a multi-node AI setup</h3>
+               <p class="text-[#A1A1AA] text-[15px] leading-relaxed max-w-[400px]">
+                  Avoid catastrophic customer interactions and optimize retention rates by selectively tracking escalated positive, neutral, and negative conversations.
+               </p>
+            </div>
+
+            <!-- Visual Stats -->
+            <div class="relative z-10 grid grid-cols-2 gap-4 mt-auto">
+               <div class="bg-[#0D0D12] border border-[#222] rounded-2xl p-6 flex flex-col items-center justify-center shadow-inner">
+                 <p class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Total Events</p>
+                 <p class="text-[32px] font-semibold tracking-tight text-white">{{ stats[0]?.value }}</p>
+               </div>
+               <div class="bg-[#0D0D12] border border-[#222] rounded-2xl p-6 flex flex-col items-center justify-center shadow-inner">
+                 <p class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Fleet Strength</p>
+                 <p class="text-[32px] font-semibold tracking-tight text-white">{{ stats[1]?.value }}</p>
+               </div>
+               
+               <div class="col-span-2 bg-[#0D0D12] border border-[#222] rounded-2xl px-6 py-5 mt-2 shadow-inner">
+                  <div v-for="(val, key) in sentiment" :key="key" class="mb-3.5 last:mb-0">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <span class="text-[13px] font-medium text-[#A1A1AA]">{{ key }}</span>
+                        <span class="text-[13px] font-semibold text-white">{{ val }}%</span>
+                    </div>
+                    <div class="h-[3px] bg-[#1A1A1A] rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-blue-500 to-indigo-400 transition-all duration-1000" :style="`width: ${val}%`"></div>
+                    </div>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
       </div>
 
-      <!-- Bento Grid Layout -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[280px]">
-        
-        <!-- Primary Metric: Chart -->
-        <div class="md:col-span-8 bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 flex flex-col justify-between relative overflow-hidden group hover:border-purple-500/30 transition-colors duration-500 shadow-2xl">
-           <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-           
-           <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
-             <div>
-               <h3 class="text-xl font-medium tracking-tight text-white shadow-sm">Lead Classification Matrix</h3>
-               <p class="text-[13px] text-[#71717A] mt-1 font-medium">Real-time analytical distribution across active fleet</p>
-             </div>
-             
-             <div class="flex items-center space-x-4 mt-4 md:mt-0 bg-black/40 border border-white/5 rounded-full px-4 py-2">
-               <div v-for="l in ['Cold', 'Warm', 'Hot']" :key="l" class="flex items-center space-x-2">
-                 <span class="w-2.5 h-2.5 rounded-full" 
-                   :class="l === 'Hot' ? 'bg-[#A855F7] shadow-[0_0_10px_rgba(168,85,247,0.6)]' : l === 'Warm' ? 'bg-white/60' : 'bg-[#27272A] border border-white/10'"></span>
-                 <span class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-wider">{{ l }}</span>
-               </div>
-             </div>
-           </div>
-           
-           <div class="flex-1 relative flex items-center justify-center z-10 w-full h-full">
-             <div class="h-56 w-full max-w-sm">
-               <Doughnut v-if="chartData" :data="chartData" :options="chartOptions" />
-               <div v-else class="h-full flex flex-col items-center justify-center border border-dashed border-white/10 rounded-full bg-white/[0.02]">
-                 <svg class="w-6 h-6 text-white/20 animate-spin mb-3" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                 <span class="text-[10px] font-bold text-[#71717A] uppercase tracking-[0.2em]">Aggregating</span>
-               </div>
-             </div>
-           </div>
-        </div>
-
-        <!-- Sentiment Bento -->
-        <div class="md:col-span-4 bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 flex flex-col justify-between group hover:border-white/20 transition-colors shadow-2xl">
-           <h3 class="text-[12px] font-semibold text-[#A1A1AA] uppercase tracking-[0.2em]">Neural Sentiment</h3>
-           <div class="space-y-8 mt-6">
-              <div v-for="(val, key) in sentiment" :key="key">
-                 <div class="flex justify-between items-baseline mb-3">
-                    <span class="text-[14px] font-semibold text-white/80 tracking-tight">{{ key }}</span>
-                    <span class="text-[16px] font-bold text-white">{{ val }}%</span>
-                 </div>
-                 <div class="h-[3px] bg-white/5 rounded-full overflow-hidden">
-                    <div class="h-full transition-all duration-1000 ease-out"
-                     :class="key === 'Positive' ? 'bg-gradient-to-r from-purple-600 to-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.5)]' : key === 'Neutral' ? 'bg-white/40' : 'bg-[#27272A]'"
-                     :style="`width: ${val}%`"
-                    ></div>
-                 </div>
-              </div>
-           </div>
-        </div>
-
-        <!-- Metric Bento 1 -->
-        <div class="md:col-span-3 bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 flex flex-col justify-between group hover:bg-white/[0.02] transition-colors shadow-xl">
-          <div class="w-10 h-10 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-4 text-purple-400">
-             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-          </div>
-          <div>
-            <p class="text-[11px] font-bold text-[#71717A] uppercase tracking-[0.2em] mb-1">Total Events</p>
-            <div class="flex items-baseline space-x-2">
-              <p class="text-5xl font-semibold tracking-tighter text-white">{{ stats[0].value }}</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Metric Bento 2 -->
-        <div class="md:col-span-3 bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 flex flex-col justify-between group hover:bg-white/[0.02] transition-colors shadow-xl">
-          <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 text-white">
-             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 012-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-          </div>
-          <div>
-            <p class="text-[11px] font-bold text-[#71717A] uppercase tracking-[0.2em] mb-1">Fleet Strength</p>
-            <div class="flex items-baseline space-x-2">
-              <p class="text-5xl font-semibold tracking-tighter text-white">{{ stats[1].value }}</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Action Bento -->
-        <div class="md:col-span-6 bg-transparent flex flex-col md:flex-row gap-4">
-           <NuxtLink v-for="action in quickActions" :key="action.title" :to="action.to" 
-             class="flex-1 w-full bg-[#09090B]/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 hover:border-white/30 hover:bg-white/[0.05] transition-all duration-300 group overflow-hidden relative shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50">
-             <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-             
-             <div class="relative z-10 flex flex-col justify-between h-full">
-               <div class="flex items-center justify-between mb-4">
-                 <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-black transition-all duration-500 shadow-lg" v-html="action.icon"></div>
-                 <svg class="w-5 h-5 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-               </div>
-               <div>
-                 <h3 class="text-[16px] font-semibold text-white mb-2 tracking-tight">{{ action.title }}</h3>
-                 <p class="text-[13px] text-[#A1A1AA] leading-relaxed font-medium">{{ action.description }}</p>
-               </div>
-             </div>
-           </NuxtLink>
-        </div>
-      </div>
-      
     </div>
   </div>
 </template>
@@ -164,9 +116,7 @@ const analyticsData = ref<any>(null);
 
 const stats = ref([
   { name: 'Total Messages', value: '0' },
-  { name: 'Active Agents', value: '0' },
-  { name: 'Growth', value: '0%' },
-  { name: 'Priority Leads', value: '0' },
+  { name: 'Active Agents', value: '0' }
 ]);
 
 const sentiment = ref({
@@ -174,6 +124,15 @@ const sentiment = ref({
   'Neutral': 0,
   'Escalated': 0
 });
+
+const features = [
+  { name: 'Agent\nCompliance', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>' },
+  { name: 'Fleet\nOptimization', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>' },
+  { name: 'Lead\nClassification', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>' },
+  { name: 'Neural\nTokens', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 012-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>' },
+  { name: 'Live\nInsights', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>' },
+  { name: 'Key\nManagement', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>' }
+];
 
 const chartData = computed(() => {
   if (!analyticsData.value?.leads) return null;
@@ -204,7 +163,7 @@ const chartOptions: ChartOptions<'doughnut'> = {
   plugins: {
     legend: { display: false },
     tooltip: {
-      backgroundColor: 'rgba(9, 9, 11, 0.9)',
+      backgroundColor: 'rgba(5, 5, 5, 0.9)',
       padding: 14,
       cornerRadius: 12,
       borderColor: 'rgba(255, 255, 255, 0.1)',
@@ -225,21 +184,6 @@ const chartOptions: ChartOptions<'doughnut'> = {
   }
 };
 
-const quickActions = [
-  {
-    title: 'Active Streams',
-    description: 'Monitor real-time agent communications and intervene manually.',
-    to: '/chats',
-    icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>'
-  },
-  {
-    title: 'Knowledge Base',
-    description: 'Inject proprietary business intelligence and PDF assets.',
-    to: '/faq',
-    icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>'
-  }
-];
-
 onMounted(async () => {
   const config = useRuntimeConfig();
   try {
@@ -249,9 +193,8 @@ onMounted(async () => {
     analyticsData.value = data;
     
     if (data.metrics) {
-      stats.value[0].value = data.metrics.total_messages?.toString() || '0';
-      stats.value[1].value = data.metrics.total_conversations?.toString() || '0'; 
-      stats.value[3].value = data.metrics.hot_leads?.toString() || '0';
+      if (stats.value[0]) stats.value[0].value = data.metrics.total_messages?.toString() || '0';
+      if (stats.value[1]) stats.value[1].value = data.metrics.total_conversations?.toString() || '0'; 
       
       const total = data.metrics.total_conversations || 1;
       if (data.sentiment) {
