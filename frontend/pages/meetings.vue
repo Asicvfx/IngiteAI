@@ -107,5 +107,3 @@ const formatDate = (dateStr: string) => {
 
 onMounted(loadMeetings);
 </script>
-
-</script>

@@ -1,0 +1,37 @@
+﻿[90mтФМ[39m  [36mBuilding Nuxt for production...[39m
+[90mтФВ[39m
+[34mтЧП[39m  [32mNuxt [1m4.3.1[22m[39m[90m (with [39m[90mNitro [1m2.13.1[22m[39m[90m, Vite [1m7.3.1[22m[39m[90m and Vue [1m3.5.28[22m[39m[90m)[39m
+[90m[[90mnuxt:tailwindcss[90m][39m [36mтД╣[39m Using default Tailwind CSS file
+[90mтФВ[39m
+[34mтЧП[39m  Nitro preset: [36mnode-server[39m
+[36mтД╣[39m Building client...
+[36mтД╣[39m [36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+[36mтД╣[39m transforming...
+[36mтД╣[39m [32mтЬУ[39m 57 modules transformed.
+node.exe : 
+строка:1 знак:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (:String) [],    
+ RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+[41m[30m ERROR 
+[39m[49m 
+[31mтЬЧ[39m Build 
+failed in 1.08s
+
+[90mтФВ[39m
+[31mтЦа[39m  Nuxt build error: RollupError: [31m[vite:vue] [plugin vite:vue] pages/bots/new.vue?macro=true (94:1): Invalid end tag.[39m
+[90mтФВ[39m  file: [36mC:/Users/Asylzhan/Desktop/MYSTARTAPP-VelorAI/IngiteAI.V2/IngiteAI/frontend/pages/bots/new.vue:94:1 (C:/Users/Asylzhan/Desktop/MYSTARTAPP-VelorAI/IngiteAI.V2/IngiteAI/frontend/pages/bots/new.vue?macro=true)[39m

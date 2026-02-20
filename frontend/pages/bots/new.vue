@@ -90,5 +90,3 @@ const handleConnect = async () => {
   }
 };
 </script>
-
-</script>
