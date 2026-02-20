@@ -36,9 +36,16 @@ onMounted(async () => {
         await auth.googleLogin(accessToken, 'access_token');
         status.value = 'Authentication successful! Redirecting...';
         router.push('/');
-      } catch (error) {
-        status.value = 'Authentication failed: Backend validation error.';
-        setTimeout(() => router.push('/login'), 3000);
+      } catch (error: any) {
+        // Extract and display the exact backend error message for debugging
+        let errorMsg = 'Backend validation error.';
+        if (error.response && error.response.data) {
+          errorMsg = JSON.stringify(error.response.data);
+        } else if (error.message) {
+          errorMsg = error.message;
+        }
+        status.value = `Authentication failed: ${errorMsg}`;
+        setTimeout(() => router.push('/login'), 8000); // Wait 8s so user can read it
       }
     } else {
       status.value = 'Authentication failed: Missing access token.';

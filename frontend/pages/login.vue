@@ -17,8 +17,8 @@
         <form @submit.prevent="handleLogin" class="space-y-8">
           <div class="space-y-6">
             <div class="space-y-3">
-              <label class="text-[10px] font-black text-[#4B5563] uppercase tracking-[0.2em] ml-1">Email</label>
-              <input v-model="username" type="text" required placeholder="Enter your email" 
+              <label class="text-[10px] font-black text-[#4B5563] uppercase tracking-[0.2em] ml-1">Username or Email</label>
+              <input v-model="username" type="text" required placeholder="Enter your username or email" 
                 class="w-full bg-[#0E0E0E] border border-white/5 rounded-2xl px-5 py-4 text-[14px] text-white focus:border-white/20 outline-none transition-all placeholder-[#262626] font-medium tracking-tight">
             </div>
 
