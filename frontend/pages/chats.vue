@@ -1,30 +1,33 @@
 <template>
-  <div class="flex h-[calc(100vh-56px)] bg-[#080808] text-white overflow-hidden font-sans relative">
+  <div class="flex h-[calc(100vh-56px)] bg-[#0A0A0B] text-white overflow-hidden font-sans relative">
+    <!-- Huge background glow similar to Evervault -->
+    <div class="absolute bottom-0 left-0 right-0 h-[600px] bg-gradient-to-t from-[#6A25FF]/60 via-[#6A25FF]/10 to-transparent pointer-events-none opacity-20"></div>
+
     <!-- Sidebar / Chat List -->
-    <div class="w-80 md:w-96 border-r border-white/5 bg-[#080808] flex flex-col z-20 overflow-hidden">
-      <div class="p-10">
-        <h2 class="text-3xl font-semibold tracking-[-0.04em] gradient-text">Streams</h2>
-        <p class="text-[13px] text-[#888888] mt-2">Active neural synchronizations</p>
+    <div class="w-80 md:w-96 border-r border-white/5 bg-[#050505]/80 backdrop-blur-xl flex flex-col z-20 overflow-hidden relative">
+      <div class="p-10 relative z-10">
+        <h2 class="text-3xl font-semibold tracking-[-0.04em] text-white">Live Streams</h2>
+        <p class="text-[13px] text-[#A1A1AA] mt-2 font-medium">Active neural synchronizations</p>
       </div>
       
-      <div class="flex-1 overflow-y-auto wope-scroll px-4 pb-10 space-y-1">
+      <div class="flex-1 overflow-y-auto wope-scroll px-4 pb-10 space-y-2 relative z-10">
         <div 
           v-for="chat in chats" 
           :key="chat.id" 
           @click="selectChat(chat)" 
-          class="group p-5 rounded-2xl cursor-pointer transition-all duration-300 border border-transparent"
-          :class="selectedChat?.id === chat.id ? 'bg-white/5 border-white/10' : 'hover:bg-white/[0.02]'"
+          class="group p-5 rounded-2xl cursor-pointer transition-all duration-300 border"
+          :class="selectedChat?.id === chat.id ? 'bg-[#111] border-[#333] shadow-lg' : 'bg-transparent border-transparent hover:bg-white/[0.02] hover:border-white/5'"
         >
           <div class="flex items-center space-x-5">
-            <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[13px] font-semibold text-[#888888] group-hover:text-white transition-colors">
+            <div class="w-11 h-11 rounded-2xl bg-[#0A0A0B] border border-[#222] flex items-center justify-center text-[13px] font-semibold text-[#888888] group-hover:text-white group-hover:border-[#444] transition-all shadow-inner">
               {{ chat.telegram_chat_id ? chat.telegram_chat_id.toString().slice(-2) : '?' }}
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between mb-1.5">
-                <span class="text-[14px] font-semibold tracking-tight truncate text-white">Node #{{ chat.telegram_chat_id }}</span>
-                <span v-if="chat.needs_human" class="w-1.5 h-1.5 bg-white rounded-full animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.5)]"></span>
+                <span class="text-[14px] font-semibold tracking-tight truncate text-[#E4E4E5]">Node #{{ chat.telegram_chat_id }}</span>
+                <span v-if="chat.needs_human" class="w-2 h-2 bg-[#A855F7] rounded-full animate-pulse shadow-[0_0_12px_rgba(168,85,247,0.8)]"></span>
               </div>
-              <p class="text-[12px] text-[#4B5563] truncate leading-normal">
+              <p class="text-[12px] text-[#A1A1AA] truncate leading-normal font-medium">
                 {{ chat.last_message?.content || 'Awaiting uplink...' }}
               </p>
             </div>
@@ -34,24 +37,24 @@
     </div>
 
     <!-- Main Chat Area -->
-    <div class="flex-1 flex flex-col relative z-10 bg-[#080808]">
-      <div v-if="selectedChat" class="flex-1 flex flex-col h-full max-w-5xl mx-auto w-full">
+    <div class="flex-1 flex flex-col relative z-10 bg-transparent">
+      <div v-if="selectedChat" class="flex-1 flex flex-col h-full max-w-5xl mx-auto w-full relative">
         <!-- Header -->
-        <header class="h-20 border-b border-white/5 flex items-center px-12 justify-between bg-[#080808]/50 backdrop-blur-md">
+        <header class="h-20 border-b border-white/5 flex items-center px-12 justify-between bg-[#0A0A0B]/80 backdrop-blur-xl relative z-20">
           <div class="flex items-center space-x-4">
             <h3 class="text-[16px] font-semibold tracking-tight text-white">Stream #{{ selectedChat.telegram_chat_id }}</h3>
-            <div class="flex items-center space-x-1.5 bg-white/5 px-2.5 py-1 rounded-full border border-white/5">
-               <div class="w-1 h-1 bg-white rounded-full opacity-40"></div>
-               <span class="text-[9px] font-bold text-[#4B5563] uppercase tracking-[0.15em]">Uplink Stable</span>
+            <div class="flex items-center space-x-1.5 bg-[#111] px-3 py-1.5 rounded-full border border-[#222] shadow-inner">
+               <div class="w-1.5 h-1.5 bg-[#A855F7] rounded-full opacity-80 animate-pulse"></div>
+               <span class="text-[9px] font-bold text-[#A1A1AA] uppercase tracking-[0.15em]">Uplink Stable</span>
             </div>
           </div>
-          <div class="text-[11px] text-[#4B5563] font-semibold uppercase tracking-wider">
+          <div class="text-[11px] text-[#A1A1AA] font-bold uppercase tracking-wider">
              {{ chats.length }} Live Nodes
           </div>
         </header>
 
         <!-- Messages Area -->
-        <div ref="messageContainer" class="flex-1 overflow-y-auto wope-scroll px-12 py-16 space-y-12 scroll-smooth">
+        <div ref="messageContainer" class="flex-1 overflow-y-auto wope-scroll px-12 py-16 space-y-12 scroll-smooth relative z-10">
           <TransitionGroup name="stream">
           <div v-for="msg in messages" :key="msg.id" 
             class="flex flex-col group animate-slide-up"
@@ -59,23 +62,23 @@
           >
             <div class="max-w-[80%]">
               <div 
-                class="px-6 py-4 rounded-2xl relative transition-all duration-300"
+                class="px-6 py-4 rounded-3xl relative transition-all duration-300"
                 :class="[
                   msg.sender === 'user' 
-                    ? 'bg-[#0E0E0E] border border-white/5 text-[#EDEDED]' 
-                    : 'bg-white text-black font-medium shadow-[0_10px_30px_rgba(255,255,255,0.05)]'
+                    ? 'bg-[#111] border border-[#222] text-[#E4E4E5]' 
+                    : 'bg-white text-black font-semibold shadow-[0_10px_40px_rgba(255,255,255,0.1)]'
                 ]"
               >
-                <p class="text-[15px] leading-relaxed tracking-normal">{{ msg.content }}</p>
+                <p class="text-[15px] leading-relaxed tracking-tight">{{ msg.content }}</p>
 
                 <!-- Product Display -->
                 <div v-if="msg.metadata?.products?.length" class="mt-6 space-y-3">
                   <div v-for="product in msg.metadata.products" :key="product.name" 
-                    class="p-4 bg-white/5 border border-white/5 rounded-2xl flex items-center space-x-4 hover:border-white/20 transition-all group/prod">
+                    class="p-4 bg-[#050505] border border-[#222] rounded-2xl flex items-center space-x-4 hover:border-[#444] transition-all group/prod">
                     <img v-if="product.image_url" :src="product.image_url" class="w-12 h-12 rounded-xl object-cover bg-black">
                     <div class="flex-1 text-left">
-                      <h4 class="text-[13px] font-semibold text-white group-hover/prod:text-white transition-colors">{{ product.name }}</h4>
-                      <p class="text-[12px] text-[#888888]">{{ product.price }}</p>
+                      <h4 class="text-[13px] font-semibold text-white group-hover/prod:text-[#A855F7] transition-colors">{{ product.name }}</h4>
+                      <p class="text-[12px] text-[#A1A1AA] font-medium">{{ product.price }}</p>
                     </div>
                   </div>
                 </div>
@@ -87,13 +90,13 @@
                   v-for="reply in msg.metadata.quick_replies" 
                   :key="reply"
                   @click="sendQuickReply(reply)"
-                  class="wope-button-secondary !py-2 !px-4 !text-[11px] !rounded-full !tracking-normal !bg-white/5 border-white/5"
+                  class="bg-[#111] hover:bg-[#222] text-[#E4E4E5] font-semibold py-2 px-5 text-[12px] rounded-full border border-[#222] hover:border-[#444] transition-all tracking-tight shadow-sm"
                 >
                   {{ reply }}
                 </button>
               </div>
 
-              <div class="mt-3 px-1 text-[10px] text-[#4B5563] font-bold uppercase tracking-[0.1em]">
+              <div class="mt-3 px-2 text-[10px] text-[#4B5563] font-bold uppercase tracking-[0.1em]">
                 {{ formatTime(msg.created_at) }}
               </div>
             </div>
@@ -102,43 +105,44 @@
         </div>
 
         <!-- Input Bar -->
-        <div class="px-12 pb-12 pt-4">
+        <div class="px-12 pb-12 pt-4 relative z-20">
           <div class="max-w-4xl mx-auto">
-            <div class="relative wope-card p-1.5 focus-within:border-white/30 transition-all">
-              <div class="flex items-center px-4 bg-[#0E0E0E] rounded-xl border border-white/5 focus-within:border-white/10">
+            <div class="relative bg-[#050505]/90 rounded-2xl p-1.5 focus-within:border-[#A855F7]/50 border border-[#222] shadow-2xl transition-all backdrop-blur-xl">
+              <div class="flex items-center px-4 bg-[#111] rounded-xl border border-transparent">
                 <input 
                   v-model="newMessage" 
                   @keydown.enter.prevent="sendMessage"
                   type="text" 
-                  class="flex-1 bg-transparent border-none focus:ring-0 text-white placeholder-[#404040] py-5 text-[15px] tracking-tight" 
+                  class="flex-1 bg-transparent border-none focus:ring-0 text-white placeholder-[#888] py-5 text-[15px] tracking-tight font-medium" 
                   placeholder="Direct neural override..."
                 >
                 <button 
                   @click="sendMessage"
                   :disabled="!newMessage.trim() || sending"
-                  class="wope-button-primary !p-3 !rounded-xl disabled:opacity-20 shadow-xl"
+                  class="bg-white hover:bg-gray-200 text-black p-3.5 rounded-xl disabled:opacity-30 disabled:hover:bg-white shadow-lg transition-all"
                 >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </button>
               </div>
             </div>
-            <div class="mt-4 flex items-center justify-center space-x-4 opacity-20">
-               <div class="h-px w-20 bg-white"></div>
-               <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-white">Administrator Terminal</span>
-               <div class="h-px w-20 bg-white"></div>
+            <div class="mt-6 flex items-center justify-center space-x-4 opacity-30">
+               <div class="h-px w-24 bg-gradient-to-r from-transparent to-[#A1A1AA]"></div>
+               <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#A1A1AA]">Administrator Terminal</span>
+               <div class="h-px w-24 bg-gradient-to-l from-transparent to-[#A1A1AA]"></div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Empty State -->
-      <div v-else class="flex-1 flex items-center justify-center bg-[#080808]">
+      <div v-else class="flex-1 flex items-center justify-center bg-transparent">
         <div class="text-center group">
-          <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:bg-white transition-all duration-500">
-            <div class="w-5 h-5 bg-[#1F1F1F] rounded group-hover:bg-black transition-colors"></div>
+          <div class="w-20 h-20 rounded-[28px] bg-[#111] border border-[#222] flex items-center justify-center mx-auto mb-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#A855F7]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <div class="w-6 h-6 bg-[#333] rounded-lg group-hover:bg-[#A855F7] transition-colors duration-500 shadow-inner relative z-10"></div>
           </div>
-          <h2 class="text-2xl font-semibold tracking-tighter text-white mb-3">Select a stream</h2>
-          <p class="text-[14px] text-[#4B5563] max-w-[240px] mx-auto leading-relaxed">Select an active neural node from the sidebar to begin oversight.</p>
+          <h2 class="text-3xl font-semibold tracking-tight text-white mb-4">Select a stream</h2>
+          <p class="text-[15px] text-[#A1A1AA] font-medium max-w-[280px] mx-auto leading-relaxed">Select an active neural node from the sidebar to begin live oversight.</p>
         </div>
       </div>
     </div>
