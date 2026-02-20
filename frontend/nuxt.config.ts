@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
-      googleClientId: process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID,
+      googleClientId: process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID || '508576287981-pd8sg3pleboibd5hu29dlo30gnmgmlh6.apps.googleusercontent.com',
       apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8000'
     }
   }
