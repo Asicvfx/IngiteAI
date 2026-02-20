@@ -54,7 +54,9 @@
           </div>
 
           <div class="flex justify-center">
-            <GoogleLogin :callback="onGoogleSuccess" :error="onGoogleError" />
+            <ClientOnly>
+              <GoogleLogin :callback="onGoogleSuccess" :error="onGoogleError" />
+            </ClientOnly>
           </div>
 
           <p class="text-center text-[13px] text-[#4B5563] font-medium pt-4">
