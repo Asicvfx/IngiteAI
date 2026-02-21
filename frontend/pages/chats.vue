@@ -1,10 +1,9 @@
 <template>
-  <div class="flex h-[calc(100vh-56px)] bg-[#0A0A0B] text-white overflow-hidden font-sans relative">
-    <!-- Huge background glow similar to Evervault -->
-    <div class="absolute bottom-0 left-0 right-0 h-[600px] bg-gradient-to-t from-[#6A25FF]/60 via-[#6A25FF]/10 to-transparent pointer-events-none opacity-20"></div>
+  <div class="flex h-[calc(100vh-56px)] text-white overflow-hidden font-sans relative">
+
 
     <!-- Sidebar / Chat List -->
-    <div class="w-80 md:w-96 border-r border-white/5 bg-[#050505]/80 backdrop-blur-xl flex flex-col z-20 overflow-hidden relative">
+    <div class="w-80 md:w-96 border-r border-white/5 bg-[#0A0A0B]/60 backdrop-blur-xl flex flex-col z-20 overflow-hidden relative">
       <div class="p-10 relative z-10">
         <h2 class="text-3xl font-semibold tracking-[-0.04em] text-white">Live Streams</h2>
         <p class="text-[13px] text-[#A1A1AA] mt-2 font-medium">Monitor your active customer conversations</p>
@@ -40,7 +39,7 @@
     <div class="flex-1 flex flex-col relative z-10 bg-transparent">
       <div v-if="selectedChat" class="flex-1 flex flex-col h-full max-w-5xl mx-auto w-full relative">
         <!-- Header -->
-        <header class="h-20 border-b border-white/5 flex items-center px-12 justify-between bg-[#0A0A0B]/80 backdrop-blur-xl relative z-20">
+        <header class="h-20 border-b border-white/5 flex items-center px-12 justify-between backdrop-blur-xl relative z-20">
           <div class="flex items-center space-x-4">
             <h3 class="text-[16px] font-semibold tracking-tight text-white">Customer #{{ chats.indexOf(selectedChat) + 1 }}</h3>
             <div class="flex items-center space-x-1.5 bg-[#111] px-3 py-1.5 rounded-full border border-[#222] shadow-inner">

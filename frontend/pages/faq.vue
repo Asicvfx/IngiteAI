@@ -1,8 +1,6 @@
 <template>
-  <div class="px-6 md:px-12 py-16 bg-[#0A0A0B] min-h-[calc(100vh-56px)] text-white font-sans relative overflow-hidden">
-    <!-- Huge background glow -->
-    <div class="absolute bottom-0 left-0 right-0 h-[600px] bg-gradient-to-t from-[#6A25FF]/40 via-[#6A25FF]/8 to-transparent pointer-events-none -z-10"></div>
-    <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-[#A855F7]/10 via-[#A855F7]/5 to-transparent rounded-full blur-[150px] pointer-events-none -z-10"></div>
+  <div class="px-6 md:px-12 py-16 min-h-[calc(100vh-56px)] text-white font-sans relative overflow-hidden">
+
 
     <div class="max-w-5xl mx-auto relative z-10">
       <!-- Header Section -->

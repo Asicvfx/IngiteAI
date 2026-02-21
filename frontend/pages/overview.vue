@@ -1,7 +1,6 @@
 <template>
-  <div class="min-h-[calc(100vh-56px)] bg-[#0A0A0B] text-white font-sans overflow-x-hidden relative">
-    <!-- Huge background glow similar to Evervault -->
-    <div class="absolute bottom-0 left-0 right-0 h-[800px] bg-gradient-to-t from-[#6A25FF]/60 via-[#6A25FF]/10 to-transparent pointer-events-none opacity-60"></div>
+  <div class="min-h-[calc(100vh-56px)] text-white font-sans overflow-x-hidden relative">
+
     
     <div class="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-20 flex flex-col items-center">
       

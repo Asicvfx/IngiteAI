@@ -1,8 +1,6 @@
 <template>
-  <div class="px-6 md:px-12 py-24 bg-[#0A0A0B] min-h-[calc(100vh-56px)] text-white font-sans relative overflow-hidden flex flex-col items-center justify-center">
-    <!-- Decorative background element -->
-    <div class="absolute bottom-0 left-0 right-0 h-[600px] bg-gradient-to-t from-[#6A25FF]/40 via-[#6A25FF]/8 to-transparent pointer-events-none -z-10"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-[#A855F7]/10 to-transparent blur-[120px] rounded-full pointer-events-none -z-10"></div>
+  <div class="px-6 md:px-12 py-24 min-h-[calc(100vh-56px)] text-white font-sans relative overflow-hidden flex flex-col items-center justify-center">
+
 
     <div class="max-w-xl w-full relative z-10">
       <div class="mb-20 text-center">
