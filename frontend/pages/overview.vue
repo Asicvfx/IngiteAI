@@ -15,22 +15,22 @@
       <!-- Large Descriptive Data Cards -->
       <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
          <!-- Card 1: Description + Chart -->
-         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-12 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden min-h-[500px]">
+         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-8 md:p-10 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden h-full">
             
             <div class="relative z-10 mb-8">
-               <p class="text-[#A855F7] text-[12px] font-bold uppercase tracking-widest mb-3">Accelerate your agent product</p>
-               <h3 class="text-[26px] md:text-[28px] font-semibold tracking-tight text-white mb-4 leading-snug">Monitor the security and performance of your active fleet</h3>
+               <p class="text-[#A855F7] text-[11px] font-bold uppercase tracking-widest mb-3">Accelerate your agent product</p>
+               <h3 class="text-[24px] md:text-[26px] font-semibold tracking-tight text-white mb-4 leading-snug">Monitor the security and performance of your active fleet</h3>
                <p class="text-[#A1A1AA] text-[14px] leading-relaxed">
                   Improve your agent response times from seconds to milliseconds, by using IngiteAI to track lead classifications, monitor API latencies, and reveal real-time communication events to administrators.
                </p>
-               <NuxtLink to="/chats" class="mt-6 inline-flex items-center text-[13px] font-bold uppercase tracking-widest text-[#A855F7] hover:text-purple-400 group/link transition-colors">
+               <NuxtLink to="/chats" class="mt-6 inline-flex items-center text-[12px] font-bold uppercase tracking-widest text-[#A855F7] hover:text-purple-400 group/link transition-colors">
                  Live Streams <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                </NuxtLink>
             </div>
 
             <!-- Visualization inside Card -->
             <div class="relative z-10 flex-1 flex justify-center items-end w-full mt-4">
-               <div class="w-[280px] h-[280px] relative shrink-0 p-4 bg-[#0A0A0B] rounded-full border border-white/5 shadow-2xl translate-y-8">
+               <div class="w-[260px] h-[260px] relative shrink-0 p-4 bg-[#0A0A0B] rounded-full border border-white/5 shadow-2xl translate-y-8">
                  <Doughnut v-if="chartData" :data="chartData" :options="chartOptions" />
                  <div v-else class="h-full flex items-center justify-center">
                     <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Loading</span>
@@ -40,7 +40,7 @@
          </div>
 
          <!-- Card 2: Sentiment and Strength -->
-         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-12 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden min-h-[500px]">
+         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-8 md:p-10 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden h-full">
 
             <div class="relative z-10 mb-8">
                <p class="text-[#3B82F6] text-[12px] font-bold uppercase tracking-widest mb-3">Optimize neural performance</p>
