@@ -61,13 +61,20 @@
                </div>
                
                <div class="col-span-2 bg-[#0D0D12] border border-[#222] rounded-2xl px-6 py-5 mt-2 shadow-inner">
-                  <div v-for="(val, key) in sentiment" :key="key" class="mb-3.5 last:mb-0">
+                  <div v-for="(val, key) in leadsPercentage" :key="key" class="mb-3.5 last:mb-0">
                     <div class="flex justify-between items-baseline mb-2">
                         <span class="text-[12px] font-medium text-[#A1A1AA]">{{ key }}</span>
                         <span class="text-[12px] font-bold text-white">{{ val }}%</span>
                     </div>
                     <div class="h-[3px] bg-[#1A1A1A] rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-blue-500 to-indigo-400 transition-all duration-1000" :style="`width: ${val}%`"></div>
+                        <div class="h-full transition-all duration-1000" 
+                             :class="{
+                               'bg-gradient-to-r from-blue-500 to-indigo-400': key === 'Cold Leads',
+                               'bg-gradient-to-r from-yellow-500 to-orange-400': key === 'Warm Leads',
+                               'bg-gradient-to-r from-purple-500 to-pink-500': key === 'Hot Leads'
+                             }"
+                             :style="`width: ${val}%`">
+                        </div>
                     </div>
                   </div>
                </div>
@@ -96,10 +103,10 @@ const stats = ref([
   { name: 'Active Agents', value: '0' }
 ]);
 
-const sentiment = ref({
-  'Positive': 0,
-  'Neutral': 0,
-  'Escalated': 0
+const leadsPercentage = ref({
+  'Cold Leads': 0,
+  'Warm Leads': 0,
+  'Hot Leads': 0
 });
 
 const features = [
@@ -174,10 +181,19 @@ onMounted(async () => {
       if (stats.value[1]) stats.value[1].value = data.metrics.total_conversations?.toString() || '0'; 
       
       const total = data.metrics.total_conversations || 1;
-      if (data.sentiment) {
-        sentiment.value.Positive = Math.round((data.sentiment.positive / total) * 100);
-        sentiment.value.Neutral = Math.round((data.sentiment.neutral / total) * 100);
-        sentiment.value.Escalated = Math.round((data.sentiment.needs_attention / total) * 100);
+      if (data.leads && data.leads.length > 0) {
+        const totalLeads = data.leads.reduce((sum: number, item: any) => sum + item.count, 0) || 1;
+        
+        let cold = 0, warm = 0, hot = 0;
+        data.leads.forEach((item: any) => {
+          if (item.lead_type === 'cold') cold = item.count;
+          if (item.lead_type === 'warm') warm = item.count;
+          if (item.lead_type === 'hot') hot = item.count;
+        });
+
+        leadsPercentage.value['Cold Leads'] = Math.round((cold / totalLeads) * 100);
+        leadsPercentage.value['Warm Leads'] = Math.round((warm / totalLeads) * 100);
+        leadsPercentage.value['Hot Leads'] = Math.round((hot / totalLeads) * 100);
       }
     }
     
