@@ -18,10 +18,10 @@
          <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-8 md:p-10 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden h-full">
             
             <div class="relative z-10 mb-8">
-               <p class="text-[#A855F7] text-[11px] font-bold uppercase tracking-widest mb-3">Accelerate your agent product</p>
-               <h3 class="text-[24px] md:text-[26px] font-semibold tracking-tight text-white mb-4 leading-snug">Monitor the security and performance of your active fleet</h3>
+               <p class="text-[#A855F7] text-[11px] font-bold uppercase tracking-widest mb-3">Lead Classification</p>
+               <h3 class="text-[24px] md:text-[26px] font-semibold tracking-tight text-white mb-4 leading-snug">Track AI conversation outcomes in real-time</h3>
                <p class="text-[#A1A1AA] text-[14px] leading-relaxed">
-                  Improve your agent response times from seconds to milliseconds, by using IngiteAI to track lead classifications, monitor API latencies, and reveal real-time communication events to administrators.
+                  Automatically categorize your inbound leads as Hot, Warm, or Cold based on the AI's interaction. Instantly identify high-intent customers ready for human takeover.
                </p>
                <NuxtLink to="/chats" class="mt-6 inline-flex items-center text-[12px] font-bold uppercase tracking-widest text-[#A855F7] hover:text-purple-400 group/link transition-colors">
                  Live Streams <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
@@ -43,21 +43,21 @@
          <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-8 md:p-10 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden h-full">
 
             <div class="relative z-10 mb-8">
-               <p class="text-[#3B82F6] text-[12px] font-bold uppercase tracking-widest mb-3">Optimize neural performance</p>
-               <h3 class="text-[26px] md:text-[28px] font-semibold tracking-tight text-white mb-4 leading-snug">Improve engagement scores with a multi-node AI setup</h3>
+               <p class="text-[#3B82F6] text-[11px] font-bold uppercase tracking-widest mb-3">Quality Control</p>
+               <h3 class="text-[24px] md:text-[26px] font-semibold tracking-tight text-white mb-4 leading-snug">Monitor customer sentiment and agent load</h3>
                <p class="text-[#A1A1AA] text-[14px] leading-relaxed">
-                  Avoid catastrophic customer interactions and optimize retention rates by selectively tracking escalated positive, neutral, and negative conversations.
+                  Ensure your AI is delivering excellent support. Track the volume of conversations handled and monitor dialogue sentiment to intervene before customers escalate.
                </p>
             </div>
 
             <!-- Visual Stats -->
             <div class="relative z-10 grid grid-cols-2 gap-4 mt-auto">
                <div class="bg-[#0D0D12] border border-[#222] rounded-2xl p-5 flex flex-col items-center justify-center shadow-inner">
-                 <p class="text-[10px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Total Events</p>
+                 <p class="text-[10px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Total Conversations</p>
                  <p class="text-[32px] font-semibold tracking-tight text-white">{{ stats[0]?.value }}</p>
                </div>
                <div class="bg-[#0D0D12] border border-[#222] rounded-2xl p-5 flex flex-col items-center justify-center shadow-inner">
-                 <p class="text-[10px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Fleet Strength</p>
+                 <p class="text-[10px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Active Assistants</p>
                  <p class="text-[32px] font-semibold tracking-tight text-white">{{ stats[1]?.value }}</p>
                </div>
                
