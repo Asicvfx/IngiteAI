@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --bg-primary: #080808;
+    --bg-primary: #0A0A0B;
     --bg-secondary: #111111;
     --border-color: #1F1F1F;
     --text-primary: #EDEDED;
@@ -14,7 +14,7 @@
   }
 
   body {
-    @apply bg-[#080808] text-[#EDEDED] antialiased overflow-x-hidden selection:bg-white/20;
+    @apply bg-[#0A0A0B] text-[#EDEDED] antialiased overflow-x-hidden selection:bg-white/20;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
     letter-spacing: -0.015em;
@@ -74,4 +74,20 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #262626;
+}
+
+/* Page transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
 }

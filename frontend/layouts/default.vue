@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-[#080808] text-[#EDEDED] flex flex-col md:flex-row font-sans selection:bg-white/20">
+  <div class="min-h-screen bg-[#0A0A0B] text-[#EDEDED] flex flex-col md:flex-row font-sans selection:bg-white/20">
     <!-- Sidebar -->
-    <aside class="w-full md:w-64 bg-[#080808] border-r border-white/5 flex flex-col z-50">
+    <aside class="w-full md:w-64 bg-[#0A0A0B] border-r border-white/5 flex flex-col z-50">
       <div class="p-8 flex items-center space-x-3 mb-6">
         <div class="w-7 h-7 bg-white rounded-lg flex items-center justify-center">
            <div class="w-2.5 h-2.5 bg-black"></div>
@@ -33,12 +33,12 @@
     </aside>
 
     <!-- Main Content Container -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#080808]">
-      <header class="h-20 border-b border-white/5 flex items-center justify-between px-10 z-40 bg-[#080808]/80 backdrop-blur-xl">
-        <div class="flex items-center space-x-2">
-           <span class="text-[12px] font-semibold text-white/40 tracking-widest uppercase">Secure Node Active</span>
-        </div>
-        
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#0A0A0B]">
+      <!-- Global purple ambient glow -->
+      <div class="absolute bottom-0 left-0 right-0 h-[600px] bg-gradient-to-t from-[#6A25FF]/30 via-[#6A25FF]/5 to-transparent pointer-events-none z-0"></div>
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-[#A855F7]/8 to-transparent rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+      <header class="h-14 border-b border-white/5 flex items-center justify-end px-10 z-40 bg-[#0A0A0B]/80 backdrop-blur-xl shrink-0">
         <div class="flex items-center space-x-6">
           <div class="flex flex-col items-end">
             <span class="text-[12px] font-semibold text-white tracking-tight">{{ auth.user?.username || 'Administrator' }}</span>
@@ -49,8 +49,10 @@
         </div>
       </header>
       
-      <div class="flex-1 overflow-y-auto wope-scroll bg-[#080808]">
-        <slot />
+      <div class="flex-1 overflow-y-auto wope-scroll relative z-10">
+        <div class="page-transition-wrapper">
+          <slot />
+        </div>
       </div>
     </main>
   </div>
@@ -99,3 +101,4 @@ const handleLogout = () => {
   background: rgba(255, 255, 255, 0.08);
 }
 </style>
+
