@@ -3,10 +3,8 @@
     <!-- Sidebar -->
     <aside class="w-full md:w-64 bg-[#0A0A0B] border-r border-white/5 flex flex-col z-50">
       <div class="p-8 flex items-center space-x-3 mb-6">
-        <div class="w-7 h-7 bg-white rounded-lg flex items-center justify-center">
-           <div class="w-2.5 h-2.5 bg-black"></div>
-        </div>
-        <span class="text-base font-semibold tracking-tighter text-white">Ingite</span>
+        <img src="/logo.png" alt="IngiteAI" class="w-7 h-7 rounded-lg object-cover" />
+        <span class="text-base font-semibold tracking-tighter text-white">IngiteAI</span>
       </div>
       
       <nav class="flex-1 px-4 space-y-1">
@@ -35,8 +33,9 @@
     <!-- Main Content Container -->
     <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#0A0A0B]">
       <!-- Global purple ambient glow -->
-      <div class="absolute bottom-0 left-0 right-0 h-[600px] bg-gradient-to-t from-[#6A25FF]/30 via-[#6A25FF]/5 to-transparent pointer-events-none z-0"></div>
-      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-[#A855F7]/8 to-transparent rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div class="absolute bottom-0 left-0 right-0 h-[800px] bg-gradient-to-t from-[#6A25FF]/60 via-[#8B5CF6]/20 to-transparent pointer-events-none z-0"></div>
+      <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-[#A855F7]/15 to-transparent rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[#7C3AED]/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
       <header class="h-14 border-b border-white/5 flex items-center justify-end px-10 z-40 bg-[#0A0A0B]/80 backdrop-blur-xl shrink-0">
         <div class="flex items-center space-x-6">

@@ -5,7 +5,13 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
   css: ['~/assets/css/main.css'],
   app: {
-    pageTransition: { name: 'page', mode: 'out-in' }
+    pageTransition: { name: 'page', mode: 'out-in' },
+    head: {
+      title: 'IngiteAI',
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/logo.png' }
+      ]
+    }
   },
   runtimeConfig: {
     public: {
