@@ -3,56 +3,34 @@
     <!-- Huge background glow similar to Evervault -->
     <div class="absolute bottom-0 left-0 right-0 h-[800px] bg-gradient-to-t from-[#6A25FF]/60 via-[#6A25FF]/10 to-transparent pointer-events-none opacity-60"></div>
     
-    <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 md:py-32 flex flex-col items-center">
-      <!-- Centered Hero Text -->
-      <h1 class="text-5xl md:text-[72px] leading-tight font-semibold tracking-[-0.04em] text-center mb-6 text-white drop-shadow-lg">
-        Flexible Intelligence Security
-      </h1>
-      <h2 class="text-2xl md:text-3xl text-[#E4E4E5] font-medium tracking-tight text-center mb-6">
-        Maximum protection, minimum compliance burden
-      </h2>
-      <p class="text-[17px] text-[#A1A1AA] leading-relaxed max-w-3xl text-center mb-12 font-medium">
-        Take control of your neural agents — seamlessly inject knowledge, monitor live sentiment streams, comply with data regulations, avoid vendor lock-in, and spin up scalable AI fleets globally.
-      </p>
-
-      <div class="flex items-center justify-center space-x-6 mb-32">
-        <button class="bg-white text-black px-8 py-3.5 rounded-full text-[15px] font-semibold hover:bg-gray-200 transition-all active:scale-95 shadow-xl flex items-center">
-          Talk to an Expert <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-        </button>
-        <button class="text-white text-[15px] font-semibold hover:text-gray-300 transition-colors">
-          Get Started
-        </button>
-      </div>
-
-      <!-- Feature Squares Row -->
-      <div class="flex flex-wrap justify-center gap-x-12 gap-y-8 mb-32 max-w-5xl mx-auto">
-        <div v-for="feature in features" :key="feature.name" class="flex flex-col items-center group cursor-pointer w-[100px]">
-           <div class="w-16 h-16 rounded-[18px] bg-[#111111] border border-[#2A2A2A] flex items-center justify-center mb-4 group-hover:bg-[#1A1A1A] group-hover:border-[#404040] transition-all shadow-lg text-[#888888] group-hover:text-white">
-              <span v-html="feature.icon" class="transition-colors"></span>
-           </div>
-           <p class="text-[12px] font-medium text-center text-[#A1A1AA] group-hover:text-white transition-colors leading-[1.4]">{{ feature.name }}</p>
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-20 flex flex-col items-center">
+      
+      <div class="w-full mb-12 flex justify-between items-end">
+        <div>
+           <h1 class="text-3xl font-semibold tracking-[-0.04em] text-white">Live Telemetry</h1>
+           <p class="mt-2 text-[#A1A1AA] text-[15px] font-medium">Real-time overview of your agent fleet performance</p>
         </div>
       </div>
 
       <!-- Large Descriptive Data Cards -->
       <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
          <!-- Card 1: Description + Chart -->
-         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-14 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden h-[540px]">
+         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-12 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden min-h-[500px]">
             
             <div class="relative z-10 mb-8">
-               <p class="text-[#A855F7] text-[13px] font-semibold tracking-wide mb-3">Accelerate your agent product</p>
-               <h3 class="text-[28px] md:text-3xl font-semibold tracking-tight text-white mb-6 leading-snug">Monitor the security and performance of your active fleet</h3>
-               <p class="text-[#A1A1AA] text-[15px] leading-relaxed max-w-[400px]">
+               <p class="text-[#A855F7] text-[12px] font-bold uppercase tracking-widest mb-3">Accelerate your agent product</p>
+               <h3 class="text-[26px] md:text-[28px] font-semibold tracking-tight text-white mb-4 leading-snug">Monitor the security and performance of your active fleet</h3>
+               <p class="text-[#A1A1AA] text-[14px] leading-relaxed">
                   Improve your agent response times from seconds to milliseconds, by using IngiteAI to track lead classifications, monitor API latencies, and reveal real-time communication events to administrators.
                </p>
-               <NuxtLink to="/overview" class="mt-8 inline-flex items-center text-[14px] font-medium text-[#A855F7] hover:text-purple-400 group/link transition-colors">
+               <NuxtLink to="/chats" class="mt-6 inline-flex items-center text-[13px] font-bold uppercase tracking-widest text-[#A855F7] hover:text-purple-400 group/link transition-colors">
                  Live Streams <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                </NuxtLink>
             </div>
 
             <!-- Visualization inside Card -->
-            <div class="relative z-10 flex-1 flex justify-end items-end w-full h-full">
-               <div class="w-64 h-64 relative -bottom-4 md:-right-4 p-4 bg-[#0A0A0B] rounded-full border border-white/5 shadow-2xl">
+            <div class="relative z-10 flex-1 flex justify-center items-end w-full mt-4">
+               <div class="w-[280px] h-[280px] relative shrink-0 p-4 bg-[#0A0A0B] rounded-full border border-white/5 shadow-2xl translate-y-8">
                  <Doughnut v-if="chartData" :data="chartData" :options="chartOptions" />
                  <div v-else class="h-full flex items-center justify-center">
                     <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Loading</span>
@@ -62,32 +40,32 @@
          </div>
 
          <!-- Card 2: Sentiment and Strength -->
-         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-14 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden h-[540px]">
+         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-12 flex flex-col justify-between group hover:border-[#333333] transition-all relative overflow-hidden min-h-[500px]">
 
             <div class="relative z-10 mb-8">
-               <p class="text-[#3B82F6] text-[13px] font-semibold tracking-wide mb-3">Optimize neural performance</p>
-               <h3 class="text-[28px] md:text-3xl font-semibold tracking-tight text-white mb-6 leading-snug">Improve engagement scores with a multi-node AI setup</h3>
-               <p class="text-[#A1A1AA] text-[15px] leading-relaxed max-w-[400px]">
+               <p class="text-[#3B82F6] text-[12px] font-bold uppercase tracking-widest mb-3">Optimize neural performance</p>
+               <h3 class="text-[26px] md:text-[28px] font-semibold tracking-tight text-white mb-4 leading-snug">Improve engagement scores with a multi-node AI setup</h3>
+               <p class="text-[#A1A1AA] text-[14px] leading-relaxed">
                   Avoid catastrophic customer interactions and optimize retention rates by selectively tracking escalated positive, neutral, and negative conversations.
                </p>
             </div>
 
             <!-- Visual Stats -->
             <div class="relative z-10 grid grid-cols-2 gap-4 mt-auto">
-               <div class="bg-[#0D0D12] border border-[#222] rounded-2xl p-6 flex flex-col items-center justify-center shadow-inner">
-                 <p class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Total Events</p>
+               <div class="bg-[#0D0D12] border border-[#222] rounded-2xl p-5 flex flex-col items-center justify-center shadow-inner">
+                 <p class="text-[10px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Total Events</p>
                  <p class="text-[32px] font-semibold tracking-tight text-white">{{ stats[0]?.value }}</p>
                </div>
-               <div class="bg-[#0D0D12] border border-[#222] rounded-2xl p-6 flex flex-col items-center justify-center shadow-inner">
-                 <p class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Fleet Strength</p>
+               <div class="bg-[#0D0D12] border border-[#222] rounded-2xl p-5 flex flex-col items-center justify-center shadow-inner">
+                 <p class="text-[10px] font-bold text-[#A1A1AA] uppercase tracking-wider mb-2">Fleet Strength</p>
                  <p class="text-[32px] font-semibold tracking-tight text-white">{{ stats[1]?.value }}</p>
                </div>
                
                <div class="col-span-2 bg-[#0D0D12] border border-[#222] rounded-2xl px-6 py-5 mt-2 shadow-inner">
                   <div v-for="(val, key) in sentiment" :key="key" class="mb-3.5 last:mb-0">
                     <div class="flex justify-between items-baseline mb-2">
-                        <span class="text-[13px] font-medium text-[#A1A1AA]">{{ key }}</span>
-                        <span class="text-[13px] font-semibold text-white">{{ val }}%</span>
+                        <span class="text-[12px] font-medium text-[#A1A1AA]">{{ key }}</span>
+                        <span class="text-[12px] font-bold text-white">{{ val }}%</span>
                     </div>
                     <div class="h-[3px] bg-[#1A1A1A] rounded-full overflow-hidden">
                         <div class="h-full bg-gradient-to-r from-blue-500 to-indigo-400 transition-all duration-1000" :style="`width: ${val}%`"></div>
