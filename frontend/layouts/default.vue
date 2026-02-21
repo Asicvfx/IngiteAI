@@ -33,9 +33,8 @@
     <!-- Main Content Container -->
     <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#0A0A0B]">
       <!-- Global purple ambient glow -->
-      <div class="absolute bottom-0 left-0 right-0 h-[800px] bg-gradient-to-t from-[#6A25FF]/60 via-[#8B5CF6]/20 to-transparent pointer-events-none z-0"></div>
-      <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-[#A855F7]/15 to-transparent rounded-full blur-[120px] pointer-events-none z-0"></div>
-      <div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[#7C3AED]/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+      <div class="absolute bottom-0 left-0 right-0 h-[700px] bg-gradient-to-t from-[#6A25FF]/35 via-[#8B5CF6]/10 to-transparent pointer-events-none z-0"></div>
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-[#A855F7]/8 to-transparent rounded-full blur-[120px] pointer-events-none z-0"></div>
 
       <header class="h-14 border-b border-white/5 flex items-center justify-end px-10 z-40 bg-[#0A0A0B]/80 backdrop-blur-xl shrink-0">
         <div class="flex items-center space-x-6">
