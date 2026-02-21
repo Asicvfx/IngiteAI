@@ -1,14 +1,14 @@
 <template>
   <div class="px-6 md:px-12 py-24 bg-[#0A0A0B] min-h-[calc(100vh-56px)] text-white font-sans relative overflow-hidden flex flex-col items-center justify-center">
     <!-- Decorative background element -->
+    <div class="absolute bottom-0 left-0 right-0 h-[600px] bg-gradient-to-t from-[#6A25FF]/40 via-[#6A25FF]/8 to-transparent pointer-events-none -z-10"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-[#A855F7]/10 to-transparent blur-[120px] rounded-full pointer-events-none -z-10"></div>
-    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-[#3B82F6]/5 to-transparent blur-[120px] rounded-full pointer-events-none -z-10"></div>
 
     <div class="max-w-xl w-full relative z-10">
       <div class="mb-20 text-center">
-        <h1 class="text-4xl font-semibold tracking-[-0.04em] text-white">Initialize Agent</h1>
+        <h1 class="text-4xl font-semibold tracking-[-0.04em] text-white">Create New Assistant</h1>
         <p class="mt-4 text-[#A1A1AA] text-[15px] leading-relaxed font-medium">
-          Establish a new neural node in your business ecosystem. Sync your Telegram bot token to begin the handshake.
+          Connect your Telegram bot to start automating customer conversations. Enter the bot token from @BotFather to get started.
         </p>
       </div>
 

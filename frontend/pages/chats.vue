@@ -7,7 +7,7 @@
     <div class="w-80 md:w-96 border-r border-white/5 bg-[#050505]/80 backdrop-blur-xl flex flex-col z-20 overflow-hidden relative">
       <div class="p-10 relative z-10">
         <h2 class="text-3xl font-semibold tracking-[-0.04em] text-white">Live Streams</h2>
-        <p class="text-[13px] text-[#A1A1AA] mt-2 font-medium">Active neural synchronizations</p>
+        <p class="text-[13px] text-[#A1A1AA] mt-2 font-medium">Monitor your active customer conversations</p>
       </div>
       
       <div class="flex-1 overflow-y-auto wope-scroll px-4 pb-10 space-y-2 relative z-10">
@@ -24,7 +24,7 @@
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between mb-1.5">
-                <span class="text-[14px] font-semibold tracking-tight truncate text-[#E4E4E5]">Node #{{ chat.telegram_chat_id }}</span>
+                <span class="text-[14px] font-semibold tracking-tight truncate text-[#E4E4E5]">Customer #{{ chats.indexOf(chat) + 1 }}</span>
                 <span v-if="chat.needs_human" class="w-2 h-2 bg-[#A855F7] rounded-full animate-pulse shadow-[0_0_12px_rgba(168,85,247,0.8)]"></span>
               </div>
               <p class="text-[12px] text-[#A1A1AA] truncate leading-normal font-medium">
@@ -42,14 +42,14 @@
         <!-- Header -->
         <header class="h-20 border-b border-white/5 flex items-center px-12 justify-between bg-[#0A0A0B]/80 backdrop-blur-xl relative z-20">
           <div class="flex items-center space-x-4">
-            <h3 class="text-[16px] font-semibold tracking-tight text-white">Stream #{{ selectedChat.telegram_chat_id }}</h3>
+            <h3 class="text-[16px] font-semibold tracking-tight text-white">Customer #{{ chats.indexOf(selectedChat) + 1 }}</h3>
             <div class="flex items-center space-x-1.5 bg-[#111] px-3 py-1.5 rounded-full border border-[#222] shadow-inner">
                <div class="w-1.5 h-1.5 bg-[#A855F7] rounded-full opacity-80 animate-pulse"></div>
-               <span class="text-[9px] font-bold text-[#A1A1AA] uppercase tracking-[0.15em]">Uplink Stable</span>
+               <span class="text-[9px] font-bold text-[#A1A1AA] uppercase tracking-[0.15em]">Active</span>
             </div>
           </div>
           <div class="text-[11px] text-[#A1A1AA] font-bold uppercase tracking-wider">
-             {{ chats.length }} Live Nodes
+             {{ chats.length }} Active Chats
           </div>
         </header>
 

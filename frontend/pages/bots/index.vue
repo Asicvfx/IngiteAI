@@ -1,16 +1,16 @@
 <template>
   <div class="px-6 md:px-12 py-16 bg-[#0A0A0B] min-h-[calc(100vh-56px)] text-white font-sans relative overflow-hidden">
     <!-- Background Glow -->
+    <div class="absolute bottom-0 left-0 right-0 h-[600px] bg-gradient-to-t from-[#6A25FF]/40 via-[#6A25FF]/8 to-transparent pointer-events-none -z-10"></div>
     <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-[#A855F7]/10 via-[#A855F7]/5 to-transparent rounded-full blur-[120px] pointer-events-none -z-10"></div>
-    <div class="absolute bottom-0 left-0 w-[800px] h-[800px] bg-gradient-to-tr from-[#3B82F6]/10 to-transparent rounded-full blur-[150px] pointer-events-none -z-10"></div>
 
     <div class="max-w-7xl mx-auto relative z-10">
       <!-- Header Section -->
       <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-8">
         <div>
-          <h1 class="text-4xl font-semibold tracking-[-0.04em] text-white">Agent Ecosystem</h1>
+          <h1 class="text-4xl font-semibold tracking-[-0.04em] text-white">AI Assistants</h1>
           <p class="mt-4 text-[#A1A1AA] text-[15px] leading-relaxed max-w-xl font-medium">
-            Orchestrate and monitor your active neural synchronizations. Every agent is a specialized node in your automated intelligence fleet.
+            Manage your AI assistants. Each agent handles customer conversations automatically — responding instantly, qualifying leads, and escalating when needed.
           </p>
         </div>
         <div class="shrink-0">
