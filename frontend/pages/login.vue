@@ -94,7 +94,16 @@ const handleLogin = async () => {
   loading.value = true;
   error.value = '';
   try {
-    await auth.login({ username: username.value, password: password.value });
+    // Detect if user entered email or username
+    const isEmail = username.value.includes('@');
+    const credentials: Record<string, string> = { password: password.value };
+    if (isEmail) {
+      credentials.email = username.value;
+      credentials.username = username.value; // Some backends accept both
+    } else {
+      credentials.username = username.value;
+    }
+    await auth.login(credentials);
     router.push('/');
   } catch (err: any) {
     let errorMsg = 'Invalid email or password. Please try again.';
