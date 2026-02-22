@@ -6,8 +6,8 @@
 
     <div class="max-w-sm w-full relative z-10">
       <div class="text-center mb-16">
-        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_rgba(255,255,255,0.1)] group hover:scale-110 transition-transform duration-500 cursor-pointer">
-          <div class="w-5 h-5 bg-black rounded-sm"></div>
+        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_rgba(255,255,255,0.1)] hover:scale-110 transition-transform duration-500 cursor-pointer overflow-hidden">
+          <img src="/logo.png" alt="IngiteAI" class="w-full h-full object-cover" />
         </div>
         <h2 class="text-3xl font-semibold tracking-tighter text-white">Create Account</h2>
         <p class="text-[14px] text-[#888888] mt-3 font-medium">Sign up to get started</p>
@@ -97,9 +97,34 @@ useHead({
   ]
 });
 
+// Whitelist of allowed real email domains
+const allowedDomains = [
+  'gmail.com', 'googlemail.com',
+  'mail.ru', 'inbox.ru', 'list.ru', 'bk.ru',
+  'yandex.ru', 'yandex.kz', 'yandex.com', 'ya.ru',
+  'outlook.com', 'hotmail.com', 'live.com', 'msn.com',
+  'icloud.com', 'me.com', 'mac.com',
+  'yahoo.com', 'yahoo.co.uk',
+  'protonmail.com', 'proton.me',
+  'zoho.com', 'aol.com',
+];
+
+const isValidEmail = (emailStr: string): boolean => {
+  const domain = emailStr.split('@')[1]?.toLowerCase();
+  if (!domain) return false;
+  return allowedDomains.includes(domain);
+};
+
 const handleRegister = async () => {
   loading.value = true;
   error.value = '';
+
+  if (!isValidEmail(email.value)) {
+    error.value = 'Используйте реальный email (Gmail, Mail.ru, Yandex, Outlook и т.д.)';
+    loading.value = false;
+    return;
+  }
+
   try {
     await auth.register({ 
       username: username.value, 
@@ -137,7 +162,7 @@ const loginWithGoogle = () => {
   const redirectUri = `${window.location.origin}/auth/callback`;
   const scope = 'email profile openid';
   
-  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scope)}`;
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}&access_type=offline&prompt=consent`;
   
   window.location.href = authUrl;
 };

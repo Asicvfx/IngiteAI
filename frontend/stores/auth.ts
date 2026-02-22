@@ -68,6 +68,26 @@ export const useAuthStore = defineStore('auth', {
                 throw error;
             }
         },
+        async googleLoginWithCode(code: string, redirectUri: string) {
+            const config = useRuntimeConfig();
+            try {
+                const data = await $fetch<any>(`${config.public.apiBaseUrl}/api/v1/auth/google/`, {
+                    method: 'POST',
+                    body: { code, redirect_uri: redirectUri },
+                });
+                const responseToken = data.access || data.key;
+                this.setToken(responseToken);
+                if (data.user) {
+                    this.setUser(data.user);
+                } else {
+                    await this.fetchUser();
+                }
+                return true;
+            } catch (error) {
+                console.error('Google Login with code failed', error);
+                throw error;
+            }
+        },
         setToken(token: string) {
             this.token = token;
             this.isAuthenticated = !!token;

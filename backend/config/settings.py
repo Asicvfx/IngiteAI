@@ -101,8 +101,17 @@ REST_AUTH = {
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'none' # For development
+ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Will send verification if SMTP is configured
 ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+
+# Gmail SMTP for sending verification emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'asyl042007@gmail.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')  # Set App Password on Render
+DEFAULT_FROM_EMAIL = f'IngiteAI <{EMAIL_HOST_USER}>'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
