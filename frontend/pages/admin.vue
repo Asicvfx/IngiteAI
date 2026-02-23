@@ -43,6 +43,12 @@
             <h2 class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.2em]">All Users</h2>
           </div>
 
+          <!-- Success/Error message -->
+          <div v-if="actionMsg" class="mb-4 px-4 py-3 rounded-xl text-sm font-medium"
+               :class="actionMsg.type === 'success' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'">
+            {{ actionMsg.text }}
+          </div>
+
           <div class="bg-[#050505]/80 border border-[#222] rounded-2xl overflow-hidden">
             <table class="w-full text-left">
               <thead>
@@ -52,6 +58,7 @@
                   <th class="px-6 py-4 text-[11px] text-[#666] uppercase tracking-widest font-bold hidden md:table-cell">Joined</th>
                   <th class="px-6 py-4 text-[11px] text-[#666] uppercase tracking-widest font-bold hidden md:table-cell">Last Login</th>
                   <th class="px-6 py-4 text-[11px] text-[#666] uppercase tracking-widest font-bold">Role</th>
+                  <th class="px-6 py-4 text-[11px] text-[#666] uppercase tracking-widest font-bold">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -73,6 +80,17 @@
                     <span v-if="user.is_superuser" class="bg-[#A855F7]/20 text-[#A855F7] text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded">Admin</span>
                     <span v-else class="bg-[#222] text-[#666] text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded">User</span>
                   </td>
+                  <td class="px-6 py-4">
+                    <button v-if="!user.is_superuser"
+                      @click="confirmDelete(user)"
+                      :disabled="deleting === user.id"
+                      class="text-[#666] hover:text-red-400 text-xs font-semibold px-3 py-1.5 rounded-lg border border-[#222] hover:border-red-500/30 hover:bg-red-500/5 transition-all disabled:opacity-30"
+                    >
+                      <span v-if="deleting === user.id">...</span>
+                      <span v-else>Delete</span>
+                    </button>
+                    <span v-else class="text-[#333] text-xs">—</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -81,6 +99,27 @@
       </div>
 
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <Teleport to="body">
+      <div v-if="deleteTarget" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-[#111] border border-[#333] rounded-2xl p-8 max-w-md w-full shadow-2xl">
+          <h3 class="text-lg font-semibold text-white mb-3">Delete User?</h3>
+          <p class="text-[#A1A1AA] text-sm mb-6">
+            Are you sure you want to delete <strong class="text-white">{{ deleteTarget.username }}</strong> ({{ deleteTarget.email || 'no email' }})?
+            This action cannot be undone.
+          </p>
+          <div class="flex space-x-3 justify-end">
+            <button @click="deleteTarget = null" class="px-5 py-2.5 rounded-xl border border-[#333] text-[#A1A1AA] text-sm font-medium hover:bg-white/5 transition-colors">
+              Cancel
+            </button>
+            <button @click="deleteUser(deleteTarget)" class="px-5 py-2.5 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-sm font-semibold hover:bg-red-500/30 transition-colors">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -93,6 +132,10 @@ const config = useRuntimeConfig();
 
 const loading = ref(true);
 const error = ref('');
+const deleting = ref<number | null>(null);
+const deleteTarget = ref<any>(null);
+const actionMsg = ref<{ type: string; text: string } | null>(null);
+
 const stats = ref({
   total_users: 0,
   new_today: 0,
@@ -106,7 +149,7 @@ const formatDate = (dateStr: string | null) => {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 };
 
-onMounted(async () => {
+const fetchStats = async () => {
   try {
     const data = await $fetch<any>(`${config.public.apiBaseUrl}/api/v1/dashboard/admin-stats/`, {
       headers: { Authorization: `Bearer ${auth.token}` },
@@ -117,5 +160,32 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
-});
+};
+
+const confirmDelete = (user: any) => {
+  deleteTarget.value = user;
+};
+
+const deleteUser = async (user: any) => {
+  deleteTarget.value = null;
+  deleting.value = user.id;
+  actionMsg.value = null;
+
+  try {
+    await $fetch(`${config.public.apiBaseUrl}/api/v1/dashboard/admin-stats/delete-user/${user.id}/`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${auth.token}` },
+    });
+    actionMsg.value = { type: 'success', text: `User "${user.username}" deleted.` };
+    stats.value.users = stats.value.users.filter((u: any) => u.id !== user.id);
+    stats.value.total_users--;
+  } catch (err: any) {
+    actionMsg.value = { type: 'error', text: err.response?._data?.error || 'Failed to delete user.' };
+  } finally {
+    deleting.value = null;
+    setTimeout(() => { actionMsg.value = null; }, 5000);
+  }
+};
+
+onMounted(fetchStats);
 </script>

@@ -21,6 +21,9 @@ from users.views import GoogleLogin
 urlpatterns = [
     path('admin/', admin.site.urls),
     
+    # Allauth (required for social account signup flow)
+    path('accounts/', include('allauth.urls')),
+    
     # Auth
     path('api/v1/auth/', include('dj_rest_auth.urls')),
     path('api/v1/auth/registration/', include('dj_rest_auth.registration.urls')),

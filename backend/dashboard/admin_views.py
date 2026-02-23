@@ -20,7 +20,6 @@ class AdminStatsView(APIView):
         new_today = User.objects.filter(date_joined__gte=today_start).count()
         new_this_week = User.objects.filter(date_joined__gte=week_ago).count()
 
-        # User list
         users = User.objects.order_by('-date_joined').values(
             'id', 'username', 'email', 'date_joined', 'last_login', 'is_active', 'is_superuser'
         )
@@ -43,3 +42,20 @@ class AdminStatsView(APIView):
             'new_this_week': new_this_week,
             'users': user_list,
         })
+
+
+class AdminDeleteUserView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def delete(self, request, user_id):
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=404)
+
+        if user.is_superuser:
+            return Response({'error': 'Cannot delete a superuser'}, status=403)
+
+        username = user.username
+        user.delete()
+        return Response({'message': f'User "{username}" deleted successfully'})
