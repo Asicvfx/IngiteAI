@@ -90,16 +90,38 @@ useHead({
   ]
 });
 
+// Whitelist of allowed email domains
+const allowedDomains = [
+  'gmail.com', 'googlemail.com',
+  'mail.ru', 'inbox.ru', 'list.ru', 'bk.ru',
+  'yandex.ru', 'yandex.kz', 'yandex.com', 'ya.ru',
+  'outlook.com', 'hotmail.com', 'live.com', 'msn.com',
+  'icloud.com', 'me.com', 'mac.com',
+  'yahoo.com', 'yahoo.co.uk',
+  'protonmail.com', 'proton.me',
+  'zoho.com', 'aol.com',
+];
+
 const handleLogin = async () => {
   loading.value = true;
   error.value = '';
+
+  // Block fake email domains
+  const isEmail = username.value.includes('@');
+  if (isEmail) {
+    const domain = username.value.split('@')[1]?.toLowerCase();
+    if (!domain || !allowedDomains.includes(domain)) {
+      error.value = 'This email domain is not allowed. Use Gmail, Mail.ru, Yandex, Outlook, etc.';
+      loading.value = false;
+      return;
+    }
+  }
+
   try {
-    // Detect if user entered email or username
-    const isEmail = username.value.includes('@');
     const credentials: Record<string, string> = { password: password.value };
     if (isEmail) {
       credentials.email = username.value;
-      credentials.username = username.value; // Some backends accept both
+      credentials.username = username.value;
     } else {
       credentials.username = username.value;
     }

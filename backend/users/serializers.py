@@ -1,5 +1,13 @@
 from rest_framework import serializers
-from .models import Business
+from .models import Business, User
+
+
+class CustomUserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['pk', 'username', 'email', 'first_name', 'last_name', 'is_superuser']
+        read_only_fields = ['pk', 'email', 'is_superuser']
+
 
 class BusinessSerializer(serializers.ModelSerializer):
     class Meta:

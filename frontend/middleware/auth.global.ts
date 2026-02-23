@@ -1,7 +1,10 @@
 export default defineNuxtRouteMiddleware((to, from) => {
+    // Skip auth check on server (no localStorage on SSR)
+    if (import.meta.server) return;
+
     const auth = useAuthStore();
 
-    // Restore token from localStorage on every navigation (fixes logout on refresh)
+    // Restore token from localStorage
     auth.initialize();
 
     // Public pages that don't require authentication
