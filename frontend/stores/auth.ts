@@ -93,6 +93,7 @@ export const useAuthStore = defineStore('auth', {
             this.isAuthenticated = !!token;
             if (process.client) {
                 localStorage.setItem('auth_token', token);
+                document.cookie = 'auth_logged_in=1; path=/; max-age=31536000; SameSite=Lax';
             }
         },
         setUser(user: any) {
@@ -104,6 +105,7 @@ export const useAuthStore = defineStore('auth', {
             this.isAuthenticated = false;
             if (process.client) {
                 localStorage.removeItem('auth_token');
+                document.cookie = 'auth_logged_in=; path=/; max-age=0';
             }
         },
         async fetchUser() {
