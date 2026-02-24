@@ -17,10 +17,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         return navigateTo('/login');
     }
 
-    // Logged-in users: redirect "/" to /overview, and /login or /register to /overview
-    if (auth.isAuthenticated) {
-        if (to.path === '/' || to.path === '/login' || to.path === '/register') {
-            return navigateTo('/overview');
-        }
+    if (auth.isAuthenticated && (to.path === '/login' || to.path === '/register')) {
+        return navigateTo('/');
     }
 });

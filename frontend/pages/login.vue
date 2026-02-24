@@ -9,7 +9,7 @@
         <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_rgba(255,255,255,0.1)] hover:scale-110 transition-transform duration-500 cursor-pointer overflow-hidden">
           <img src="/logo.png" alt="IngiteAI" class="w-full h-full object-cover" />
         </div>
-        <h2 class="text-3xl font-semibold tracking-tighter text-white">Sign In</h2>
+        <h2 class="text-3xl font-semibold tracking-tighter text-white">Welcome Back</h2>
         <p class="text-[14px] text-[#888888] mt-3 font-medium">Sign in to your account</p>
       </div>
 
@@ -73,8 +73,6 @@ import { ref } from 'vue';
 import { useAuthStore } from '~/stores/auth';
 import { useRouter } from 'vue-router';
 import { useHead } from '#imports';
-
-definePageMeta({ layout: 'blank' });
 
 const auth = useAuthStore();
 const router = useRouter();
