@@ -121,12 +121,12 @@ export const useAuthStore = defineStore('auth', {
                 this.logout();
             }
         },
-        initialize() {
+        async initialize() {
             if (process.client) {
                 const token = localStorage.getItem('auth_token');
                 if (token) {
                     this.setToken(token);
-                    this.fetchUser();
+                    await this.fetchUser();
                 }
             }
         },
