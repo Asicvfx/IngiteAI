@@ -1,8 +1,11 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
+    // Skip auth check on server (no localStorage on SSR)
+    if (import.meta.server) return;
+
     const auth = useAuthStore();
 
-    // On client, restore token from localStorage
-    if (import.meta.client && !auth.isAuthenticated) {
+    // Restore token from localStorage and wait for user data
+    if (!auth.isAuthenticated) {
         await auth.initialize();
     }
 
@@ -10,12 +13,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const publicPages = ['/login', '/register', '/auth/callback', '/landing'];
     const isPublic = publicPages.some(page => to.path.startsWith(page));
 
-    // Not authenticated → go to login (works on both SSR and client)
     if (!isPublic && !auth.isAuthenticated) {
         return navigateTo('/login');
     }
 
-    // Already logged in → don't show login/register
     if (auth.isAuthenticated && (to.path === '/login' || to.path === '/register')) {
         return navigateTo('/');
     }
