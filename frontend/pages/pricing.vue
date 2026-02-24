@@ -50,7 +50,7 @@
         <!-- Starter (Featured) -->
         <div class="bg-[#050505]/80 border-2 border-[#A855F7]/40 rounded-3xl p-8 flex flex-col relative group scale-[1.02]">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-            <span class="bg-[#A855F7] text-white text-[10px] font-bold uppercase tracking-wider px-4 py-1 rounded-full">Popular</span>
+            <span class="bg-[#A855F7] text-white text-[10px] font-bold uppercase tracking-wider px-4 py-1 rounded-full">Best Value</span>
           </div>
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-white mb-1">Starter</h3>
