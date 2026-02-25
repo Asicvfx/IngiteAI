@@ -6,8 +6,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const isPublic = publicPages.some(page => to.path === page) || to.path.startsWith('/auth/');
 
     if (import.meta.server) {
-        // SSR: check cookie to know if user was logged in
         const cookie = useCookie('auth_logged_in');
+        // Logged-in user on landing → redirect to overview
+        if (to.path === '/' && cookie.value) {
+            return navigateTo('/overview');
+        }
         if (!isPublic && !cookie.value) {
             return navigateTo('/login');
         }
@@ -19,11 +22,21 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         await auth.initialize();
     }
 
+    // Logged-in user on landing → redirect to overview
+    if (auth.isAuthenticated && to.path === '/') {
+        return navigateTo('/overview');
+    }
+
     if (!isPublic && !auth.isAuthenticated) {
         return navigateTo('/login');
     }
 
     if (auth.isAuthenticated && (to.path === '/login' || to.path === '/register')) {
-        return navigateTo('/home');
+        return navigateTo('/overview');
+    }
+
+    // Onboarding: redirect to /welcome if not completed (skip if already on /welcome)
+    if (auth.isAuthenticated && auth.user && to.path !== '/welcome' && auth.user.has_completed_onboarding === false) {
+        return navigateTo('/welcome');
     }
 });

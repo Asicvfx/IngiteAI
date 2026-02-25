@@ -16,7 +16,7 @@
       <!-- Steps -->
       <div class="space-y-5 mb-12">
         <!-- Step 1 -->
-        <NuxtLink to="/bots/new" class="block bg-[#050505]/80 border border-[#222] hover:border-[#A855F7]/40 rounded-2xl p-6 group transition-all hover:-translate-y-0.5">
+        <NuxtLink to="/bots/new" @click="completeOnboarding" class="block bg-[#050505]/80 border border-[#222] hover:border-[#A855F7]/40 rounded-2xl p-6 group transition-all hover:-translate-y-0.5">
           <div class="flex items-center gap-6">
             <div class="w-12 h-12 bg-[#A855F7]/10 border border-[#A855F7]/20 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#A855F7]/20 transition-colors">
               <span class="text-xl font-bold text-[#A855F7]">1</span>
@@ -30,7 +30,7 @@
         </NuxtLink>
 
         <!-- Step 2 -->
-        <NuxtLink to="/faq" class="block bg-[#050505]/80 border border-[#222] hover:border-[#3B82F6]/40 rounded-2xl p-6 group transition-all hover:-translate-y-0.5">
+        <NuxtLink to="/faq" @click="completeOnboarding" class="block bg-[#050505]/80 border border-[#222] hover:border-[#3B82F6]/40 rounded-2xl p-6 group transition-all hover:-translate-y-0.5">
           <div class="flex items-center gap-6">
             <div class="w-12 h-12 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#3B82F6]/20 transition-colors">
               <span class="text-xl font-bold text-[#3B82F6]">2</span>
@@ -44,7 +44,7 @@
         </NuxtLink>
 
         <!-- Step 3 -->
-        <NuxtLink to="/chats" class="block bg-[#050505]/80 border border-[#222] hover:border-[#10B981]/40 rounded-2xl p-6 group transition-all hover:-translate-y-0.5">
+        <NuxtLink to="/chats" @click="completeOnboarding" class="block bg-[#050505]/80 border border-[#222] hover:border-[#10B981]/40 rounded-2xl p-6 group transition-all hover:-translate-y-0.5">
           <div class="flex items-center gap-6">
             <div class="w-12 h-12 bg-[#10B981]/10 border border-[#10B981]/20 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#10B981]/20 transition-colors">
               <span class="text-xl font-bold text-[#10B981]">3</span>
@@ -60,13 +60,36 @@
 
       <!-- Skip Button -->
       <div class="text-center">
-        <NuxtLink to="/overview" class="text-[#666] hover:text-white text-[13px] font-medium transition-colors">
+        <button @click="skipOnboarding" class="text-[#666] hover:text-white text-[13px] font-medium transition-colors">
           Skip for now →
-        </NuxtLink>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth';
+
+const auth = useAuthStore();
+const config = useRuntimeConfig();
+const router = useRouter();
+
+const completeOnboarding = async () => {
+  try {
+    await $fetch(`${config.public.apiBaseUrl}/api/v1/auth/user/`, {
+      method: 'PATCH',
+      body: { has_completed_onboarding: true },
+      headers: { Authorization: `Bearer ${auth.token}` }
+    });
+    if (auth.user) auth.user.has_completed_onboarding = true;
+  } catch (e) {
+    console.error('Failed to complete onboarding', e);
+  }
+};
+
+const skipOnboarding = async () => {
+  await completeOnboarding();
+  router.push('/overview');
+};
 </script>

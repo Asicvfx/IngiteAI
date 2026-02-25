@@ -6,6 +6,7 @@ from django.conf import settings
 class User(AbstractUser):
     last_seen = models.DateTimeField(null=True, blank=True)
     session_start = models.DateTimeField(null=True, blank=True)
+    has_completed_onboarding = models.BooleanField(default=False)
 
 
 class Business(models.Model):

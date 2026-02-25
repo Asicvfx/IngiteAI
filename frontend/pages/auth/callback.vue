@@ -32,7 +32,7 @@ onMounted(async () => {
       try {
         await auth.googleLoginWithCode(code, `${window.location.origin}/auth/callback`);
         status.value = 'Success! Redirecting...';
-        router.push('/home');
+        router.push('/overview');
       } catch (error: any) {
         let errorMsg = 'Backend validation error.';
         if (error.response && error.response._data) {
@@ -51,7 +51,7 @@ onMounted(async () => {
       try {
         await auth.googleLogin(accessToken, 'access_token');
         status.value = 'Success! Redirecting...';
-        router.push('/home');
+        router.push('/overview');
       } catch (error: any) {
         let errorMsg = 'Backend validation error.';
         if (error.response && error.response.data) {

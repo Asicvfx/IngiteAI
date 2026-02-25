@@ -126,15 +126,7 @@ const handleLogin = async () => {
       credentials.username = username.value;
     }
     await auth.login(credentials);
-    // Check if new user (no bots) → onboarding
-    try {
-      const bots = await $fetch<any[]>(`${config.public.apiBaseUrl}/api/v1/bots/`, {
-        headers: { Authorization: `Bearer ${auth.token}` }
-      });
-      router.push(bots.length === 0 ? '/welcome' : '/home');
-    } catch {
-      router.push('/home');
-    }
+    router.push('/overview');
   } catch (err: any) {
     let errorMsg = 'Invalid email or password. Please try again.';
     if (err.response && err.response._data) {
