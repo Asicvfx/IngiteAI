@@ -62,7 +62,7 @@
               
               <div class="space-y-5 pt-8 border-t border-[#222]">
                 <div class="flex items-center justify-between">
-                  <span class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-wider">Uplink Handle</span>
+                  <span class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-wider">Telegram Bot</span>
                   <span class="text-[14px] font-medium text-[#E4E4E5] tracking-tight">@{{ bot.username || 'Agent' }}</span>
                 </div>
                 <div class="flex items-center justify-between">

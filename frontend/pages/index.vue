@@ -1,81 +1,195 @@
 <template>
-  <div class="min-h-[calc(100vh-56px)] text-white font-sans overflow-x-hidden relative">
-
-    
-    <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 md:py-32 flex flex-col items-center">
-      <!-- Centered Hero Text -->
-      <h1 class="text-5xl md:text-[72px] leading-tight font-semibold tracking-[-0.04em] text-center mb-6 text-white drop-shadow-lg">
-        Automate Business Communications
-      </h1>
-      <h2 class="text-2xl md:text-3xl text-[#E4E4E5] font-medium tracking-tight text-center mb-6">
-        Instant replies, reduced costs, flawless quality
-      </h2>
-      <p class="text-[17px] text-[#A1A1AA] leading-relaxed max-w-3xl text-center mb-12 font-medium">
-        Take control of your customer interactions with IngiteAI. Deploy AI assistants that reply instantly to boost sales, handle unlimited volume to lower staffing overhead, and strictly monitor dialogue quality to drive lasting brand loyalty.
-      </p>
-
-      <div class="flex items-center justify-center space-x-6 mb-32">
-        <NuxtLink to="/overview" class="bg-white text-black px-8 py-3.5 rounded-full text-[15px] font-semibold hover:bg-gray-200 transition-all active:scale-95 shadow-xl flex items-center">
-          Open Live Overview <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-        </NuxtLink>
-        <NuxtLink to="/bots" class="text-white text-[15px] font-semibold hover:text-gray-300 transition-colors">
-          Configure Agents
-        </NuxtLink>
-      </div>
-
-      <!-- Feature Squares Row -->
-      <div class="flex flex-wrap justify-center gap-x-12 gap-y-8 mb-32 max-w-5xl mx-auto">
-        <div v-for="feature in features" :key="feature.name" class="flex flex-col items-center group cursor-pointer w-[100px]">
-           <div class="w-16 h-16 rounded-[18px] bg-[#111111] border border-[#2A2A2A] flex items-center justify-center mb-4 group-hover:bg-[#1A1A1A] group-hover:border-[#404040] transition-all shadow-lg text-[#888888] group-hover:text-white">
-              <span v-html="feature.icon" class="transition-colors"></span>
-           </div>
-           <p class="text-[12px] font-medium text-center text-[#A1A1AA] group-hover:text-white transition-colors leading-[1.4]">{{ feature.name }}</p>
+  <div class="min-h-screen bg-[#080808] text-[#EDEDED] font-sans selection:bg-white/20">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 wope-glass border-b border-white/5 px-6 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden">
+            <img src="/logo.png" alt="IngiteAI" class="w-full h-full object-cover" />
+          </div>
+          <span class="text-lg font-semibold tracking-tighter">IngiteAI</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-8 text-[13px] font-medium text-[#888888]">
+          <a href="#features" class="hover:text-white transition-colors">Features</a>
+          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <NuxtLink to="/pricing" class="hover:text-white transition-colors">Pricing</NuxtLink>
+        </div>
+        <div class="flex items-center space-x-4">
+          <NuxtLink to="/login" class="text-[13px] font-medium hover:text-white transition-colors">Sign In</NuxtLink>
+          <NuxtLink to="/register" class="wope-button-primary !py-2 !px-4 text-[13px]">Get Started</NuxtLink>
         </div>
       </div>
+    </nav>
 
-      <!-- Large Descriptive Data Cards (Static Introductions) -->
-      <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-         <!-- Card 1: Description -->
-         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-14 flex flex-col justify-start group hover:border-[#333333] transition-all relative overflow-hidden h-[400px]">
-            <div class="relative z-10 mb-8">
-               <p class="text-[#A855F7] text-[13px] font-semibold tracking-wide mb-3">Accelerate your agent product</p>
-               <h3 class="text-[28px] md:text-3xl font-semibold tracking-tight text-white mb-6 leading-snug">Expedite the security requirements of launching an AI fleet</h3>
-               <p class="text-[#A1A1AA] text-[15px] leading-relaxed max-w-[400px]">
-                  Improve your agent response times from seconds to milliseconds, by using IngiteAI to track lead classifications, monitor API latencies, and reveal real-time communication events to administrators safely.
-               </p>
-               <NuxtLink to="/faq" class="mt-8 inline-flex items-center text-[14px] font-medium text-[#A855F7] hover:text-purple-400 group/link transition-colors">
-                 Manage Intelligence <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-               </NuxtLink>
-            </div>
-         </div>
-
-         <!-- Card 2: Description -->
-         <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-14 flex flex-col justify-start group hover:border-[#333333] transition-all relative overflow-hidden h-[400px]">
-            <div class="relative z-10 mb-8">
-               <p class="text-[#3B82F6] text-[13px] font-semibold tracking-wide mb-3">Smarter support, faster</p>
-               <h3 class="text-[28px] md:text-3xl font-semibold tracking-tight text-white mb-6 leading-snug">Scale your support with multiple AI agents</h3>
-               <p class="text-[#A1A1AA] text-[15px] leading-relaxed max-w-[400px]">
-                  Avoid catastrophic customer interactions and optimize retention rates by selectively tracking escalated positive, neutral, and negative conversations. Identify and intervene instantly via live streams.
-               </p>
-               <NuxtLink to="/chats" class="mt-8 inline-flex items-center text-[14px] font-medium text-[#3B82F6] hover:text-blue-400 group/link transition-colors">
-                 View Live Streams <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-               </NuxtLink>
-            </div>
-            
-         </div>
+    <!-- Hero Section -->
+    <header class="pt-40 pb-20 px-6 relative overflow-hidden">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-white/[0.02] blur-[120px] rounded-full pointer-events-none"></div>
+      
+      <div class="max-w-4xl mx-auto text-center relative z-10">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-8 animate-fade-in">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></span>
+          <span class="text-[11px] font-medium uppercase tracking-[0.1em] text-[#888888]">AI-Powered Customer Support</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-semibold tracking-[-0.04em] leading-[0.95] mb-8 gradient-text">
+          Automate your business<br />with AI agents
+        </h1>
+        
+        <p class="text-lg md:text-xl text-[#888888] leading-relaxed mb-12 max-w-2xl mx-auto tracking-normal">
+          Create AI assistants that answer customer questions 24/7, learn from your business data, and handle unlimited conversations.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center space-x-0 sm:space-x-4 space-y-4 sm:space-y-0">
+          <NuxtLink to="/register" class="wope-button-primary !px-8 !py-4 text-[15px] w-full sm:w-auto">Get Started Free</NuxtLink>
+          <NuxtLink to="/login" class="wope-button-secondary !px-8 !py-4 text-[15px] w-full sm:w-auto">Sign In</NuxtLink>
+        </div>
       </div>
+    </header>
 
-    </div>
+    <!-- Features Section -->
+    <section id="features" class="py-32 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-20">
+          <h2 class="text-4xl font-semibold tracking-tight mb-4">Everything you need</h2>
+          <p class="text-[#888888] text-lg max-w-xl mx-auto">Build, train, and deploy AI agents in minutes — no coding required.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <!-- Main Feature -->
+          <div class="md:col-span-8 wope-card p-10 relative overflow-hidden group">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/[0.03] blur-[80px] group-hover:bg-white/[0.05] transition-all"></div>
+            <div class="relative z-10">
+               <div class="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center mb-8">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+               </div>
+               <h3 class="text-3xl font-semibold mb-4">Smart Knowledge Base</h3>
+               <p class="text-[#888888] text-lg max-w-md leading-relaxed">
+                 Upload your FAQs, product docs, or business rules — your AI agents learn instantly and answer customers accurately.
+               </p>
+            </div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="md:col-span-4 wope-card p-10 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center mb-8">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <h3 class="text-2xl font-semibold mb-4">24/7 Availability</h3>
+              <p class="text-[#888888] text-[15px] leading-relaxed">
+                Your agents never sleep. They handle inquiries and qualify leads around the clock.
+              </p>
+            </div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="md:col-span-4 wope-card p-10 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center mb-8">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+              </div>
+              <h3 class="text-2xl font-semibold mb-4">Live Conversations</h3>
+              <p class="text-[#888888] text-[15px] leading-relaxed">
+                Monitor all conversations in real-time. Jump in when needed.
+              </p>
+            </div>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="md:col-span-8 wope-card p-10 relative overflow-hidden group">
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+              <div class="max-w-sm">
+                <h3 class="text-3xl font-semibold mb-4">Multi-Channel</h3>
+                <p class="text-[#888888] text-[16px] leading-relaxed">
+                  Connect your agents to Telegram, WhatsApp, and more. Reach customers wherever they are.
+                </p>
+              </div>
+              <div class="flex -space-x-4">
+                <div class="w-16 h-16 rounded-full border-4 border-black bg-white/5 flex items-center justify-center text-xl font-bold">T</div>
+                <div class="w-16 h-16 rounded-full border-4 border-black bg-white/5 flex items-center justify-center text-xl font-bold">W</div>
+                <div class="w-16 h-16 rounded-full border-4 border-black bg-white/5 flex items-center justify-center text-xl font-bold">M</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-32 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-semibold tracking-tight mb-4">Get started in 3 steps</h2>
+        <p class="text-[#888888] text-lg mb-20">Up and running in under a minute.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-[#A855F7]/10 border border-[#A855F7]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-[#A855F7]">1</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-3">Create an Agent</h3>
+            <p class="text-[#888888] text-[14px] leading-relaxed">Give your AI agent a name and personality. It takes 10 seconds.</p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-[#3B82F6]">2</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-3">Add Knowledge</h3>
+            <p class="text-[#888888] text-[14px] leading-relaxed">Upload your FAQs, docs, or paste text. Your agent learns instantly.</p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 bg-[#10B981]/10 border border-[#10B981]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-[#10B981]">3</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-3">Go Live</h3>
+            <p class="text-[#888888] text-[14px] leading-relaxed">Connect to Telegram or test directly. Your agent is ready to chat.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-40 px-6 text-center">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-5xl font-semibold mb-8 gradient-text tracking-tighter">Ready to get started?</h2>
+        <p class="text-xl text-[#888888] mb-12">Create your first AI agent for free. No credit card required.</p>
+        <NuxtLink to="/register" class="wope-button-primary !px-12 !py-5 text-lg">Get Started Free</NuxtLink>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-6 border-t border-white/5">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-[#888888] text-[13px]">
+        <div class="flex items-center space-x-3">
+          <div class="w-6 h-6 rounded overflow-hidden">
+            <img src="/logo.png" alt="IngiteAI" class="w-full h-full object-cover" />
+          </div>
+          <span class="font-semibold text-white">IngiteAI</span>
+        </div>
+        <div class="flex items-center space-x-12">
+          <NuxtLink to="/pricing" class="hover:text-white transition-colors">Pricing</NuxtLink>
+          <a href="mailto:support@ingiteai.com" class="hover:text-white transition-colors">Contact</a>
+        </div>
+        <div>
+          © 2025 IngiteAI. All rights reserved.
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-const features = [
-  { name: 'Instant\nReplies', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>' },
-  { name: 'Cost\nReduction', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>' },
-  { name: 'Lead\nConversion', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>' },
-  { name: 'Quality\nControl', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>' },
-  { name: 'Live\nInsights', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>' },
-  { name: 'Unlimited\nVolume', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 012-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>' }
-];
+definePageMeta({
+  layout: false
+});
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>

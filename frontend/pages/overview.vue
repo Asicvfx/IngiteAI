@@ -6,8 +6,8 @@
       
       <div class="w-full mb-12 flex justify-between items-end">
         <div>
-           <h1 class="text-3xl font-semibold tracking-[-0.04em] text-white">Live Telemetry</h1>
-           <p class="mt-2 text-[#A1A1AA] text-[15px] font-medium">Real-time overview of your agent fleet performance</p>
+           <h1 class="text-3xl font-semibold tracking-[-0.04em] text-white">Overview</h1>
+           <p class="mt-2 text-[#A1A1AA] text-[15px] font-medium">Real-time overview of your agent performance</p>
         </div>
       </div>
 
@@ -45,7 +45,7 @@
                <p class="text-[#3B82F6] text-[11px] font-bold uppercase tracking-widest mb-3">Quality Control</p>
                <h3 class="text-[24px] md:text-[26px] font-semibold tracking-tight text-white mb-4 leading-snug">Monitor customer sentiment and agent load</h3>
                <p class="text-[#A1A1AA] text-[14px] leading-relaxed">
-                  Ensure your AI is delivering excellent support. Track the volume of conversations handled and monitor dialogue sentiment to intervene before customers escalate.
+                  Ensure your AI is delivering excellent support. Track the volume of conversations handled and monitor dialogue sentiment to step in before issues grow.
                </p>
             </div>
 
@@ -110,8 +110,8 @@ const leadsPercentage = ref({
 });
 
 const features = [
-  { name: 'Agent\nCompliance', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>' },
-  { name: 'Fleet\nOptimization', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>' },
+  { name: 'Agent\nQuality', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>' },
+  { name: 'Speed\nOptimization', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>' },
   { name: 'Lead\nClassification', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>' },
   { name: 'AI\nAgents', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 012-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>' },
   { name: 'Live\nInsights', icon: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>' },

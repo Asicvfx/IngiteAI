@@ -27,7 +27,7 @@
                 <span v-if="chat.needs_human" class="w-2 h-2 bg-[#A855F7] rounded-full animate-pulse shadow-[0_0_12px_rgba(168,85,247,0.8)]"></span>
               </div>
               <p class="text-[12px] text-[#A1A1AA] truncate leading-normal font-medium">
-                {{ chat.last_message?.content || 'Awaiting uplink...' }}
+                {{ chat.last_message?.content || 'No messages yet' }}
               </p>
             </div>
           </div>
@@ -172,7 +172,7 @@ const connectWebSocket = () => {
   const wsUrl = `${wsBase}/ws/chat/`;
   socket.value = new WebSocket(wsUrl);
 
-  socket.value.onopen = () => console.log('Uplink active.');
+  socket.value.onopen = () => console.log('Connected.');
 
   socket.value.onmessage = (event) => {
     const data = JSON.parse(event.data);

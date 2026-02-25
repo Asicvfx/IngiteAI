@@ -29,7 +29,7 @@
                 <input v-model="token" type="text" id="token" required 
                   class="w-full bg-[#111] border border-[#222] rounded-2xl px-6 py-4 text-[15px] font-mono text-white focus:border-[#444] focus:ring-1 focus:ring-[#A855F7]/50 outline-none transition-all placeholder-[#444] tracking-tight shadow-inner" 
                   placeholder="123456:ABC-DEF...">
-                <div class="absolute right-5 top-1/2 -translate-y-1/2 text-[9px] text-[#A1A1AA] uppercase font-bold tracking-[0.2em] bg-[#222] border border-[#333] px-2.5 py-1 rounded shadow-sm">Uplink</div>
+                <div class="absolute right-5 top-1/2 -translate-y-1/2 text-[9px] text-[#A1A1AA] uppercase font-bold tracking-[0.2em] bg-[#222] border border-[#333] px-2.5 py-1 rounded shadow-sm">Telegram</div>
               </div>
               <p class="text-[10px] text-[#888] font-medium text-center uppercase tracking-widest pt-2">Retrieved from @BotFather channel</p>
             </div>
