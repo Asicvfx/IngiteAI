@@ -52,8 +52,8 @@
          <!-- Card 2: Description -->
          <div class="bg-[#050505]/95 border border-[#1A1A1A] rounded-3xl p-10 md:p-14 flex flex-col justify-start group hover:border-[#333333] transition-all relative overflow-hidden h-[400px]">
             <div class="relative z-10 mb-8">
-               <p class="text-[#3B82F6] text-[13px] font-semibold tracking-wide mb-3">Optimize neural performance</p>
-               <h3 class="text-[28px] md:text-3xl font-semibold tracking-tight text-white mb-6 leading-snug">Improve diagnostic visibility with a multi-node AI setup</h3>
+               <p class="text-[#3B82F6] text-[13px] font-semibold tracking-wide mb-3">Smarter support, faster</p>
+               <h3 class="text-[28px] md:text-3xl font-semibold tracking-tight text-white mb-6 leading-snug">Scale your support with multiple AI agents</h3>
                <p class="text-[#A1A1AA] text-[15px] leading-relaxed max-w-[400px]">
                   Avoid catastrophic customer interactions and optimize retention rates by selectively tracking escalated positive, neutral, and negative conversations. Identify and intervene instantly via live streams.
                </p>

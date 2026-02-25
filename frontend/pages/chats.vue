@@ -113,7 +113,7 @@
                   @keydown.enter.prevent="sendMessage"
                   type="text" 
                   class="flex-1 bg-transparent border-none focus:ring-0 text-white placeholder-[#888] py-5 text-[15px] tracking-tight font-medium" 
-                  placeholder="Direct neural override..."
+                  placeholder="Type a message..."
                 >
                 <button 
                   @click="sendMessage"
@@ -141,7 +141,7 @@
             <div class="w-6 h-6 bg-[#333] rounded-lg group-hover:bg-[#A855F7] transition-colors duration-500 shadow-inner relative z-10"></div>
           </div>
           <h2 class="text-3xl font-semibold tracking-tight text-white mb-4">Select a stream</h2>
-          <p class="text-[15px] text-[#A1A1AA] font-medium max-w-[280px] mx-auto leading-relaxed">Select an active neural node from the sidebar to begin live oversight.</p>
+          <p class="text-[15px] text-[#A1A1AA] font-medium max-w-[280px] mx-auto leading-relaxed">Select a conversation from the sidebar to view messages.</p>
         </div>
       </div>
     </div>

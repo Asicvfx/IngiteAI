@@ -17,19 +17,19 @@
         
         <div class="flex items-center justify-between mb-12 pb-8 border-b border-[#222] relative z-10">
           <div>
-            <h2 class="text-lg font-semibold tracking-tight text-white">Inject Knowledge</h2>
-            <p class="text-[12px] text-[#A1A1AA] mt-1 uppercase tracking-widest font-bold">Synchronize neural pathways</p>
+            <h2 class="text-lg font-semibold tracking-tight text-white">Add Knowledge</h2>
+            <p class="text-[12px] text-[#A1A1AA] mt-1 uppercase tracking-widest font-bold">Train your AI agent</p>
           </div>
           <div class="flex space-x-1 bg-[#111] p-1.5 rounded-xl border border-[#222] shadow-inner">
-            <button @click="activeTab = 'text'" :class="activeTab === 'text' ? 'bg-white text-black shadow-lg scale-100' : 'text-[#888888] hover:text-white scale-95 hover:scale-100'" class="px-5 py-2 rounded-lg text-[11px] font-bold transition-all uppercase tracking-wider">Manual Nodes</button>
-            <button @click="activeTab = 'file'" :class="activeTab === 'file' ? 'bg-white text-black shadow-lg scale-100' : 'text-[#888888] hover:text-white scale-95 hover:scale-100'" class="px-5 py-2 rounded-lg text-[11px] font-bold transition-all uppercase tracking-wider">Cloud Assets</button>
+            <button @click="activeTab = 'text'" :class="activeTab === 'text' ? 'bg-white text-black shadow-lg scale-100' : 'text-[#888888] hover:text-white scale-95 hover:scale-100'" class="px-5 py-2 rounded-lg text-[11px] font-bold transition-all uppercase tracking-wider">Text</button>
+            <button @click="activeTab = 'file'" :class="activeTab === 'file' ? 'bg-white text-black shadow-lg scale-100' : 'text-[#888888] hover:text-white scale-95 hover:scale-100'" class="px-5 py-2 rounded-lg text-[11px] font-bold transition-all uppercase tracking-wider">File Upload</button>
           </div>
         </div>
 
         <form @submit.prevent="createItem" class="space-y-10 relative z-10">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-4">
-              <label class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.2em]">Target Agent</label>
+              <label class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.2em]">Agent</label>
               <div class="relative group/select">
                 <select v-model="newItem.bot" required class="w-full bg-[#111] border border-[#222] rounded-xl px-5 py-4 text-[14px] text-white focus:border-[#444] focus:ring-1 focus:ring-[#A855F7]/50 outline-none transition-all appearance-none cursor-pointer group-hover/select:border-[#333] shadow-inner font-medium">
                   <option v-for="bot in bots" :key="bot.id" :value="bot.id" class="bg-[#111] text-white">{{ bot.name }}</option>
@@ -40,14 +40,14 @@
               </div>
             </div>
             <div class="space-y-4">
-              <label class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.2em]">Asset Label</label>
-              <input v-model="newItem.title" type="text" placeholder="e.g. Service Protocols" required class="w-full bg-[#111] border border-[#222] rounded-xl px-5 py-4 text-[14px] text-white focus:border-[#444] focus:ring-1 focus:ring-[#A855F7]/50 outline-none transition-all placeholder-[#444] shadow-inner font-medium tracking-tight">
+              <label class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.2em]">Title</label>
+              <input v-model="newItem.title" type="text" placeholder="e.g. Shipping Policy" required class="w-full bg-[#111] border border-[#222] rounded-xl px-5 py-4 text-[14px] text-white focus:border-[#444] focus:ring-1 focus:ring-[#A855F7]/50 outline-none transition-all placeholder-[#444] shadow-inner font-medium tracking-tight">
             </div>
           </div>
 
           <div v-if="activeTab === 'text'" class="space-y-4">
-            <label class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.2em]">Contextual Data</label>
-            <textarea v-model="newItem.content" rows="6" placeholder="Enter structured business data, FAQs, or operational guidelines..." required class="w-full bg-[#111] border border-[#222] rounded-xl px-5 py-4 text-[14px] text-white focus:border-[#444] focus:ring-1 focus:ring-[#A855F7]/50 outline-none transition-all resize-none placeholder-[#444] leading-relaxed shadow-inner font-medium tracking-tight"></textarea>
+            <label class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.2em]">Content</label>
+            <textarea v-model="newItem.content" rows="6" placeholder="Write or paste your FAQ answers, product info, or business rules..." required class="w-full bg-[#111] border border-[#222] rounded-xl px-5 py-4 text-[14px] text-white focus:border-[#444] focus:ring-1 focus:ring-[#A855F7]/50 outline-none transition-all resize-none placeholder-[#444] leading-relaxed shadow-inner font-medium tracking-tight"></textarea>
           </div>
 
           <div v-else class="space-y-4">
@@ -57,7 +57,7 @@
                 <div class="w-12 h-12 bg-[#222] rounded-xl flex items-center justify-center mx-auto mb-4 border border-[#333] shadow-md group-hover/upload:bg-[#A855F7]/10 group-hover/upload:border-[#A855F7]/30 transition-colors">
                   <svg class="w-6 h-6 text-[#888] group-hover/upload:text-[#A855F7] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                 </div>
-                <p class="text-[13px] font-semibold text-white tracking-tight">{{ selectedFile ? selectedFile.name : 'Upload Neural Asset' }}</p>
+                <p class="text-[13px] font-semibold text-white tracking-tight">{{ selectedFile ? selectedFile.name : 'Upload File' }}</p>
                 <p class="text-[10px] text-[#A1A1AA] uppercase tracking-[0.1em] mt-1 font-bold">PDF, DOCX, TXT UP TO 10MB</p>
               </div>
             </div>
@@ -65,7 +65,7 @@
 
           <div class="flex justify-end pt-6 border-t border-[#222]">
             <button type="submit" class="bg-white hover:bg-gray-200 text-black px-10 py-3.5 rounded-full text-[14px] font-semibold transition-all active:scale-95 shadow-xl">
-               Synchronize Architecture
+               Save
             </button>
           </div>
         </form>
@@ -73,13 +73,13 @@
 
       <!-- Archives Grid -->
       <div class="space-y-10 relative z-10">
-        <h2 class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.3em] pl-2 border-l-2 border-[#A855F7]">Synchronized Archives</h2>
+        <h2 class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-[0.3em] pl-2 border-l-2 border-[#A855F7]">Saved Knowledge</h2>
         
         <div v-if="items.length === 0" class="py-24 text-center border border-[#222] bg-[#050505]/50 backdrop-blur-sm rounded-3xl group shadow-inner">
            <div class="w-20 h-20 bg-[#111] border border-[#222] rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:bg-[#1A1A1A] group-hover:border-[#333] transition-all duration-500 shadow-xl">
              <div class="w-5 h-5 bg-[#333] rounded-sm group-hover:bg-[#A855F7] transition-colors duration-500 shadow-inner"></div>
            </div>
-           <p class="text-[14px] text-[#A1A1AA] font-medium tracking-tight">No intelligence nodes detected in the current fleet.</p>
+           <p class="text-[14px] text-[#A1A1AA] font-medium tracking-tight">No knowledge items yet. Add your first one above!</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
@@ -102,8 +102,8 @@
                  <h3 class="text-[18px] font-semibold tracking-tight text-white truncate pr-4">{{ item.title }}</h3>
                  <span class="text-[9px] font-bold text-[#E4E4E5] bg-[#111] px-2.5 py-1 rounded shadow-inner border border-[#222] uppercase tracking-wider shrink-0">{{ item.item_type }}</span>
                </div>
-               <p class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-widest mb-5">Uplink: <span class="text-white">{{ getBotName(item.bot) }}</span></p>
-               <p class="text-[14px] text-[#A1A1AA] leading-relaxed line-clamp-3 font-medium">{{ item.content || '(Binary source node synchronized via cloud uplink)' }}</p>
+                <p class="text-[11px] font-bold text-[#A1A1AA] uppercase tracking-widest mb-5">Agent: <span class="text-white">{{ getBotName(item.bot) }}</span></p>
+                <p class="text-[14px] text-[#A1A1AA] leading-relaxed line-clamp-3 font-medium">{{ item.content || '(Uploaded file)' }}</p>
              </div>
           </div>
         </div>
@@ -185,7 +185,7 @@ const createItem = async () => {
 };
 
 const deleteItem = async (id: number) => {
-  if (!confirm('Purge this intelligence node?')) return;
+  if (!confirm('Delete this knowledge item?')) return;
   try {
      await $fetch(`${config.public.apiBaseUrl}/api/v1/bots/knowledge/${id}/`, {
       method: 'DELETE',

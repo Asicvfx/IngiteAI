@@ -3,9 +3,9 @@
     <div class="max-w-5xl mx-auto">
       <!-- Header Section -->
       <div class="mb-20">
-        <h1 class="text-4xl font-semibold tracking-[-0.04em] gradient-text">Neural Schedule</h1>
+        <h1 class="text-4xl font-semibold tracking-[-0.04em] gradient-text">Meetings</h1>
         <p class="mt-4 text-[#888888] text-[15px] max-w-xl leading-relaxed">
-          Manage your automated bookings and consultations. All temporal nodes are synchronized with your agent's executive functions.
+          Manage your automated bookings and consultations. Your meetings are automatically managed by your agents.
         </p>
       </div>
 
@@ -15,7 +15,7 @@
           <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500">
              <div class="w-4 h-4 bg-[#1A1A1A] rounded-sm"></div>
           </div>
-          <p class="text-[13px] text-[#4B5563] font-bold uppercase tracking-[0.2em]">No scheduled nodes detected.</p>
+          <p class="text-[13px] text-[#4B5563] font-bold uppercase tracking-[0.2em]">No meetings scheduled yet.</p>
         </div>
         
         <div v-for="meeting in meetings" :key="meeting.id" 

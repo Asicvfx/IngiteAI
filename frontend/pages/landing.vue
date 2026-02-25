@@ -28,11 +28,11 @@
       <div class="max-w-4xl mx-auto text-center relative z-10">
         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-8 animate-fade-in">
           <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-          <span class="text-[11px] font-medium uppercase tracking-[0.1em] text-[#888888]">Intelligence Synchronized</span>
+          <span class="text-[11px] font-medium uppercase tracking-[0.1em] text-[#888888]">AI-Powered</span>
         </div>
         
         <h1 class="text-6xl md:text-8xl font-semibold tracking-[-0.04em] leading-[0.95] mb-8 gradient-text">
-          Direct your business <br /> with neural clarity.
+          Direct your business <br /> with AI precision.
         </h1>
         
         <p class="text-lg md:text-xl text-[#888888] leading-relaxed mb-12 max-w-2xl mx-auto tracking-normal">
@@ -40,7 +40,7 @@
         </p>
         
         <div class="flex flex-col sm:flex-row items-center justify-center space-x-0 sm:space-x-4 space-y-4 sm:space-y-0">
-          <NuxtLink to="/register" class="wope-button-primary !px-8 !py-4 text-[15px] w-full sm:w-auto">Initialize Portal</NuxtLink>
+          <NuxtLink to="/register" class="wope-button-primary !px-8 !py-4 text-[15px] w-full sm:w-auto">Get Started</NuxtLink>
           <button class="wope-button-secondary !px-8 !py-4 text-[15px] w-full sm:w-auto">Read Whitepaper</button>
         </div>
       </div>
@@ -57,9 +57,9 @@
                <div class="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center mb-8">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                </div>
-               <h3 class="text-3xl font-semibold mb-4">Neural Knowledge Injection</h3>
+               <h3 class="text-3xl font-semibold mb-4">Smart Knowledge Base</h3>
                <p class="text-[#888888] text-lg max-w-md leading-relaxed">
-                 Simply drop your business assets—PDFs, documentation, or raw text—and watch your agents synchronize with your domain expertise instantly.
+                 Simply drop your business assets—PDFs, documentation, or raw text—and watch your agents learn your domain expertise instantly.
                </p>
             </div>
             <!-- Visual Element -->
@@ -83,7 +83,7 @@
               </div>
               <h3 class="text-2xl font-semibold mb-4">24/7 Agent Autonomy</h3>
               <p class="text-[#888888] text-[15px] leading-relaxed">
-                Your agents never sleep. They handle inquiries, qualify leads, and synchronize data around the clock.
+                Your agents never sleep. They handle inquiries, qualify leads, and process data around the clock.
               </p>
             </div>
           </div>
@@ -124,9 +124,9 @@
     <!-- CTA Section -->
     <section class="py-40 px-6 text-center">
       <div class="max-w-2xl mx-auto">
-        <h2 class="text-5xl font-semibold mb-8 gradient-text tracking-tighter">Ready to synchronize?</h2>
+        <h2 class="text-5xl font-semibold mb-8 gradient-text tracking-tighter">Ready to get started?</h2>
         <p class="text-xl text-[#888888] mb-12">Start your journey into high-clarity business intelligence today.</p>
-        <NuxtLink to="/register" class="wope-button-primary !px-12 !py-5 text-lg">Initialize Now</NuxtLink>
+        <NuxtLink to="/register" class="wope-button-primary !px-12 !py-5 text-lg">Get Started</NuxtLink>
       </div>
     </section>
 

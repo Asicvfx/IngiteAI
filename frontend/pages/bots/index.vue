@@ -14,7 +14,7 @@
         <div class="shrink-0">
           <NuxtLink to="/bots/new" class="bg-white hover:bg-gray-200 text-black px-8 py-3.5 rounded-full text-[15px] font-semibold transition-all active:scale-95 shadow-xl flex items-center group">
             <svg class="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
-            <span>Initialize Agent</span>
+            <span>Create Agent</span>
           </NuxtLink>
         </div>
       </div>
@@ -24,7 +24,7 @@
         <div v-if="loading" class="flex flex-col items-center justify-center py-32 border border-[#222] bg-[#050505]/50 backdrop-blur-sm rounded-3xl group relative overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
           <div class="w-12 h-12 border-2 border-[#333] border-t-[#A855F7] rounded-full animate-spin mb-6"></div>
-          <p class="text-[#A1A1AA] text-[11px] font-bold uppercase tracking-[0.2em]">Scanning Neural Web...</p>
+          <p class="text-[#A1A1AA] text-[11px] font-bold uppercase tracking-[0.2em]">Loading agents...</p>
         </div>
         
         <div v-else-if="error" class="text-red-400 text-center py-10 bg-red-900/10 border border-red-500/20 rounded-2xl text-[14px] font-medium">{{ error }}</div>
@@ -33,9 +33,9 @@
           <div class="w-20 h-20 bg-[#111] border border-[#222] rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:bg-[#1A1A1A] group-hover:border-[#333] transition-all duration-500 shadow-xl">
             <svg class="w-8 h-8 text-[#A1A1AA] group-hover:text-[#A855F7] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 012-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
           </div>
-          <p class="text-[#A1A1AA] text-[15px] mb-8 font-medium">No active agents detected in your synchronization network.</p>
+          <p class="text-[#A1A1AA] text-[15px] mb-8 font-medium">No agents yet. Create your first one!</p>
           <NuxtLink to="/bots/new" class="text-[#A855F7] font-semibold hover:text-purple-400 text-[13px] uppercase tracking-widest inline-flex items-center group/btn transition-colors">
-            Initialize First Node <svg class="w-4 h-4 ml-1 transform group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            Create Your First Agent <svg class="w-4 h-4 ml-1 transform group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
           </NuxtLink>
         </div>
         
@@ -58,7 +58,7 @@
             
             <div class="relative z-10">
               <h3 class="text-[24px] font-semibold text-white mb-3 truncate tracking-tight">{{ bot.name }}</h3>
-              <p class="text-[10px] text-[#A1A1AA] font-bold uppercase tracking-[0.2em] mb-12">Neural Interface Synchronized</p>
+              <p class="text-[10px] text-[#A1A1AA] font-bold uppercase tracking-[0.2em] mb-12">Agent Active</p>
               
               <div class="space-y-5 pt-8 border-t border-[#222]">
                 <div class="flex items-center justify-between">
@@ -99,7 +99,7 @@ onMounted(async () => {
     });
     bots.value = data;
   } catch (err) {
-    error.value = 'Failed to synchronize with agent network.';
+    error.value = 'Failed to load agents. Please try again.';
     console.error(err);
   } finally {
     loading.value = false;

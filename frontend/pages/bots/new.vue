@@ -39,7 +39,7 @@
             <button type="submit" :disabled="loading" 
               class="w-full bg-white hover:bg-gray-200 text-black py-4 rounded-xl text-[14px] font-semibold transition-all active:scale-95 shadow-xl disabled:opacity-30 disabled:hover:bg-white disabled:scale-100 flex justify-center items-center">
               <span v-if="loading" class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin mr-2"></span>
-              {{ loading ? 'Synchronizing Node...' : 'Establish Secure Connection' }}
+              {{ loading ? 'Creating...' : 'Create Agent' }}
             </button>
             
             <NuxtLink to="/bots" class="block text-center mt-10 text-[11px] font-bold text-[#A1A1AA] hover:text-[#E4E4E5] transition-all uppercase tracking-[0.2em] group/link">
@@ -86,7 +86,7 @@ const handleConnect = async () => {
     });
     router.push('/bots');
   } catch (err: any) {
-    error.value = 'Neural handshake failed. Verify access token.';
+    error.value = 'Something went wrong. Please try again.';
     console.error(err);
   } finally {
     loading.value = false;
