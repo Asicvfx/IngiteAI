@@ -1,5 +1,11 @@
 <template>
-  <div class="min-h-screen bg-[#0A0A0B] text-[#EDEDED] font-sans selection:bg-white/20 overflow-x-hidden">
+  <div class="min-h-screen bg-[#0A0A0B] text-[#EDEDED] font-sans selection:bg-white/20 overflow-x-hidden relative">
+    <!-- Background purple glow -->
+    <div class="fixed inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-[#A855F7]/[0.035] blur-[200px] rounded-full"></div>
+      <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#7C3AED]/[0.025] blur-[150px] rounded-full"></div>
+      <div class="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#6366F1]/[0.02] blur-[120px] rounded-full"></div>
+    </div>
     
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 wope-glass border-b border-white/5">
