@@ -3,15 +3,20 @@ from django.conf import settings
 from bots.models import TelegramBot
 
 class Conversation(models.Model):
+    PLATFORM_CHOICES = (
+        ('telegram', 'Telegram'),
+        ('whatsapp', 'WhatsApp'),
+    )
     bot = models.ForeignKey(TelegramBot, on_delete=models.CASCADE, related_name='conversations')
-    telegram_chat_id = models.CharField(max_length=100)
+    telegram_chat_id = models.CharField(max_length=100)  # Used for both telegram chat_id and whatsapp phone number
+    platform = models.CharField(max_length=20, choices=PLATFORM_CHOICES, default='telegram')
     lead_type = models.CharField(max_length=20, default='cold') # cold, warm, hot
     needs_human = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Conversation {self.telegram_chat_id} ({self.bot.name})"
+        return f"Conversation {self.telegram_chat_id} ({self.bot.name}) [{self.platform}]"
 
     @property
     def last_message(self):

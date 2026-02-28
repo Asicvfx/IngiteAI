@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users.views import GoogleLogin
+from bots.views_whatsapp import WhatsAppWebhookView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +36,9 @@ urlpatterns = [
     path('api/v1/dashboard/', include('dashboard.urls')),
     path('api/v1/meetings/', include('meetings.urls')),
     path('api/v1/', include('chats.urls')),
+    
+    # WhatsApp Webhook (Meta Cloud API)
+    path('api/v1/whatsapp/webhook/', WhatsAppWebhookView.as_view(), name='whatsapp_webhook'),
 ]
 
 from django.conf import settings

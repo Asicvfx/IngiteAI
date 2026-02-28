@@ -8,6 +8,12 @@ class TelegramBot(models.Model):
     webhook_url = models.URLField(blank=True, null=True)
     webhook_status = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    
+    # WhatsApp Cloud API fields
+    whatsapp_phone_number_id = models.CharField(max_length=100, blank=True, null=True, help_text="WhatsApp Phone Number ID from Meta")
+    whatsapp_access_token = models.TextField(blank=True, null=True, help_text="WhatsApp Cloud API access token")
+    whatsapp_enabled = models.BooleanField(default=False)
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
