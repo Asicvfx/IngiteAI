@@ -99,6 +99,20 @@ class WhatsAppWebhookView(APIView):
         
         return Response(status=status.HTTP_200_OK)
     
+    @staticmethod
+    def _fix_phone_format(phone):
+        """
+        Fix phone number format for WhatsApp API.
+        Kazakhstan numbers: webhook sends '77752786692' but API needs '787752786692'
+        (trunk prefix '8' after country code '7').
+        """
+        phone = phone.strip().replace('+', '').replace(' ', '')
+        # Kazakhstan/Russia numbers starting with '77' (country code 7 + mobile 7xx)
+        # Need to insert '8' trunk prefix: 77... -> 787...
+        if len(phone) == 11 and phone.startswith('77'):
+            phone = '7' + '8' + phone[1:]  # 77752786692 -> 787752786692
+        return phone
+    
     def _process_message(self, bot, msg, phone_number_id):
         """Process a single WhatsApp message."""
         msg_type = msg.get('type')
@@ -248,12 +262,13 @@ class WhatsAppWebhookView(APIView):
                 metadata=metadata
             )
             
-            # Send via WhatsApp
-            print(f"WhatsApp: Sending reply to {sender_phone}")
+            # Send via WhatsApp (fix phone format for Kazakhstan numbers)
+            reply_phone = self._fix_phone_format(sender_phone)
+            print(f"WhatsApp: Sending reply to {sender_phone} (formatted: {reply_phone})")
             result = WhatsAppService.send_message(
                 phone_number_id,
                 bot.whatsapp_access_token,
-                sender_phone,
+                reply_phone,
                 answer_text
             )
             print(f"WhatsApp: Send result: {result}")
