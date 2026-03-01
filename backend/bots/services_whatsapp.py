@@ -20,6 +20,11 @@ class WhatsAppService:
         to: Recipient phone number (international format, e.g. 77071234567)
         text: Message text
         """
+        # Clean up token and phone number
+        access_token = access_token.strip()
+        to = to.strip().replace('+', '').replace(' ', '')
+        phone_number_id = str(phone_number_id).strip()
+        
         url = f"{WhatsAppService.GRAPH_API_URL}/{phone_number_id}/messages"
         headers = {
             "Authorization": f"Bearer {access_token}",
@@ -35,6 +40,12 @@ class WhatsAppService:
                 "body": text
             }
         }
+        
+        # Debug logging
+        print(f"WhatsApp DEBUG: URL={url}")
+        print(f"WhatsApp DEBUG: to={to}, phone_id={phone_number_id}")
+        print(f"WhatsApp DEBUG: token_start={access_token[:30]}...")
+        
         try:
             r = requests.post(url, headers=headers, json=payload, timeout=15)
             result = r.json()
