@@ -121,23 +121,13 @@ const handleLogin = async () => {
     const credentials: Record<string, string> = { password: password.value };
     if (isEmail) {
       credentials.email = username.value;
-      credentials.username = username.value;
     } else {
       credentials.username = username.value;
     }
     await auth.login(credentials);
     router.push('/overview');
   } catch (err: any) {
-    let errorMsg = 'Invalid email or password. Please try again.';
-    if (err.response && err.response._data) {
-      if (typeof err.response._data === 'object') {
-        errorMsg = Object.values(err.response._data).flat().join(' | ');
-      } else {
-        errorMsg = String(err.response._data);
-      }
-    } else if (err.message) {
-      errorMsg = err.message;
-    }
+    const errorMsg = err?.message || 'Invalid email or password. Please try again.';
     error.value = errorMsg;
   } finally {
     loading.value = false;

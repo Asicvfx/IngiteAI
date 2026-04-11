@@ -1,5 +1,27 @@
 import { defineStore } from 'pinia';
 
+const formatAuthError = (error: any, fallback: string) => {
+    if (error?.response?._data) {
+        if (typeof error.response._data === 'object') {
+            return Object.values(error.response._data).flat().join(' | ');
+        }
+        return String(error.response._data);
+    }
+
+    if (error?.data) {
+        if (typeof error.data === 'object') {
+            return Object.values(error.data).flat().join(' | ');
+        }
+        return String(error.data);
+    }
+
+    if (error?.message?.includes('Failed to fetch')) {
+        return 'Network or CORS error: backend did not respond to the browser request.';
+    }
+
+    return error?.message || fallback;
+};
+
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         user: null as any,
@@ -17,7 +39,7 @@ export const useAuthStore = defineStore('auth', {
                 return true;
             } catch (error) {
                 console.error('Registration failed', error);
-                throw error;
+                throw new Error(formatAuthError(error, 'Registration failed'));
             }
         },
         async login(credentials: any) {
@@ -38,7 +60,7 @@ export const useAuthStore = defineStore('auth', {
                 return true;
             } catch (error) {
                 console.error('Login failed', error);
-                throw error;
+                throw new Error(formatAuthError(error, 'Login failed'));
             }
         },
         async googleLogin(token: string, tokenType: 'id_token' | 'access_token' = 'id_token') {
@@ -65,7 +87,7 @@ export const useAuthStore = defineStore('auth', {
                 return true;
             } catch (error) {
                 console.error('Google Login failed', error);
-                throw error;
+                throw new Error(formatAuthError(error, 'Google login failed'));
             }
         },
         async googleLoginWithCode(code: string, redirectUri: string) {
@@ -85,7 +107,7 @@ export const useAuthStore = defineStore('auth', {
                 return true;
             } catch (error) {
                 console.error('Google Login with code failed', error);
-                throw error;
+                throw new Error(formatAuthError(error, 'Google login with code failed'));
             }
         },
         setToken(token: string) {

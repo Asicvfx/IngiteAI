@@ -41,6 +41,10 @@ if PROJECT_URL:
     ALLOWED_HOSTS.append(PROJECT_URL.replace('https://', '').replace('http://', ''))
 
 
+def _split_env_list(value: str) -> list[str]:
+    return [item.strip() for item in value.split(',') if item.strip()]
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -144,17 +148,27 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'users.User'
 
 # CORS Settings
-# In production, set CORS_ALLOWED_ORIGINS on Render to:
-# https://ingiteai.online,https://www.ingiteai.online,https://ingite-ai-p5v7.vercel.app
-CORS_ALLOWED_ORIGINS = os.getenv(
-    'CORS_ALLOWED_ORIGINS',
-    'http://localhost:3000,http://localhost:3001'
-).split(',')
-CSRF_TRUSTED_ORIGINS = os.getenv(
-    'CSRF_TRUSTED_ORIGINS',
-    'http://localhost:3000,https://ingiteai.online,https://www.ingiteai.online,https://ingite-ai-p5v7.vercel.app'
-).split(',')
+# Keep production frontends working even if the Render env vars were not set yet.
+default_cors_origins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://ingiteai.online',
+    'https://www.ingiteai.online',
+    'https://ingite-ai-p5v7.vercel.app',
+]
+if FRONTEND_URL:
+    default_cors_origins.append(FRONTEND_URL)
+
+CORS_ALLOWED_ORIGINS = _split_env_list(
+    os.getenv('CORS_ALLOWED_ORIGINS', ','.join(dict.fromkeys(default_cors_origins)))
+)
+CSRF_TRUSTED_ORIGINS = _split_env_list(
+    os.getenv('CSRF_TRUSTED_ORIGINS', ','.join(dict.fromkeys(default_cors_origins)))
+)
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
 
 
 MIDDLEWARE = [

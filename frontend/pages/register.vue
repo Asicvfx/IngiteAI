@@ -134,16 +134,7 @@ const handleRegister = async () => {
     });
     router.push('/login');
   } catch (err: any) {
-    let errorMsg = 'Registration failed. This email may already be in use.';
-    if (err.response && err.response._data) {
-      if (typeof err.response._data === 'object') {
-        errorMsg = Object.values(err.response._data).flat().join(' | ');
-      } else {
-        errorMsg = String(err.response._data);
-      }
-    } else if (err.message) {
-      errorMsg = err.message;
-    }
+    const errorMsg = err?.message || 'Registration failed. This email may already be in use.';
     error.value = `Registration failed: ${errorMsg}`;
   } finally {
     loading.value = false;

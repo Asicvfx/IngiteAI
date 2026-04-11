@@ -7,6 +7,8 @@ backend/.env
 backend/db.sqlite3
 backend/db_v2.sqlite3
 backend/db_v3.sqlite3
+backend/backup.json
+backend/test_db.py
 backend/staticfiles/
 backend/media/
 
