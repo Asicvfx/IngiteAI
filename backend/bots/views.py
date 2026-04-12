@@ -1,3 +1,6 @@
+import os
+
+import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, viewsets, permissions
@@ -78,7 +81,15 @@ class WebhookView(APIView):
         # Generate AI Response
         knowledge_items = bot.knowledge_items.all()
         print(f"DEBUG: Calling OpenAIService. Text: {text}, Image: {image_url}")
-        ai_response = OpenAIService.generate_response(text, history=history, knowledge_items=knowledge_items, image_url=image_url)
+        message_id = msg_data.get('message_id')
+        ai_response = OpenAIService.generate_response(
+            text,
+            history=history,
+            knowledge_items=knowledge_items,
+            image_url=image_url,
+            user_id=f"telegram:{chat_id}",
+            idempotency_key=f"telegram:{chat_id}:{message_id}",
+        )
         print(f"DEBUG: AI Response received: {ai_response}")
         
         # Update Conversation Status
@@ -105,6 +116,8 @@ class WebhookView(APIView):
                  "products": ai_response.get('products', []),
                  "quick_replies": ai_response.get('quick_replies', [])
              }
+             if ai_response.get('_evalio'):
+                 metadata["evalio"] = ai_response["_evalio"]
              Message.objects.create(
                 conversation=conversation,
                 sender='bot',

@@ -228,7 +228,12 @@ class WhatsAppWebhookView(APIView):
         knowledge_items = bot.knowledge_items.all()
         print(f"WhatsApp: Processing message from {sender_phone}: {text[:50]}...")
         ai_response = OpenAIService.generate_response(
-            text, history=history, knowledge_items=knowledge_items, image_url=image_url
+            text,
+            history=history,
+            knowledge_items=knowledge_items,
+            image_url=image_url,
+            user_id=f"whatsapp:{sender_phone}",
+            idempotency_key=f"whatsapp:{sender_phone}:{msg_id}",
         )
         print(f"WhatsApp: AI Response: {ai_response}")
         
@@ -255,6 +260,8 @@ class WhatsAppWebhookView(APIView):
                 "products": ai_response.get('products', []),
                 "quick_replies": ai_response.get('quick_replies', [])
             }
+            if ai_response.get('_evalio'):
+                metadata["evalio"] = ai_response["_evalio"]
             Message.objects.create(
                 conversation=conversation,
                 sender='bot',

@@ -1,9 +1,53 @@
-import requests
 import json
 import os
+import time
 from datetime import datetime
-from django.conf import settings
+
+import requests
 from openai import OpenAI
+
+try:
+    from evalio import EvalioClient
+except ImportError:
+    EvalioClient = None
+
+
+OPENAI_PRICING = {
+    "gpt-4o": {"input": 2.50, "output": 10.00},
+    "gpt-4o-mini": {"input": 0.15, "output": 0.60},
+    "gpt-4.1-mini": {"input": 0.40, "output": 1.60},
+    "gpt-4-turbo": {"input": 10.00, "output": 30.00},
+    "gpt-3.5-turbo": {"input": 0.50, "output": 1.50},
+}
+
+
+def estimate_openai_cost(model, input_tokens, output_tokens):
+    pricing = OPENAI_PRICING.get(model)
+    if not pricing or input_tokens is None or output_tokens is None:
+        return None
+    return (input_tokens * pricing["input"] + output_tokens * pricing["output"]) / 1_000_000
+
+
+class EvalioService:
+    @staticmethod
+    def is_enabled():
+        return bool(
+            os.getenv("EVALIO_API_KEY")
+            and os.getenv("EVALIO_EXPERIMENT_ID")
+            and os.getenv("EVALIO_API_BASE")
+        )
+
+    @staticmethod
+    @staticmethod
+    def create_client(openai_api_key):
+        if not EvalioService.is_enabled() or EvalioClient is None:
+            return None
+        return EvalioClient(
+            api_key=os.getenv("EVALIO_API_KEY", ""),
+            base_url=os.getenv("EVALIO_API_BASE", ""),
+            provider_keys={"openai": openai_api_key},
+            timeout=20.0,
+        )
 
 class OpenAIService:
     @staticmethod
@@ -24,7 +68,14 @@ class OpenAIService:
             return f"Transcription error: {str(e)}"
 
     @staticmethod
-    def generate_response(message_text, history=None, knowledge_items=None, image_url=None):
+    def generate_response(
+        message_text,
+        history=None,
+        knowledge_items=None,
+        image_url=None,
+        user_id=None,
+        idempotency_key=None,
+    ):
         """
         Generates a highly intelligent response using OpenAI GPT-4o.
         """
@@ -33,10 +84,10 @@ class OpenAIService:
             return {"answer": "Error: Neural Core offline. (API Key missing)", "needs_human": True, "lead_type": "cold"}
             
         client = OpenAI(api_key=api_key)
-        
-        # We always use gpt-4o for maximum intelligence in this premium version
+
+        # Default to the current premium baseline.
         model = "gpt-4o"
-        
+
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M")
 
         system_prompt = f"""You are 'IngiteAI Prime', an elite business neural assistant. 
@@ -104,14 +155,57 @@ You MUST output valid, structured JSON exactly like this:
             
         messages.append({"role": "user", "content": user_content if image_url else message_text})
 
+        if user_id and idempotency_key:
+            evalio_client = EvalioService.create_client(api_key)
+            if evalio_client:
+                try:
+                    response = evalio_client.run(
+                        experiment_id=int(os.getenv("EVALIO_EXPERIMENT_ID")),
+                        messages=messages,
+                        user_id=user_id,
+                        idempotency_key=idempotency_key,
+                        provider_params={
+                            "temperature": 0.2,
+                            "response_format": {"type": "json_object"},
+                        },
+                    )
+                    parsed = json.loads(response.content)
+                    parsed["_evalio"] = {
+                        "request_id": response.request_id,
+                        "variant": response.variant,
+                        "model": response.model,
+                        "latency_ms": response.latency_ms,
+                        "cost_usd": response.cost_usd,
+                    }
+                    return parsed
+                except Exception as e:
+                    print(f"Evalio SDK path failed, falling back to direct OpenAI: {e}")
+                finally:
+                    evalio_client.close()
+
         try:
+            start = time.time()
             response = client.chat.completions.create(
                 model=model,
                 messages=messages,
                 response_format={"type": "json_object"},
                 temperature=0.2 # Lower temperature for higher reliability
             )
-            return json.loads(response.choices[0].message.content)
+            latency_ms = int((time.time() - start) * 1000)
+
+            parsed = json.loads(response.choices[0].message.content)
+            usage = getattr(response, "usage", None)
+            input_tokens = getattr(usage, "prompt_tokens", None) if usage else None
+            output_tokens = getattr(usage, "completion_tokens", None) if usage else None
+            cost_usd = estimate_openai_cost(model, input_tokens, output_tokens)
+            parsed["_evalio"] = {
+                "request_id": None,
+                "variant": "direct_openai_fallback",
+                "model": model,
+                "latency_ms": latency_ms,
+                "cost_usd": cost_usd,
+            }
+            return parsed
         except Exception as e:
             print(f"Neural Failure Trace: {e}")
             return {
