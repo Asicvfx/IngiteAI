@@ -1,5 +1,6 @@
 import json
 import os
+import inspect
 import time
 from datetime import datetime
 
@@ -159,15 +160,23 @@ You MUST output valid, structured JSON exactly like this:
             evalio_client = EvalioService.create_client(api_key)
             if evalio_client:
                 try:
-                    response = evalio_client.run(
-                        experiment_id=int(os.getenv("EVALIO_EXPERIMENT_ID")),
-                        messages=messages,
-                        user_id=user_id,
-                        idempotency_key=idempotency_key,
-                        provider_params={
+                    run_kwargs = {
+                        "experiment_id": int(os.getenv("EVALIO_EXPERIMENT_ID")),
+                        "messages": messages,
+                        "user_id": user_id,
+                        "idempotency_key": idempotency_key,
+                    }
+                    supports_provider_params = "provider_params" in inspect.signature(
+                        evalio_client.run
+                    ).parameters
+                    if supports_provider_params:
+                        run_kwargs["provider_params"] = {
                             "temperature": 0.2,
                             "response_format": {"type": "json_object"},
-                        },
+                        }
+
+                    response = evalio_client.run(
+                        **run_kwargs,
                     )
                     parsed = json.loads(response.content)
                     parsed["_evalio"] = {
