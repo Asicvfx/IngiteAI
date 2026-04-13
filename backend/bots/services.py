@@ -88,7 +88,7 @@ class EvalioService:
         if latency_ms is not None:
             payload["latency_ms"] = latency_ms
         if cost_usd is not None:
-            payload["cost_usd"] = str(cost_usd)
+            payload["cost_usd"] = f"{cost_usd:.6f}"
 
         response = requests.post(
             f"{client_config['base_url']}/api/sdk/v1/complete/",
@@ -96,7 +96,12 @@ class EvalioService:
             headers={"X-API-Key": client_config["api_key"]},
             timeout=EvalioService.TIMEOUT_SECONDS,
         )
-        response.raise_for_status()
+        if not response.ok:
+            print(
+                "Evalio complete failed: "
+                f"status={response.status_code}, body={response.text}, payload={payload}"
+            )
+            response.raise_for_status()
         return payload
 
 class OpenAIService:
@@ -279,6 +284,21 @@ You MUST output valid, structured JSON exactly like this:
                     }
                     return parsed
                 except Exception as e:
+                    if "request_id" in locals() and "response" in locals():
+                        print(
+                            "Evalio complete/reporting failed after provider success; "
+                            "returning original model output without retrying provider"
+                        )
+                        parsed = json.loads(response.choices[0].message.content)
+                        parsed["_evalio"] = {
+                            "request_id": request_id,
+                            "variant": variant_name if "variant_name" in locals() else "unknown",
+                            "model": model,
+                            "latency_ms": latency_ms if "latency_ms" in locals() else None,
+                            "cost_usd": cost_usd if "cost_usd" in locals() else None,
+                            "reporting_error": str(e),
+                        }
+                        return parsed
                     print(f"Evalio embedded path failed, falling back to direct OpenAI: {e}")
             else:
                 print("Evalio client was not created; using direct OpenAI fallback")
