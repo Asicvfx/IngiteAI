@@ -1,16 +1,10 @@
 import json
 import os
-import inspect
 import time
 from datetime import datetime
 
 import requests
 from openai import OpenAI
-
-try:
-    from evalio import EvalioClient
-except ImportError:
-    EvalioClient = None
 
 
 OPENAI_PRICING = {
@@ -30,6 +24,8 @@ def estimate_openai_cost(model, input_tokens, output_tokens):
 
 
 class EvalioService:
+    TIMEOUT_SECONDS = 20
+
     @staticmethod
     def is_enabled():
         return bool(
@@ -45,24 +41,63 @@ class EvalioService:
 
     @staticmethod
     def create_client(openai_api_key):
-        if EvalioClient is None:
-            print("Evalio disabled: SDK import failed in Render/runtime")
-            return None
         missing_keys = EvalioService.missing_env_keys()
         if missing_keys:
             print(f"Evalio disabled: missing env vars {missing_keys}")
             return None
         print(
-            "Evalio enabled: creating client "
+            "Evalio enabled: using embedded adapter "
             f"for experiment {os.getenv('EVALIO_EXPERIMENT_ID')} "
             f"against {os.getenv('EVALIO_API_BASE')}"
         )
-        return EvalioClient(
-            api_key=os.getenv("EVALIO_API_KEY", ""),
-            base_url=os.getenv("EVALIO_API_BASE", ""),
-            provider_keys={"openai": openai_api_key},
-            timeout=20.0,
+        return {
+            "api_key": os.getenv("EVALIO_API_KEY", ""),
+            "base_url": os.getenv("EVALIO_API_BASE", "").rstrip("/"),
+            "openai_api_key": openai_api_key,
+        }
+
+    @staticmethod
+    def request_variant(client_config, user_id, idempotency_key):
+        payload = {
+            "experiment_id": int(os.getenv("EVALIO_EXPERIMENT_ID")),
+            "user_id": user_id,
+        }
+        if idempotency_key:
+            payload["idempotency_key"] = idempotency_key
+
+        response = requests.post(
+            f"{client_config['base_url']}/api/sdk/v1/request/",
+            json=payload,
+            headers={"X-API-Key": client_config["api_key"]},
+            timeout=EvalioService.TIMEOUT_SECONDS,
         )
+        response.raise_for_status()
+        return response.json()
+
+    @staticmethod
+    def report_completion(client_config, request_id, usage, latency_ms, cost_usd):
+        payload = {
+            "request_id": request_id,
+            "status": "success",
+        }
+        if usage:
+            if getattr(usage, "prompt_tokens", None) is not None:
+                payload["input_tokens"] = usage.prompt_tokens
+            if getattr(usage, "completion_tokens", None) is not None:
+                payload["output_tokens"] = usage.completion_tokens
+        if latency_ms is not None:
+            payload["latency_ms"] = latency_ms
+        if cost_usd is not None:
+            payload["cost_usd"] = str(cost_usd)
+
+        response = requests.post(
+            f"{client_config['base_url']}/api/sdk/v1/complete/",
+            json=payload,
+            headers={"X-API-Key": client_config["api_key"]},
+            timeout=EvalioService.TIMEOUT_SECONDS,
+        )
+        response.raise_for_status()
+        return payload
 
 class OpenAIService:
     @staticmethod
@@ -174,52 +209,77 @@ You MUST output valid, structured JSON exactly like this:
             print(
                 "Evalio candidate request: "
                 f"user_id={user_id}, idempotency_key={idempotency_key}, "
-                f"sdk_import_ok={EvalioClient is not None}, enabled={EvalioService.is_enabled()}"
+                f"embedded_adapter=True, enabled={EvalioService.is_enabled()}"
             )
             evalio_client = EvalioService.create_client(api_key)
             if evalio_client:
                 try:
-                    run_kwargs = {
-                        "experiment_id": int(os.getenv("EVALIO_EXPERIMENT_ID")),
-                        "messages": messages,
-                        "user_id": user_id,
-                        "idempotency_key": idempotency_key,
-                    }
-                    supports_provider_params = "provider_params" in inspect.signature(
-                        evalio_client.run
-                    ).parameters
-                    if supports_provider_params:
-                        run_kwargs["provider_params"] = {
-                            "temperature": 0.2,
-                            "response_format": {"type": "json_object"},
-                        }
-                    print(
-                        "Evalio SDK path active: "
-                        f"supports_provider_params={supports_provider_params} "
-                        f"experiment_id={run_kwargs['experiment_id']}"
+                    route_data = EvalioService.request_variant(
+                        evalio_client,
+                        user_id=user_id,
+                        idempotency_key=idempotency_key,
                     )
+                    request_id = route_data["request_id"]
+                    variant = route_data["variant"]
+                    variant_provider = variant["provider"]
+                    variant_model = variant["model_name"]
+                    variant_name = variant["name"]
+                    variant_system_prompt = variant.get("system_prompt", "")
+                    variant_extra_params = dict(variant.get("extra_params", {}))
+                    print(
+                        "Evalio route received: "
+                        f"request_id={request_id}, variant={variant_name}, "
+                        f"provider={variant_provider}, model={variant_model}"
+                    )
+                    if variant_provider != "openai":
+                        raise ValueError(
+                            f"Embedded IngiteAI adapter currently supports only openai variants, got {variant_provider}"
+                        )
 
-                    response = evalio_client.run(
-                        **run_kwargs,
+                    model = variant_model
+                    model_messages = list(messages)
+                    if variant_system_prompt:
+                        model_messages = [{"role": "system", "content": variant_system_prompt}] + model_messages
+
+                    provider_params = {
+                        "response_format": {"type": "json_object"},
+                        "temperature": 0.2,
+                    }
+                    provider_params.update(variant_extra_params)
+
+                    start = time.time()
+                    response = client.chat.completions.create(
+                        model=model,
+                        messages=model_messages,
+                        **provider_params,
+                    )
+                    latency_ms = int((time.time() - start) * 1000)
+                    usage = getattr(response, "usage", None)
+                    input_tokens = getattr(usage, "prompt_tokens", None) if usage else None
+                    output_tokens = getattr(usage, "completion_tokens", None) if usage else None
+                    cost_usd = estimate_openai_cost(model, input_tokens, output_tokens)
+                    EvalioService.report_completion(
+                        evalio_client,
+                        request_id=request_id,
+                        usage=usage,
+                        latency_ms=latency_ms,
+                        cost_usd=cost_usd,
                     )
                     print(
-                        "Evalio SDK response received: "
-                        f"request_id={response.request_id}, "
-                        f"variant={response.variant}, model={response.model}"
+                        "Evalio completion reported: "
+                        f"request_id={request_id}, variant={variant_name}, model={model}"
                     )
-                    parsed = json.loads(response.content)
+                    parsed = json.loads(response.choices[0].message.content)
                     parsed["_evalio"] = {
-                        "request_id": response.request_id,
-                        "variant": response.variant,
-                        "model": response.model,
-                        "latency_ms": response.latency_ms,
-                        "cost_usd": response.cost_usd,
+                        "request_id": request_id,
+                        "variant": variant_name,
+                        "model": model,
+                        "latency_ms": latency_ms,
+                        "cost_usd": cost_usd,
                     }
                     return parsed
                 except Exception as e:
-                    print(f"Evalio SDK path failed, falling back to direct OpenAI: {e}")
-                finally:
-                    evalio_client.close()
+                    print(f"Evalio embedded path failed, falling back to direct OpenAI: {e}")
             else:
                 print("Evalio client was not created; using direct OpenAI fallback")
         else:
