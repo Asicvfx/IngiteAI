@@ -39,10 +39,24 @@ class EvalioService:
         )
 
     @staticmethod
+    def missing_env_keys():
+        required = ["EVALIO_API_KEY", "EVALIO_EXPERIMENT_ID", "EVALIO_API_BASE"]
+        return [key for key in required if not os.getenv(key)]
+
     @staticmethod
     def create_client(openai_api_key):
-        if not EvalioService.is_enabled() or EvalioClient is None:
+        if EvalioClient is None:
+            print("Evalio disabled: SDK import failed in Render/runtime")
             return None
+        missing_keys = EvalioService.missing_env_keys()
+        if missing_keys:
+            print(f"Evalio disabled: missing env vars {missing_keys}")
+            return None
+        print(
+            "Evalio enabled: creating client "
+            f"for experiment {os.getenv('EVALIO_EXPERIMENT_ID')} "
+            f"against {os.getenv('EVALIO_API_BASE')}"
+        )
         return EvalioClient(
             api_key=os.getenv("EVALIO_API_KEY", ""),
             base_url=os.getenv("EVALIO_API_BASE", ""),
@@ -157,6 +171,11 @@ You MUST output valid, structured JSON exactly like this:
         messages.append({"role": "user", "content": user_content if image_url else message_text})
 
         if user_id and idempotency_key:
+            print(
+                "Evalio candidate request: "
+                f"user_id={user_id}, idempotency_key={idempotency_key}, "
+                f"sdk_import_ok={EvalioClient is not None}, enabled={EvalioService.is_enabled()}"
+            )
             evalio_client = EvalioService.create_client(api_key)
             if evalio_client:
                 try:
@@ -174,9 +193,19 @@ You MUST output valid, structured JSON exactly like this:
                             "temperature": 0.2,
                             "response_format": {"type": "json_object"},
                         }
+                    print(
+                        "Evalio SDK path active: "
+                        f"supports_provider_params={supports_provider_params} "
+                        f"experiment_id={run_kwargs['experiment_id']}"
+                    )
 
                     response = evalio_client.run(
                         **run_kwargs,
+                    )
+                    print(
+                        "Evalio SDK response received: "
+                        f"request_id={response.request_id}, "
+                        f"variant={response.variant}, model={response.model}"
                     )
                     parsed = json.loads(response.content)
                     parsed["_evalio"] = {
@@ -191,6 +220,13 @@ You MUST output valid, structured JSON exactly like this:
                     print(f"Evalio SDK path failed, falling back to direct OpenAI: {e}")
                 finally:
                     evalio_client.close()
+            else:
+                print("Evalio client was not created; using direct OpenAI fallback")
+        else:
+            print(
+                "Evalio skipped: missing stable IDs "
+                f"user_id_present={bool(user_id)} idempotency_key_present={bool(idempotency_key)}"
+            )
 
         try:
             start = time.time()
