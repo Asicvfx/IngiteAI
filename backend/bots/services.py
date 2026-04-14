@@ -104,6 +104,30 @@ class EvalioService:
             response.raise_for_status()
         return payload
 
+    @staticmethod
+    def report_feedback(client_config, request_id, score, comment="", idempotency_key=None):
+        payload = {
+            "request_id": request_id,
+            "score": score,
+            "comment": comment,
+        }
+        if idempotency_key:
+            payload["idempotency_key"] = idempotency_key
+
+        response = requests.post(
+            f"{client_config['base_url']}/api/sdk/v1/feedback/",
+            json=payload,
+            headers={"X-API-Key": client_config["api_key"]},
+            timeout=EvalioService.TIMEOUT_SECONDS,
+        )
+        if not response.ok:
+            print(
+                "Evalio feedback failed: "
+                f"status={response.status_code}, body={response.text}, payload={payload}"
+            )
+            response.raise_for_status()
+        return payload
+
 class OpenAIService:
     @staticmethod
     def transcribe_audio(audio_file_path):

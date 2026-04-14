@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, viewsets, permissions
 from django.shortcuts import get_object_or_404
-from .services import OpenAIService, TelegramService
+from .services import EvalioService, OpenAIService, TelegramService
 from meetings.services import BookingService
 from chats.models import Conversation, Message
 from .models import TelegramBot, KnowledgeItem
@@ -107,6 +107,39 @@ class WebhookView(APIView):
                 customer_email=details.get('email', ''),
                 start_time_str=details.get('time', '')
             )
+
+        evalio_meta = ai_response.get('_evalio') or {}
+        evalio_request_id = evalio_meta.get('request_id')
+        if evalio_request_id and EvalioService.is_enabled():
+            evalio_client = EvalioService.create_client(os.getenv('OPENAI_API_KEY'))
+            if evalio_client:
+                try:
+                    if ai_response.get('booking_requested') and ai_response.get('booking_details'):
+                        EvalioService.report_feedback(
+                            evalio_client,
+                            request_id=evalio_request_id,
+                            score=1,
+                            comment="business_outcome:lead_captured",
+                            idempotency_key=f"telegram:{chat_id}:{message_id}:lead-captured",
+                        )
+                        print(
+                            "Evalio feedback reported: "
+                            f"request_id={evalio_request_id}, score=1, outcome=lead_captured"
+                        )
+                    elif ai_response.get('needs_human'):
+                        EvalioService.report_feedback(
+                            evalio_client,
+                            request_id=evalio_request_id,
+                            score=-1,
+                            comment="business_outcome:manager_handoff",
+                            idempotency_key=f"telegram:{chat_id}:{message_id}:manager-handoff",
+                        )
+                        print(
+                            "Evalio feedback reported: "
+                            f"request_id={evalio_request_id}, score=-1, outcome=manager_handoff"
+                        )
+                except Exception as e:
+                    print(f"Evalio feedback reporting error: {e}")
 
         # Save Bot Message
         answer_text = ai_response.get('answer', '')
