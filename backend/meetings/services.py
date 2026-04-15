@@ -6,6 +6,9 @@ class BookingService:
     def create_meeting(bot, conversation, customer_name, customer_email, start_time_str):
         """Creates a meeting entry."""
         try:
+            if not start_time_str:
+                print("Booking skipped: missing start_time_str")
+                return None
             start_time = datetime.fromisoformat(start_time_str.replace('Z', '+00:00'))
             end_time = start_time + timedelta(minutes=30)
             
@@ -20,7 +23,7 @@ class BookingService:
             )
             return meeting
         except Exception as e:
-            print(f"Booking Error: {e}")
+            print(f"Booking Error: {e}; raw_start_time={start_time_str!r}")
             return None
 
     @staticmethod

@@ -100,12 +100,18 @@ class WebhookView(APIView):
         # Trigger Meeting Booking if requested
         if ai_response.get('booking_requested') and ai_response.get('booking_details'):
             details = ai_response['booking_details']
+            start_time_str = (
+                details.get('time')
+                or details.get('DateTime')
+                or details.get('datetime')
+                or ''
+            )
             BookingService.create_meeting(
                 bot=bot,
                 conversation=conversation,
                 customer_name=details.get('name', 'Lead'),
                 customer_email=details.get('email', ''),
-                start_time_str=details.get('time', '')
+                start_time_str=start_time_str
             )
 
         evalio_meta = ai_response.get('_evalio') or {}
